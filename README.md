@@ -9,6 +9,8 @@
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/noah)](https://CRAN.R-project.org/package=noah)
+[![R build
+status](https://github.com/Teebusch/noah/workflows/R-CMD-check/badge.svg)](https://github.com/Teebusch/noah/actions)
 <!-- badges: end -->
 
 The goal of noah is to …
