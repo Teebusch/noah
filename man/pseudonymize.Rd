@@ -2,7 +2,7 @@
 % Please edit documentation in R/ark.R
 \name{pseudonymize}
 \alias{pseudonymize}
-\title{Create unique pseudonyms}
+\title{Create unique pseudonyms.}
 \usage{
 pseudonymize(..., .ark = Ark$new())
 }
@@ -15,8 +15,11 @@ length.}
 Ark makes sure that the same input returns the same pseudonym.}
 }
 \value{
-
+A character vector of pseudonyms.
 }
 \description{
-This is a pipe-friendly function.
+Pseudonymize returns unique pseudonyms for R objects
+}
+\examples{
+pseudonymize("Mata Hari")
 }

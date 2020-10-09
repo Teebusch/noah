@@ -20,4 +20,5 @@ BugReports: https://github.com/Teebusch/noah/issues
 Imports: 
     R6,
     hash,
-    digest
+    digest,
+    assertthat

@@ -4,32 +4,38 @@
 \alias{Ark}
 \title{A Class to represent an ark.}
 \description{
-A Class to represent an ark.
-
-A Class to represent an ark.
-}
-\details{
 An Ark object can create unique pseudonyms.
 Given the same input, it will always return the same psuedonym.
 No pseudonym will repeat.
 }
-\examples{
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{log}}{Hashtable for all used pseudonyms. Inputs (keys) are stored
+as hashes.}
 
-## ------------------------------------------------
-## Method `Ark$print`
-## ------------------------------------------------
+\item{\code{parts}}{Words that will be combined to form pseudonyms.}
 
-ark <- Ark()
-print(ark)
+\item{\code{max_length}}{Maximum number of possible pseudonyms in the Ark.}
+}
+\if{html}{\out{</div>}}
+}
+\section{Active bindings}{
+\if{html}{\out{<div class="r6-active-bindings">}}
+\describe{
+\item{\code{parts}}{Words that will be combined to form pseudonyms.}
+
+\item{\code{max_length}}{Maximum number of possible pseudonyms in the Ark.}
+}
+\if{html}{\out{</div>}}
 }
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-new}{\code{Ark$new()}}
+\item \href{#method-pseudonymize}{\code{Ark$pseudonymize()}}
 \item \href{#method-print}{\code{Ark$print()}}
 \item \href{#method-length}{\code{Ark$length()}}
-\item \href{#method-as.list}{\code{Ark$as.list()}}
-\item \href{#method-pseudonymize}{\code{Ark$pseudonymize()}}
 \item \href{#method-clone}{\code{Ark$clone()}}
 }
 }
@@ -47,21 +53,32 @@ A new \code{Ark} object.
 }
 }
 \if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-pseudonymize"></a>}}
+\if{latex}{\out{\hypertarget{method-pseudonymize}{}}}
+\subsection{Method \code{pseudonymize()}}{
+Create Pseudonyms for input.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Ark$pseudonymize(...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{...}}{One or more R objects.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Character vector of pseudonyms with same length as input.
+}
+}
+\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-print"></a>}}
 \if{latex}{\out{\hypertarget{method-print}{}}}
 \subsection{Method \code{print()}}{
-Print Ark object.
+Pretty-print an Ark object.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Ark$print()}\if{html}{\out{</div>}}
-}
-
-\subsection{Examples}{
-\if{html}{\out{<div class="r example copy">}}
-\preformatted{ark <- Ark()
-print(ark)
-}
-\if{html}{\out{</div>}}
-
 }
 
 }
@@ -69,28 +86,18 @@ print(ark)
 \if{html}{\out{<a id="method-length"></a>}}
 \if{latex}{\out{\hypertarget{method-length}{}}}
 \subsection{Method \code{length()}}{
+Number of used pseudonyms in an Ark.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Ark$length(...)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{...}}{Other arguments passed on to \code{length()}}
 }
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-as.list"></a>}}
-\if{latex}{\out{\hypertarget{method-as.list}{}}}
-\subsection{Method \code{as.list()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Ark$as.list()}\if{html}{\out{</div>}}
+\if{html}{\out{</div>}}
 }
-
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-pseudonymize"></a>}}
-\if{latex}{\out{\hypertarget{method-pseudonymize}{}}}
-\subsection{Method \code{pseudonymize()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Ark$pseudonymize(...)}\if{html}{\out{</div>}}
-}
-
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clone"></a>}}
