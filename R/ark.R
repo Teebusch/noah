@@ -24,14 +24,14 @@ Ark <- R6::R6Class("Ark",
     #' @return Character vector of pseudonyms with same length as input.
     pseudonymize = function(...) {
       dots <- list(...)
-      uid <- digest::digest(dots)
-
-      if (hash::has.key(uid, self$log)) {
-        return(self$log[[uid]])
-      } else {
-        index <- self$length() + 1
-        self$log[uid] <- private$index_to_pseudonym(index)
-      }
+      purrr::map_chr(dots[[1]], function(x) {
+        uid <- digest::digest(x)
+        if (!hash::has.key(uid, self$log)) {
+          index <- self$length() + 1
+          self$log[uid] <- private$index_to_pseudonym(index)
+        }
+        self$log[[uid]]
+      })
     },
 
     #' @description Pretty-print an Ark object.
