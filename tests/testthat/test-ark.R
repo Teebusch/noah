@@ -24,8 +24,9 @@ test_that("Creating pseudonyms from index works", {
   ark <- Ark$new()
   max_length <- ark$.__enclos_env__$private$max_length
   f <- ark$.__enclos_env__$private$index_to_pseudonym  # shortcut
-  expect_equal(f(1), "Alert Ant")
-  expect_equal(f(c(1,2,3)), c("Alert Ant", "Alert Bear", "Alert Cat"))
+  expect_type(f(1), "character")
+  expect_vector(f(c(1,2,3)))
+  expect_length(f(c(1,2,3)), 3)
   expect_length(f(1:max_length), max_length)
   expect_type(f(1:max_length), "character")
 })
@@ -41,5 +42,26 @@ test_that("Fail when requesting more pseudonyms than available", {
 test_that("Multiple values can be pseudonymized", {
   res <- pseudonymize(c("Mata Hari", "James Bond", "Lewis Carroll"))
   expect_equal(length(res), 3)
+})
+
+test_that("same pseudonym for same input", {
+  ark <- Ark$new()
+  a <- 1:10
+  expect_equal(pseudonymize(a, .ark = ark), pseudonymize(a, .ark = ark))
+})
+
+test_that("Different pseudonym for different input", {
+  ark <- Ark$new()
+  a <- 1:10
+  b <- letters[1:10]
+  expect_true(all(pseudonymize(a, .ark = ark) != pseudonymize(b, .ark = ark)))
+})
+
+test_that("Multiple vectors can be pseudonymized", {
+  ark <- Ark$new()
+  a <- 1:10
+  b <- letters[1:10]
+  c <- letters[11:20]
+  expect_false(pseudonymize(a, b, .ark = ark) == pseudonymize(a, c, .ark = ark))
 })
 

@@ -15,6 +15,7 @@ Ark <- R6::R6Class("Ark",
     #' @description Create new arc object.
     #' @return A new `Ark` object.
     initialize = function() {
+      private$parts <- purrr::map(private$parts, sample)
       private$max_length <- prod(lengths(private$parts))
       self$log <- hash::hash()
     },
@@ -39,8 +40,8 @@ Ark <- R6::R6Class("Ark",
       cat("Ark with maximum size ", private$max_length, "\n", sep = "")
       if (self$length() > 0) {
         log_entries <- paste(
-          hash::keys(private$log), ">>",
-          hash::values(private$log)
+          hash::keys(self$log), ">>",
+          hash::values(self$log)
         )
         cat("Logbook:\n--------\n")
         cat(log_entries, sep = "\n")
