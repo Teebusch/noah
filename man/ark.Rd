@@ -17,6 +17,8 @@ as hashes.}
 \item{\code{parts}}{Words that will be combined to form pseudonyms.}
 
 \item{\code{max_length}}{Maximum number of possible pseudonyms in the Ark.}
+
+\item{\code{index_shuffled}}{a random permutation of the index}
 }
 \if{html}{\out{</div>}}
 }
@@ -26,6 +28,8 @@ as hashes.}
 \item{\code{parts}}{Words that will be combined to form pseudonyms.}
 
 \item{\code{max_length}}{Maximum number of possible pseudonyms in the Ark.}
+
+\item{\code{index_shuffled}}{a random permutation of the index}
 }
 \if{html}{\out{</div>}}
 }

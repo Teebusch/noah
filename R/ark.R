@@ -15,6 +15,7 @@ Ark <- R6::R6Class("Ark",
     #' @description Create new arc object.
     #' @return A new `Ark` object.
     initialize = function() {
+      private$parts <- name_parts
       private$max_length <- prod(lengths(private$parts))
       private$index_shuffled <- sample(1:private$max_length)
       self$log <- hash::hash()
@@ -61,7 +62,7 @@ Ark <- R6::R6Class("Ark",
   private = list(
 
     #' @field parts Words that will be combined to form pseudonyms.
-    parts = parts,
+    parts = NULL,
 
     #' @field max_length Maximum number of possible pseudonyms in the Ark.
     max_length = NULL,
