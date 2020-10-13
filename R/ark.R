@@ -15,8 +15,8 @@ Ark <- R6::R6Class("Ark",
     #' @description Create new arc object.
     #' @return A new `Ark` object.
     initialize = function() {
-      private$parts <- purrr::map(private$parts, sample)
       private$max_length <- prod(lengths(private$parts))
+      private$index_shuffled <- sample(1:private$max_length)
       self$log <- hash::hash()
     },
 
@@ -69,6 +69,9 @@ Ark <- R6::R6Class("Ark",
     #' @field max_length Maximum number of possible pseudonyms in the Ark.
     max_length = NULL,
 
+    #' @field index_shuffled a random permutation of the index
+    index_shuffled = NULL,
+
     #' @description Returns the pseudonym corresponding to an index.
     #' @param index An integer or a vector of integers between 1 and the Ark's
     #' max_length.
@@ -78,7 +81,7 @@ Ark <- R6::R6Class("Ark",
       assertthat::assert_that(
         all(dplyr::between(index, 1, private$max_length))
       )
-      k <- index - 1
+      k <- private$index_shuffled[index] - 1
       n <- lengths(private$parts)[2]
       i <- (k %/% n) + 1
       j <- (k %% n) + 1
