@@ -23,3 +23,5 @@ Imports:
     digest,
     assertthat,
     purrr
+Depends: 
+    R (>= 2.10)

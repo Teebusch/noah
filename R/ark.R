@@ -61,10 +61,7 @@ Ark <- R6::R6Class("Ark",
   private = list(
 
     #' @field parts Words that will be combined to form pseudonyms.
-    parts = list(
-      c("Alert", "Brazen", "Clever", "Docile", "Eager"),
-      c("Ant", "Bear", "Cat", "Dog", "Eagle", "Fox")
-    ),
+    parts = parts,
 
     #' @field max_length Maximum number of possible pseudonyms in the Ark.
     max_length = NULL,
