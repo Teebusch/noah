@@ -47,14 +47,18 @@ test_that("Multiple values can be pseudonymized", {
 test_that("same pseudonym for same input", {
   ark <- Ark$new()
   a <- 1:10
-  expect_equal(pseudonymize(a, .ark = ark), pseudonymize(a, .ark = ark))
+  expect_equal(
+    pseudonymize(a, .ark = ark), pseudonymize(a, .ark = ark)
+  )
 })
 
 test_that("Different pseudonym for different input", {
   ark <- Ark$new()
   a <- 1:10
   b <- letters[1:10]
-  expect_true(all(pseudonymize(a, .ark = ark) != pseudonymize(b, .ark = ark)))
+  expect_true(
+    all(pseudonymize(a, .ark = ark) != pseudonymize(b, .ark = ark))
+  )
 })
 
 test_that("Multiple vectors can be pseudonymized", {
@@ -62,6 +66,40 @@ test_that("Multiple vectors can be pseudonymized", {
   a <- 1:10
   b <- letters[1:10]
   c <- letters[11:20]
-  expect_false(pseudonymize(a, b, .ark = ark) == pseudonymize(a, c, .ark = ark))
+  expect_true(
+    all(pseudonymize(a, b, .ark = ark) != pseudonymize(a, c, .ark = ark))
+  )
 })
 
+test_that("Data frame columns can be pseudonymized", {
+  ark <- Ark$new()
+  df <- data.frame(
+    a = 1:10,
+    b = letters[1:10],
+    c = letters[11:20]
+  )
+  df <- dplyr::mutate(
+    df,
+    ab = pseudonymize(a, b, .ark = ark),
+    bc = pseudonymize(b, c, .ark = ark),
+    ca = pseudonymize(c, a, .ark = ark)
+  )
+  expect_true(all(df$ab != df$bc))
+  expect_true(all(df$bc != df$ca))
+  expect_true(all(df$ca != df$ab))
+})
+
+
+test_that("Data frame can be pseudonymized", {
+  ark <- Ark$new()
+  df <- data.frame(
+    a = 1:10,
+    b = letters[1:10]
+  )
+  res1 <- pseudonymize(df, .ark = ark)
+  expect_length(res1, nrow(df))
+  df$b <- letters[11:20]
+  res2 <- pseudonymize(df, .ark = ark)
+  expect_length(res2, nrow(df))
+  expect_true(all(res1 != res2))
+})
