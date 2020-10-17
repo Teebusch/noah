@@ -16,42 +16,64 @@ knitr::opts_chunk$set(
 # noah
 
 <!-- badges: start -->
-[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
-[![CRAN status](https://www.r-pkg.org/badges/version/noah)](https://CRAN.R-project.org/package=noah)
-[![R build status](https://github.com/Teebusch/noah/workflows/R-CMD-check/badge.svg)](https://github.com/Teebusch/noah/actions)
+
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental) [![CRAN status](https://www.r-pkg.org/badges/version/noah)](https://CRAN.R-project.org/package=noah) [![R build status](https://github.com/Teebusch/noah/workflows/R-CMD-check/badge.svg)](https://github.com/Teebusch/noah/actions) [![Codecov test coverage](https://codecov.io/gh/Teebusch/noah/branch/master/graph/badge.svg)](https://codecov.io/gh/Teebusch/noah?branch=master)
+
 <!-- badges: end -->
 
-The goal of noah is to ...
+`noah` (**no** **a**nimals were **h**armed) generates pseudonyms that are 
+delightful and easy to remember. Instead of cryptic alphanumeric IDs, noah 
+produces anonymous animals such as the *Likeable Leech* or the 
+*Proud Chickadee*.
 
 ## Installation
 
-You can install the released version of noah from [CRAN](https://CRAN.R-project.org) with:
+You can install the development version of noah from [Github](/https://github.com/Teebusch/noah) with:
 
-``` r
-install.packages("noah")
+```{r eval=FALSE}
+# install.packages("devtools")
+devtools::install_github("tidyverse/dplyr")
 ```
 
-## Example
+## Usage
 
-This is a basic example which shows you how to solve a common problem:
+The fastest way to create pseudonyms with `noah` is to use the `pseudonymize()`
+function. Here we use the diabetic retinopathy dataset from the `survival` 
+package.
 
-```{r example}
+```{r include=FALSE}
+diabetic <- dplyr::as_tibble(survival::diabetic)
+set.seed(2020)
+```
+
+```{r example-pseudonymize}
+library(dplyr)
 library(noah)
-## basic example code
+
+diabetic %>% 
+  mutate(pseudonym = pseudonymize(id)) %>% 
+  relocate(pseudonym)
 ```
+Internally, `pseudonymize` uses an object of class `Ark`. Tha ark acts like a 
+pseudonym dictionary: it keeps track of the pseudonyms that have already been 
+used and makes sure that the same input is always assigned the same pseudonym. 
+We can use this to ensure that the same case is assigned the same pseudonym
+across multiple data sets:
 
-What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
+```{r example-ark}
+ark <- Ark$new()
 
-```{r cars}
-summary(cars)
+# split dataset into left and right eye and pseudonymize separately
+diabetic_left <- diabetic %>% 
+  filter(eye == "left") %>% 
+  mutate(pseudonym = pseudonymize(id, .ark = ark))
+
+diabetic_right <- diabetic %>% 
+  filter(eye == "right") %>% 
+  mutate(pseudonym = pseudonymize(id, .ark = ark))
+
+# reunite the data sets again
+bind_rows(diabetic_left, diabetic_right) %>% 
+  relocate(pseudonym) %>% 
+  arrange(id)
 ```
-
-You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date.
-
-You can also embed plots, for example:
-
-```{r pressure, echo = FALSE}
-plot(pressure)
-```
-
-In that case, don't forget to commit and push the resulting figure files, so they display on GitHub!
