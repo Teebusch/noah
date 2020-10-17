@@ -30,7 +30,7 @@ produces anonymous animals such as the *Likeable Leech* or the
 
 You can install the development version of noah from [Github](/https://github.com/Teebusch/noah) with:
 
-``` r
+```{r eval=FALSE}
 # install.packages("devtools")
 devtools::install_github("tidyverse/dplyr")
 ```
@@ -43,6 +43,7 @@ package.
 
 ```{r include=FALSE}
 diabetic <- dplyr::as_tibble(survival::diabetic)
+set.seed(2020)
 ```
 
 ```{r example-pseudonymize}

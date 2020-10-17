@@ -53,18 +53,18 @@ diabetic %>%
   mutate(pseudonym = pseudonymize(id)) %>% 
   relocate(pseudonym)
 #> # A tibble: 394 x 9
-#>    pseudonym              id laser   age eye     trt  risk  time status
-#>    <chr>               <int> <fct> <int> <fct> <int> <int> <dbl>  <int>
-#>  1 Damaging Coypu          5 argon    28 left      0     9  46.2      0
-#>  2 Damaging Coypu          5 argon    28 right     1     9  46.2      0
-#>  3 Changeable Hookworm    14 xenon    12 left      1     8  42.5      0
-#>  4 Changeable Hookworm    14 xenon    12 right     0     6  31.3      1
-#>  5 Cheap Chicken          16 xenon     9 left      1    11  42.3      0
-#>  6 Cheap Chicken          16 xenon     9 right     0    11  42.3      0
-#>  7 Curvy Dove             25 xenon     9 left      0    11  20.6      0
-#>  8 Curvy Dove             25 xenon     9 right     1    11  20.6      0
-#>  9 Useless Lionfish       29 xenon    13 left      0    10   0.3      1
-#> 10 Useless Lionfish       29 xenon    13 right     1     9  38.8      0
+#>    pseudonym             id laser   age eye     trt  risk  time status
+#>    <chr>              <int> <fct> <int> <fct> <int> <int> <dbl>  <int>
+#>  1 Maddening Halibut      5 argon    28 left      0     9  46.2      0
+#>  2 Maddening Halibut      5 argon    28 right     1     9  46.2      0
+#>  3 Workable Anteater     14 xenon    12 left      1     8  42.5      0
+#>  4 Workable Anteater     14 xenon    12 right     0     6  31.3      1
+#>  5 Apathetic Silkworm    16 xenon     9 left      1    11  42.3      0
+#>  6 Apathetic Silkworm    16 xenon     9 right     0    11  42.3      0
+#>  7 Elderly Iguana        25 xenon     9 left      0    11  20.6      0
+#>  8 Elderly Iguana        25 xenon     9 right     1    11  20.6      0
+#>  9 Burly Ermine          29 xenon    13 left      0    10   0.3      1
+#> 10 Burly Ermine          29 xenon    13 right     1     9  38.8      0
 #> # ... with 384 more rows
 ```
 
@@ -91,17 +91,17 @@ bind_rows(diabetic_left, diabetic_right) %>%
   relocate(pseudonym) %>% 
   arrange(id)
 #> # A tibble: 394 x 9
-#>    pseudonym               id laser   age eye     trt  risk  time status
-#>    <chr>                <int> <fct> <int> <fct> <int> <int> <dbl>  <int>
-#>  1 Angry Skink              5 argon    28 left      0     9  46.2      0
-#>  2 Angry Skink              5 argon    28 right     1     9  46.2      0
-#>  3 Tightfisted Anaconda    14 xenon    12 left      1     8  42.5      0
-#>  4 Tightfisted Anaconda    14 xenon    12 right     0     6  31.3      1
-#>  5 Momentous Toucan        16 xenon     9 left      1    11  42.3      0
-#>  6 Momentous Toucan        16 xenon     9 right     0    11  42.3      0
-#>  7 Wide-Eyed Antelope      25 xenon     9 left      0    11  20.6      0
-#>  8 Wide-Eyed Antelope      25 xenon     9 right     1    11  20.6      0
-#>  9 Tranquil Ape            29 xenon    13 left      0    10   0.3      1
-#> 10 Tranquil Ape            29 xenon    13 right     1     9  38.8      0
+#>    pseudonym          id laser   age eye     trt  risk  time status
+#>    <chr>           <int> <fct> <int> <fct> <int> <int> <dbl>  <int>
+#>  1 Lowly Silkworm      5 argon    28 left      0     9  46.2      0
+#>  2 Lowly Silkworm      5 argon    28 right     1     9  46.2      0
+#>  3 Husky Aardvark     14 xenon    12 left      1     8  42.5      0
+#>  4 Husky Aardvark     14 xenon    12 right     0     6  31.3      1
+#>  5 Ceaseless Panda    16 xenon     9 left      1    11  42.3      0
+#>  6 Ceaseless Panda    16 xenon     9 right     0    11  42.3      0
+#>  7 Ceaseless Mouse    25 xenon     9 left      0    11  20.6      0
+#>  8 Ceaseless Mouse    25 xenon     9 right     1    11  20.6      0
+#>  9 Brainy Sheep       29 xenon    13 left      0    10   0.3      1
+#> 10 Brainy Sheep       29 xenon    13 right     1     9  38.8      0
 #> # ... with 384 more rows
 ```
