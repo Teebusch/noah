@@ -23,6 +23,7 @@ Imports:
     hash,
     digest,
     assertthat,
-    purrr
+    purrr,
+    dplyr
 Depends: 
     R (>= 2.10)

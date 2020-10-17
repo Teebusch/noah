@@ -59,9 +59,8 @@ Ark <- R6::R6Class("Ark",
     },
 
     #' @description Number of used pseudonyms in an Ark.
-    #' @param ... Other arguments passed on to `length()`
-    length = function(...) {
-      length(self$log, ...)
+    length = function() {
+      length(self$log)
     }
   ),
 
@@ -96,7 +95,7 @@ Ark <- R6::R6Class("Ark",
 
 
 #' @export
-length.Ark <- function(obj, ...) obj$length()
+length.Ark <- function(x) x$length()
 
 
 #' Create unique pseudonyms.

@@ -92,16 +92,9 @@ Pretty-print an Ark object.
 \subsection{Method \code{length()}}{
 Number of used pseudonyms in an Ark.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Ark$length(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Ark$length()}\if{html}{\out{</div>}}
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{...}}{Other arguments passed on to \code{length()}}
-}
-\if{html}{\out{</div>}}
-}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clone"></a>}}
