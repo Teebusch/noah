@@ -4,6 +4,8 @@
 #' An Ark object can create unique pseudonyms.
 #' Given the same input, it will always return the same psuedonym.
 #' No pseudonym will repeat.
+#'
+#' @export
 
 Ark <- R6::R6Class("Ark",
   public = list(
