@@ -45,16 +45,15 @@ in a vector:
 library(noah)
 
 pseudonymize(1:6)
-#> [1] "Pale Chickadee"     "Furtive Titi"       "Gainful Tapir"     
-#> [4] "Gentle Lemming"     "Poor Jellyfish"     "Squeamish Pinniped"
+#> [1] "Unsightly Porcupine" "Afraid Woodchuck"    "Maddening Jay"      
+#> [4] "Weak Pelican"        "Neat Skunk"          "Vagabond Dolphin"
 ```
 
 Repeated elements will receive the same pseudonym:
 
 ``` r
-pseudonymize(rep(1:3, times = 2))
-#> [1] "Foamy Turtle"     "Real Whale"       "Bouncy Bandicoot" "Foamy Turtle"    
-#> [5] "Real Whale"       "Bouncy Bandicoot"
+pseudonymize(rep(1:2, each = 2))
+#> [1] "Rigid Finch"  "Rigid Finch"  "Stormy Smelt" "Stormy Smelt"
 ```
 
 `pseudonymize()` takes any number of input vectors, as long as they are
@@ -66,34 +65,38 @@ pseudonymize(
   c("😙", "😙", "😙"), 
   c("🥕", "🥕", "🍰")
 )
-#> [1] "Childlike Hamster" "Childlike Hamster" "False Walrus"
+#> [1] "Moaning Cattle" "Moaning Cattle" "Disgusted Lark"
 ```
 
 ### Adding pseudonyms to a data frame
 
-Most often Here we use the diabetic retinopathy dataset from the
-`survival` package. Using `{dplyrs}` `mutate` functions, we add a new
-column with a pseudonym for each `id`:
+Often we may want to add a column with pseudonyms to a data frame, using
+one or more of the columns as identifiers. We can do this with
+`pseudonymize()` and `dplyr::mutate()`.
+
+Here we use the diabetic retinopathy dataset from the `survival` package
+and add a new column with a pseudonym for each unique `id`:
 
 ``` r
 library(dplyr)
+diabetic <- dplyr::as_tibble(survival::diabetic)
 
 diabetic %>% 
   mutate(pseudonym = pseudonymize(id)) %>% 
   relocate(pseudonym)
 #> # A tibble: 394 x 9
-#>    pseudonym             id laser   age eye     trt  risk  time status
-#>    <chr>              <int> <fct> <int> <fct> <int> <int> <dbl>  <int>
-#>  1 Maddening Halibut      5 argon    28 left      0     9  46.2      0
-#>  2 Maddening Halibut      5 argon    28 right     1     9  46.2      0
-#>  3 Workable Anteater     14 xenon    12 left      1     8  42.5      0
-#>  4 Workable Anteater     14 xenon    12 right     0     6  31.3      1
-#>  5 Apathetic Silkworm    16 xenon     9 left      1    11  42.3      0
-#>  6 Apathetic Silkworm    16 xenon     9 right     0    11  42.3      0
-#>  7 Elderly Iguana        25 xenon     9 left      0    11  20.6      0
-#>  8 Elderly Iguana        25 xenon     9 right     1    11  20.6      0
-#>  9 Burly Ermine          29 xenon    13 left      0    10   0.3      1
-#> 10 Burly Ermine          29 xenon    13 right     1     9  38.8      0
+#>    pseudonym              id laser   age eye     trt  risk  time status
+#>    <chr>               <int> <fct> <int> <fct> <int> <int> <dbl>  <int>
+#>  1 Worried Fox             5 argon    28 left      0     9  46.2      0
+#>  2 Worried Fox             5 argon    28 right     1     9  46.2      0
+#>  3 Hysterical Marmoset    14 xenon    12 left      1     8  42.5      0
+#>  4 Hysterical Marmoset    14 xenon    12 right     0     6  31.3      1
+#>  5 Bad Cicada             16 xenon     9 left      1    11  42.3      0
+#>  6 Bad Cicada             16 xenon     9 right     0    11  42.3      0
+#>  7 Awesome Olingo         25 xenon     9 left      0    11  20.6      0
+#>  8 Awesome Olingo         25 xenon     9 right     1    11  20.6      0
+#>  9 Festive Lark           29 xenon    13 left      0    10   0.3      1
+#> 10 Festive Lark           29 xenon    13 right     1     9  38.8      0
 #> # ... with 384 more rows
 ```
 
@@ -123,17 +126,17 @@ bind_rows(diabetic_left, diabetic_right) %>%
   relocate(pseudonym) %>% 
   arrange(id)
 #> # A tibble: 394 x 9
-#>    pseudonym          id laser   age eye     trt  risk  time status
-#>    <chr>           <int> <fct> <int> <fct> <int> <int> <dbl>  <int>
-#>  1 Lowly Silkworm      5 argon    28 left      0     9  46.2      0
-#>  2 Lowly Silkworm      5 argon    28 right     1     9  46.2      0
-#>  3 Husky Aardvark     14 xenon    12 left      1     8  42.5      0
-#>  4 Husky Aardvark     14 xenon    12 right     0     6  31.3      1
-#>  5 Ceaseless Panda    16 xenon     9 left      1    11  42.3      0
-#>  6 Ceaseless Panda    16 xenon     9 right     0    11  42.3      0
-#>  7 Ceaseless Mouse    25 xenon     9 left      0    11  20.6      0
-#>  8 Ceaseless Mouse    25 xenon     9 right     1    11  20.6      0
-#>  9 Brainy Sheep       29 xenon    13 left      0    10   0.3      1
-#> 10 Brainy Sheep       29 xenon    13 right     1     9  38.8      0
+#>    pseudonym             id laser   age eye     trt  risk  time status
+#>    <chr>              <int> <fct> <int> <fct> <int> <int> <dbl>  <int>
+#>  1 Well-Made Xerinae      5 argon    28 left      0     9  46.2      0
+#>  2 Well-Made Xerinae      5 argon    28 right     1     9  46.2      0
+#>  3 Optimal Echidna       14 xenon    12 left      1     8  42.5      0
+#>  4 Optimal Echidna       14 xenon    12 right     0     6  31.3      1
+#>  5 Famous Squirrel       16 xenon     9 left      1    11  42.3      0
+#>  6 Famous Squirrel       16 xenon     9 right     0    11  42.3      0
+#>  7 Profuse Chimpanzee    25 xenon     9 left      0    11  20.6      0
+#>  8 Profuse Chimpanzee    25 xenon     9 right     1    11  20.6      0
+#>  9 Panoramic Titi        29 xenon    13 left      0    10   0.3      1
+#> 10 Panoramic Titi        29 xenon    13 right     1     9  38.8      0
 #> # ... with 384 more rows
 ```
