@@ -84,7 +84,7 @@ diabetic %>%
 ```
 
 
-#@ Keeping track of pseudonyms
+## Keeping track of pseudonyms
 
 Internally, `pseudonymize()` uses an object of class `Ark` that acts like a 
 pseudonym dictionary and keeps track of pseudonyms that have been used.
