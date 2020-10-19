@@ -39,24 +39,19 @@ remotes::install_github("teebusch/noah")
 ## Usage
 
 ```{r include=FALSE}
-set.seed(21122020)
+set.seed(122020)
 ```
 
-### Generating pseudonyms with `noah`
+### Generating pseudonyms
 
 A quick way to create pseudonyms with `noah` is to use the `pseudonymize()`
-function. It will generate pseudonyms for every element in a vector:
+function. It will generate pseudonyms for every element in a vector. 
+Note that repeated elements will receive the same pseudonym:
 
 ```{r}
 library(noah)
 
-pseudonymize(1:6)
-```
-
-Repeated elements will receive the same pseudonym:
-
-```{r}
-pseudonymize(rep(1:2, each = 2))
+pseudonymize(rep(1:6, each = 2))
 ```
 
 `pseudonymize()` takes any number of input vectors, as long as they are the same 
@@ -89,7 +84,7 @@ diabetic %>%
 ```
 
 
-# Keeping track of pseudonyms
+#@ Keeping track of pseudonyms
 
 Internally, `pseudonymize()` uses an object of class `Ark` that acts like a 
 pseudonym dictionary and keeps track of pseudonyms that have been used.

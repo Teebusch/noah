@@ -35,25 +35,20 @@ remotes::install_github("teebusch/noah")
 
 ## Usage
 
-### Generating pseudonyms with `noah`
+### Generating pseudonyms
 
 A quick way to create pseudonyms with `noah` is to use the
 `pseudonymize()` function. It will generate pseudonyms for every element
-in a vector:
+in a vector. Note that repeated elements will receive the same
+pseudonym:
 
 ``` r
 library(noah)
 
-pseudonymize(1:6)
-#> [1] "Unsightly Porcupine" "Afraid Woodchuck"    "Maddening Jay"      
-#> [4] "Weak Pelican"        "Neat Skunk"          "Vagabond Dolphin"
-```
-
-Repeated elements will receive the same pseudonym:
-
-``` r
-pseudonymize(rep(1:2, each = 2))
-#> [1] "Rigid Finch"  "Rigid Finch"  "Stormy Smelt" "Stormy Smelt"
+pseudonymize(rep(1:6, each = 2))
+#>  [1] "Sad Roadrunner"  "Sad Roadrunner"  "Belligerent Cat" "Belligerent Cat"
+#>  [5] "Pale Koala"      "Pale Koala"      "Rich Leopard"    "Rich Leopard"   
+#>  [9] "Efficient Pony"  "Efficient Pony"  "Typical Condor"  "Typical Condor"
 ```
 
 `pseudonymize()` takes any number of input vectors, as long as they are
@@ -65,7 +60,7 @@ pseudonymize(
   c("😙", "😙", "😙"), 
   c("🥕", "🥕", "🍰")
 )
-#> [1] "Moaning Cattle" "Moaning Cattle" "Disgusted Lark"
+#> [1] "Alike Clam"       "Alike Clam"       "Coherent Ladybug"
 ```
 
 ### Adding pseudonyms to a data frame
@@ -85,22 +80,22 @@ diabetic %>%
   mutate(pseudonym = pseudonymize(id)) %>% 
   relocate(pseudonym)
 #> # A tibble: 394 x 9
-#>    pseudonym              id laser   age eye     trt  risk  time status
-#>    <chr>               <int> <fct> <int> <fct> <int> <int> <dbl>  <int>
-#>  1 Worried Fox             5 argon    28 left      0     9  46.2      0
-#>  2 Worried Fox             5 argon    28 right     1     9  46.2      0
-#>  3 Hysterical Marmoset    14 xenon    12 left      1     8  42.5      0
-#>  4 Hysterical Marmoset    14 xenon    12 right     0     6  31.3      1
-#>  5 Bad Cicada             16 xenon     9 left      1    11  42.3      0
-#>  6 Bad Cicada             16 xenon     9 right     0    11  42.3      0
-#>  7 Awesome Olingo         25 xenon     9 left      0    11  20.6      0
-#>  8 Awesome Olingo         25 xenon     9 right     1    11  20.6      0
-#>  9 Festive Lark           29 xenon    13 left      0    10   0.3      1
-#> 10 Festive Lark           29 xenon    13 right     1     9  38.8      0
+#>    pseudonym          id laser   age eye     trt  risk  time status
+#>    <chr>           <int> <fct> <int> <fct> <int> <int> <dbl>  <int>
+#>  1 Eight Swordfish     5 argon    28 left      0     9  46.2      0
+#>  2 Eight Swordfish     5 argon    28 right     1     9  46.2      0
+#>  3 Standing Serval    14 xenon    12 left      1     8  42.5      0
+#>  4 Standing Serval    14 xenon    12 right     0     6  31.3      1
+#>  5 Silent Krill       16 xenon     9 left      1    11  42.3      0
+#>  6 Silent Krill       16 xenon     9 right     0    11  42.3      0
+#>  7 Graceful Bull      25 xenon     9 left      0    11  20.6      0
+#>  8 Graceful Bull      25 xenon     9 right     1    11  20.6      0
+#>  9 Lame Giraffe       29 xenon    13 left      0    10   0.3      1
+#> 10 Lame Giraffe       29 xenon    13 right     1     9  38.8      0
 #> # ... with 384 more rows
 ```
 
-# Keeping track of pseudonyms
+\#@ Keeping track of pseudonyms
 
 Internally, `pseudonymize()` uses an object of class `Ark` that acts
 like a pseudonym dictionary and keeps track of pseudonyms that have been
@@ -126,17 +121,17 @@ bind_rows(diabetic_left, diabetic_right) %>%
   relocate(pseudonym) %>% 
   arrange(id)
 #> # A tibble: 394 x 9
-#>    pseudonym             id laser   age eye     trt  risk  time status
-#>    <chr>              <int> <fct> <int> <fct> <int> <int> <dbl>  <int>
-#>  1 Well-Made Xerinae      5 argon    28 left      0     9  46.2      0
-#>  2 Well-Made Xerinae      5 argon    28 right     1     9  46.2      0
-#>  3 Optimal Echidna       14 xenon    12 left      1     8  42.5      0
-#>  4 Optimal Echidna       14 xenon    12 right     0     6  31.3      1
-#>  5 Famous Squirrel       16 xenon     9 left      1    11  42.3      0
-#>  6 Famous Squirrel       16 xenon     9 right     0    11  42.3      0
-#>  7 Profuse Chimpanzee    25 xenon     9 left      0    11  20.6      0
-#>  8 Profuse Chimpanzee    25 xenon     9 right     1    11  20.6      0
-#>  9 Panoramic Titi        29 xenon    13 left      0    10   0.3      1
-#> 10 Panoramic Titi        29 xenon    13 right     1     9  38.8      0
+#>    pseudonym           id laser   age eye     trt  risk  time status
+#>    <chr>            <int> <fct> <int> <fct> <int> <int> <dbl>  <int>
+#>  1 Flaky Shrimp         5 argon    28 left      0     9  46.2      0
+#>  2 Flaky Shrimp         5 argon    28 right     1     9  46.2      0
+#>  3 Green Stingray      14 xenon    12 left      1     8  42.5      0
+#>  4 Green Stingray      14 xenon    12 right     0     6  31.3      1
+#>  5 Spectacular Newt    16 xenon     9 left      1    11  42.3      0
+#>  6 Spectacular Newt    16 xenon     9 right     0    11  42.3      0
+#>  7 Moldy Lionfish      25 xenon     9 left      0    11  20.6      0
+#>  8 Moldy Lionfish      25 xenon     9 right     1    11  20.6      0
+#>  9 Huge Manatee        29 xenon    13 left      0    10   0.3      1
+#> 10 Huge Manatee        29 xenon    13 right     1     9  38.8      0
 #> # ... with 384 more rows
 ```
