@@ -14,40 +14,69 @@ status](https://github.com/Teebusch/noah/workflows/R-CMD-check/badge.svg)](https
 [![Codecov test
 coverage](https://codecov.io/gh/Teebusch/noah/branch/master/graph/badge.svg)](https://codecov.io/gh/Teebusch/noah?branch=master)
 
+[![R build
+status](https://github.com/Teebusch/noah/workflows/R-CMD-check/badge.svg)](https://github.com/Teebusch/noah/actions)
 <!-- badges: end -->
 
 `noah` (**no** **a**nimals were **h**armed) generates pseudonyms that
 are delightful and easy to remember. Instead of cryptic alphanumeric
-IDs, noah produces anonymous animals such as the *Likeable Leech* or the
-*Proud Chickadee*.
+IDs, `noah` generates anonymous animals like the *Likeable Leech* and
+the *Proud Chickadee*.
 
 ## Installation
 
 You can install the development version of noah from
-[Github](/https://github.com/Teebusch/noah) with:
+[Github](/https://github.com/teebusch/noah) with:
 
 ``` r
-# install.packages("devtools")
-devtools::install_github("tidyverse/dplyr")
+# install.packages("remotes")
+remotes::install_github("teebusch/noah")
 ```
 
 ## Usage
 
-The fastest way to create pseudonyms with `noah` is to use the
-`pseudonymize()` function. Here we use the diabetic retinopathy dataset
-from the `survival` package.
+### Generating pseudonyms with `noah`
+
+A quick way to create pseudonyms with `noah` is to use the
+`pseudonymize()` function. It will generate pseudonyms for every element
+in a vector:
+
+``` r
+library(noah)
+
+pseudonymize(1:6)
+#> [1] "Pale Chickadee"     "Furtive Titi"       "Gainful Tapir"     
+#> [4] "Gentle Lemming"     "Poor Jellyfish"     "Squeamish Pinniped"
+```
+
+Repeated elements will receive the same pseudonym:
+
+``` r
+pseudonymize(rep(1:3, times = 2))
+#> [1] "Foamy Turtle"     "Real Whale"       "Bouncy Bandicoot" "Foamy Turtle"    
+#> [5] "Real Whale"       "Bouncy Bandicoot"
+```
+
+`pseudonymize()` takes any number of input vectors, as long as they are
+the same length. It will treat the elements in the same position as
+being from the same subject.
+
+``` r
+pseudonymize(
+  c("😙", "😙", "😙"), 
+  c("🥕", "🥕", "🍰")
+)
+#> [1] "Childlike Hamster" "Childlike Hamster" "False Walrus"
+```
+
+### Adding pseudonyms to a data frame
+
+Most often Here we use the diabetic retinopathy dataset from the
+`survival` package. Using `{dplyrs}` `mutate` functions, we add a new
+column with a pseudonym for each `id`:
 
 ``` r
 library(dplyr)
-#> 
-#> Attaching package: 'dplyr'
-#> The following objects are masked from 'package:stats':
-#> 
-#>     filter, lag
-#> The following objects are masked from 'package:base':
-#> 
-#>     intersect, setdiff, setequal, union
-library(noah)
 
 diabetic %>% 
   mutate(pseudonym = pseudonymize(id)) %>% 
@@ -68,11 +97,14 @@ diabetic %>%
 #> # ... with 384 more rows
 ```
 
-Internally, `pseudonymize` uses an object of class `Ark`. Tha ark acts
-like a pseudonym dictionary: it keeps track of the pseudonyms that have
-already been used and makes sure that the same input is always assigned
-the same pseudonym. We can use this to ensure that the same case is
-assigned the same pseudonym across multiple data sets:
+# Keeping track of pseudonyms
+
+Internally, `pseudonymize()` uses an object of class `Ark` that acts
+like a pseudonym dictionary and keeps track of pseudonyms that have been
+used. Normally, a new `Ark` is built for each call of the
+`pseudonymize()` function. However, we can use an `Ark` to ensure that
+the same input is always assigned the same pseudonym across multiple
+data sets:
 
 ``` r
 ark <- Ark$new()
