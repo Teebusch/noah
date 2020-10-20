@@ -18,12 +18,12 @@ coverage](https://codecov.io/gh/Teebusch/noah/branch/master/graph/badge.svg)](ht
 
 `noah` (**no** **a**nimals were **h**armed) generates pseudonyms that
 are delightful and easy to remember. Instead of cryptic alphanumeric
-IDs, `noah` generates anonymous animals like the *Likeable Leech* and
-the *Proud Chickadee*.
+IDs, it generates anonymous animals like the *Likeable Leech* and the
+*Proud Chickadee*.
 
 ## Installation
 
-You can install the development version of noah from
+You can install the development version of `noah` from
 [Github](/https://github.com/teebusch/noah) with:
 
 ``` r
@@ -43,19 +43,18 @@ pseudonym:
 ``` r
 library(noah)
 
-pseudonymize(rep(1:6, each = 2))
-#>  [1] "Sad Roadrunner"  "Sad Roadrunner"  "Belligerent Cat" "Belligerent Cat"
-#>  [5] "Pale Koala"      "Pale Koala"      "Rich Leopard"    "Rich Leopard"   
-#>  [9] "Efficient Pony"  "Efficient Pony"  "Typical Condor"  "Typical Condor"
+pseudonymize(rep(1:4, times = 2))
+#> [1] "Sad Roadrunner"  "Belligerent Cat" "Pale Koala"      "Rich Leopard"   
+#> [5] "Sad Roadrunner"  "Belligerent Cat" "Pale Koala"      "Rich Leopard"
 ```
 
-`pseudonymize()` takes any number of input vectors, as long as they are
-the same length. It will treat the elements in the same position as
+`pseudonymize()` accepts any number of input vectors, as long as they
+are the same length. It will treat the elements in the same position as
 being from the same subject.
 
 ``` r
 pseudonymize(
-  c("😙", "😙", "😙"), 
+  c("🐰", "🐰", "🐰"), 
   c("🥕", "🥕", "🍰")
 )
 #> [1] "Alike Clam"       "Alike Clam"       "Coherent Ladybug"
@@ -64,15 +63,16 @@ pseudonymize(
 ### Adding pseudonyms to a data frame
 
 Often we may want to add a column with pseudonyms to a data frame, using
-one or more of the columns as identifiers. We can do this with
-`pseudonymize()` and `dplyr::mutate()`.
+one or more columns as identifiers. We can do this with `pseudonymize()`
+and `dplyr::mutate()`.
 
-Here we use the diabetic retinopathy dataset from the `survival` package
-and add a new column with a pseudonym for each unique `id`:
+In this example we use the diabetic retinopathy dataset from the
+`survival` package and add a new column with a pseudonym for each unique
+`id`:
 
 ``` r
 library(dplyr)
-diabetic <- dplyr::as_tibble(survival::diabetic)
+diabetic <- as_tibble(survival::diabetic)
 
 diabetic %>% 
   mutate(pseudonym = pseudonymize(id)) %>% 
@@ -93,11 +93,11 @@ diabetic %>%
 #> # ... with 384 more rows
 ```
 
-\#@ Keeping track of pseudonyms
+### Keeping track of pseudonyms
 
 Internally, `pseudonymize()` uses an object of class `Ark` that acts
 like a pseudonym dictionary and keeps track of pseudonyms that have been
-used. Normally, a new `Ark` is built for each call of the
+used. Normally, a new `Ark` is created for each call of the
 `pseudonymize()` function. However, we can use an `Ark` to ensure that
 the same input is always assigned the same pseudonym across multiple
 data sets:
