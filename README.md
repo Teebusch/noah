@@ -14,8 +14,6 @@ status](https://github.com/Teebusch/noah/workflows/R-CMD-check/badge.svg)](https
 [![Codecov test
 coverage](https://codecov.io/gh/Teebusch/noah/branch/master/graph/badge.svg)](https://codecov.io/gh/Teebusch/noah?branch=master)
 
-[![R build
-status](https://github.com/Teebusch/noah/workflows/R-CMD-check/badge.svg)](https://github.com/Teebusch/noah/actions)
 <!-- badges: end -->
 
 `noah` (**no** **a**nimals were **h**armed) generates pseudonyms that
