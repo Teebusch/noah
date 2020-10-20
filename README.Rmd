@@ -44,7 +44,8 @@ set.seed(122020)
 ### Generating pseudonyms
 
 A quick way to create pseudonyms with `noah` is to use the `pseudonymize()`
-function. It will generate pseudonyms for every element in a vector. 
+function. It will generate pseudonyms for every element in a vector, so if you 
+need 100 pseudonyms, just call `pseudonymize(1:100)`. 
 Note that repeated elements will receive the same pseudonym:
 
 ```{r}
@@ -53,9 +54,9 @@ library(noah)
 pseudonymize(rep(1:4, times = 2))
 ```
 
-`pseudonymize()` accepts any number of input vectors, as long as they are the 
-same length. It will treat the elements in the same position as being from the 
-same subject. 
+`pseudonymize()` accepts any number of input vectors as arguments, as long as 
+they are the same length. It will treat the elements in the same position as 
+being from the same subject. 
 
 ```{r}
 pseudonymize(
