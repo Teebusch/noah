@@ -21,7 +21,7 @@ If empty, all columns will be used.}
 
 \item{.name}{Name of the new column as string.}
 
-\item{.before, }{.after Destination of new column, passed on to
+\item{.before, .after}{Destination of new column, passed on to
 \code{dplyr::relocate()}}
 
 \item{.ark}{Object of class \code{Ark}. If NULL (default) a new \code{Ark} is
