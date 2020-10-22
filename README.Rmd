@@ -118,7 +118,7 @@ phone numbers, addresses, credit card numbers, gene sequences and more:
   
 There are also packages that can anonymize personal identifiable information.
 If you need reliable, watertight anonymization, `noah` is not the right tool for
-you. Instead, check out these packages:
+you and you should check out these packages instead:
 
 - [`sdcMicro`](http://sdctools.github.io/sdcMicro/index.html)
 - [`sdcTable`](https://sdctools.github.io/sdcTable/index.html)
