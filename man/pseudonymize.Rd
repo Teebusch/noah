@@ -4,7 +4,7 @@
 \alias{pseudonymize}
 \title{Create unique pseudonyms.}
 \usage{
-pseudonymize(..., .ark = Ark$new())
+pseudonymize(..., .ark = NULL)
 }
 \arguments{
 \item{...}{One or multiple objects for which pseudonyms should be created,
