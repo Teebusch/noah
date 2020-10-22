@@ -103,3 +103,48 @@ test_that("Data frame can be pseudonymized", {
   expect_length(res2, nrow(df))
   expect_true(all(res1 != res2))
 })
+
+test_that("pseudonymize() fails when .ark is not an Ark", {
+  expect_error(pseudonymize("foo", .ark = data.frame()))
+})
+
+test_that("add_pseudonyms() adds column with pseudonyms", {
+  res <- add_pseudonyms(mtcars)
+  expect_type(res$pseudonym, "character")
+})
+
+test_that("add_pseudonyms() column name can be changed", {
+  res <- add_pseudonyms(mtcars, .name = "foo")
+  expect_type(res$foo, "character")
+})
+
+test_that("add_pseudonyms() can use ark", {
+  ark <- Ark$new()
+  df <- mtcars
+  res1 <- add_pseudonyms(df, .ark = ark)
+  res2 <- add_pseudonyms(df, .ark = ark)
+  expect_equal(res1$pseudonym, res2$pseudonym)
+})
+
+test_that("add_pseudonyms() column selection works", {
+  ark <- Ark$new()
+  res <- mtcars
+  res <- add_pseudonyms(res, mpg, cyl, .name = "foo", .ark = ark)
+  res <- add_pseudonyms(res, cyl, mpg, .name = "bar", .ark = ark)
+  res <- add_pseudonyms(res, cyl, mpg, .name = "baz", .ark = ark)
+
+  expect_false(all(res$foo == res$bar))
+  expect_equal(res$bar, res$baz)
+})
+
+test_that("add_pseudonyms() supports tidyselect syntax", {
+  ark <- Ark$new()
+  res1 <- add_pseudonyms(mtcars, where(is.numeric), .ark = ark)
+  res2 <- add_pseudonyms(mtcars, everything(), .ark = ark)
+  res3 <- add_pseudonyms(mtcars, mpg, cyl:gear, carb, .ark = ark)
+  res4 <- add_pseudonyms(mtcars, mpg, dplyr::ends_with("t"), carb, .ark = ark)
+
+  expect_equal(res1$pseudonym, res2$pseudonym)
+  expect_equal(res2$pseudonym, res3$pseudonym)
+  expect_false(all(res3$pseudonym == res4$pseudonym))
+})

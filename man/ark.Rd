@@ -2,10 +2,10 @@
 % Please edit documentation in R/ark.R
 \name{Ark}
 \alias{Ark}
-\title{A Class to represent an ark.}
+\title{A pseudonym archive.}
 \description{
-An Ark object can create unique pseudonyms.
-Given the same input, it will always return the same psuedonym.
+An Ark object can create and remember pseudonyms.
+Given the same input, it will always return the same pseudonym.
 No pseudonym will repeat.
 }
 \section{Public fields}{
@@ -47,7 +47,7 @@ as hashes.}
 \if{html}{\out{<a id="method-new"></a>}}
 \if{latex}{\out{\hypertarget{method-new}{}}}
 \subsection{Method \code{new()}}{
-Create new arc object.
+Create new ark object.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Ark$new()}\if{html}{\out{</div>}}
 }

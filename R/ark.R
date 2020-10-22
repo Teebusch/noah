@@ -1,8 +1,8 @@
-#' A Class to represent an ark.
+#' A pseudonym archive.
 #'
 #' @description
-#' An Ark object can create unique pseudonyms.
-#' Given the same input, it will always return the same psuedonym.
+#' An Ark object can create and remember pseudonyms.
+#' Given the same input, it will always return the same pseudonym.
 #' No pseudonym will repeat.
 #'
 #' @export
@@ -14,7 +14,7 @@ Ark <- R6::R6Class("Ark",
     #' as hashes.
     log = NULL,
 
-    #' @description Create new arc object.
+    #' @description Create new ark object.
     #' @return A new `Ark` object.
     initialize = function() {
       private$parts <- name_parts
@@ -96,23 +96,3 @@ Ark <- R6::R6Class("Ark",
 
 #' @export
 length.Ark <- function(x) x$length()
-
-
-#' Create unique pseudonyms.
-#'
-#' Pseudonymize returns unique pseudonyms for R objects
-#'
-#' @param ... One or multiple objects for which pseudonyms should be created,
-#' usually one or more columns of a data frame. All objects must be of the same
-#' length.
-#' @param .ark An Ark object. By default a new Ark is created. Using an existing
-#' Ark makes sure that the same input returns the same pseudonym.
-#'
-#' @return A character vector of pseudonyms.
-#' @export
-#'
-#' @examples
-#' pseudonymize("Mata Hari")
-pseudonymize <- function(..., .ark = Ark$new()) {
-  .ark$pseudonymize(...)
-}
