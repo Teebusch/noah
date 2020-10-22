@@ -23,7 +23,7 @@ pseudonymize <- function(..., .ark = NULL) {
 }
 
 
-#' Add column with pseudonyms to a data frame
+#' Add column with pseudonyms to a data frame.
 #'
 #' @param .data A data frame to add pseudonyms to.
 #' @param ... Columns on which pseudonyms should be based. Supports tidy select.
