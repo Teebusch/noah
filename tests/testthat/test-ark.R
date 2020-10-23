@@ -148,3 +148,7 @@ test_that("add_pseudonyms() supports tidyselect syntax", {
   expect_equal(res2$pseudonym, res3$pseudonym)
   expect_false(all(res3$pseudonym == res4$pseudonym))
 })
+
+test_that("add_pseudonyms() fails when no columns are selected", {
+  expect_error(add_pseudonyms(mtcars, matches("foo")))
+})
