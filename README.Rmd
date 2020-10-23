@@ -43,10 +43,10 @@ set.seed(122020)
 
 ### Generating pseudonyms
 
-A quick way to create pseudonyms with `noah` is the `pseudonymize()`
-function. It will generate pseudonyms for every element in a vector, so if you 
-need 100 pseudonyms, simply call `pseudonymize(1:100)`. 
-Note that repeated elements will receive the same pseudonym:
+The `pseudonymize()` functio generates pseudonyms for every element 
+in a vector or every row in a data frame, whereby repeated elements receive the
+same pseudonym.
+If you need 100 pseudonyms, call `pseudonymize(1:100)`. 
 
 ```{r}
 library(noah)
@@ -62,16 +62,15 @@ being from the same subject.
 pseudonymize(c("🐰", "🐰", "🐰"), c("🥕", "🥕", "🍰"))
 ```
 
-### Adding pseudonyms to a data frame
+### Adding pseudonyms to data frames
 
 Often we want to add a column with pseudonyms to a data frame, using one or 
 more columns as identifiers. We can do this with `pseudonymize()` and
 `dplyr::mutate()`.
-
 In this example we use the diabetic retinopathy dataset from the `survival` 
 package and add a new column with a pseudonym for each unique `id`:
 
-```{r example-pseudonymize, warning=FALSE, message=FALSE}
+```{r warning=FALSE, message=FALSE}
 library(dplyr)
 diabetic <- as_tibble(survival::diabetic)
 
@@ -80,13 +79,22 @@ diabetic %>%
   relocate(pseudonym)
 ```
 
+Or we can use the `add_pseudonyms()` function, which wraps the mutate and 
+relocate step and supports `tidyselect` syntax for the selection of  the 
+identifier columns:
+
+```{r}
+diabetic %>% 
+  add_pseudonyms(where(is.factor))
+```
+
 ### Keeping track of pseudonyms
 
-Internally, `pseudonymize()` uses an object of class `Ark` that keeps track of 
-which pseudonyms that have been used.
-Normally, a new `Ark` is created for each call of the `pseudonymize()` function,
-but we can use an `Ark` to ensure that the same input is always assigned 
-the same pseudonym across multiple data sets:
+Internally, `pseudonymize()` and `add_pseudonyms()` use an object of class `Ark`
+(a pseudonym archive) to keeps track of the pseudonyms that have been used.
+By default, a new `Ark` is created for each call of the `pseudonymize()` 
+function, but we can provide an `Ark` to ensure that the same input is always
+assigned the same pseudonym across multiple function calls:
 
 ```{r example-ark}
 ark <- Ark$new()
@@ -94,21 +102,20 @@ ark <- Ark$new()
 # split dataset into left and right eye and pseudonymize separately
 diabetic_left <- diabetic %>% 
   filter(eye == "left") %>% 
-  mutate(pseudonym = pseudonymize(id, .ark = ark))
+  add_pseudonyms(id, .ark = ark)
 
 diabetic_right <- diabetic %>% 
   filter(eye == "right") %>% 
-  mutate(pseudonym = pseudonymize(id, .ark = ark))
+  add_pseudonyms(id, .ark = ark)
 
 # reunite the data sets again
 bind_rows(diabetic_left, diabetic_right) %>% 
-  relocate(pseudonym) %>% 
   arrange(id)
 ```
 
 ## Related R packages
 
-There are multiple R packages that generate fake data, including names,
+There are multiple R packages that generate fake data, including fake names,
 phone numbers, addresses, credit card numbers, gene sequences and more:
 
 - [`charlatan`](https://docs.ropensci.org/charlatan/)
@@ -116,12 +123,12 @@ phone numbers, addresses, credit card numbers, gene sequences and more:
 - [`randNames`](https://github.com/karthik/randNames)
 - [`generator`](https://github.com/paulhendricks/generator).
   
-There are also packages that can anonymize personal identifiable information.
-If you need reliable, watertight anonymization, `noah` is not the right tool for
-you and you should check out these packages instead:
+There are also packages for anonymizing personal identifiable information in data
+sets. 
+If you need reliable, watertight anonymization, `noah` is likely not the right
+tool for you and you should check out these packages instead:
 
 - [`sdcMicro`](http://sdctools.github.io/sdcMicro/index.html)
 - [`sdcTable`](https://sdctools.github.io/sdcTable/index.html)
 - [`anonymizer`](http://paulhendricks.io/anonymizer/)
-- [`digest`](http://dirk.eddelbuettel.com/code/digest.html)
 
