@@ -24,6 +24,7 @@ Imports:
     digest,
     assertthat,
     purrr,
-    dplyr
+    dplyr,
+    magrittr
 Depends: 
     R (>= 2.10)
