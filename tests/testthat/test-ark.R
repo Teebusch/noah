@@ -148,3 +148,33 @@ test_that("add_pseudonyms() supports tidyselect syntax", {
   expect_equal(res2$pseudonym, res3$pseudonym)
   expect_false(all(res3$pseudonym == res4$pseudonym))
 })
+
+test_that("add_pseudonyms() fails when no columns are selected", {
+  expect_error(add_pseudonyms(mtcars, matches("foo")))
+})
+
+test_that("Ark print function prints something", {
+  a <- Ark$new()
+  expect_that(
+    print(a),
+    prints_text("An Ark:.+The Ark is empty.")
+  )
+  pseudonymize(1:20, .ark = a)
+  expect_that(
+    print(a),
+    prints_text("An Ark:.+key\\s*pseudonym.+with 10 more entries")
+  )
+})
+
+test_that("Ark print n argument works", {
+  a <- Ark$new()
+  pseudonymize(1:20, .ark = a)
+  expect_that(
+    print(a),
+    prints_text("\\.\\.\\.with 10 more entries")
+  )
+  expect_that(
+    print(a, n = 15),
+    prints_text("\\.\\.\\.with 5 more entries")
+  )
+})

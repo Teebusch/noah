@@ -44,6 +44,7 @@ add_pseudonyms <- function(.data, ..., .name = "pseudonym", .before = NULL,
 
   if (...length() > 0) {
     pn <- pseudonymize(dplyr::select(.data, ...), .ark = .ark)
+    assertthat::assert_that(length(pn) == nrow(.data))
   } else {
     pn <- pseudonymize(.data, .ark = .ark)
   }
