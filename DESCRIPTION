@@ -7,7 +7,7 @@ Authors@R:
            role = c("aut", "cre"),
            email = "first.last@example.com",
            comment = c(ORCID = "https://orcid.org/0000-0002-8390-7892"))
-Description: Noah creates pseudonyms for arbitrary R objects. 
+Description: Noah generates pseudonyms that are delightful and easy to remember.
 License: MIT + file LICENSE
 Suggests: 
     testthat,
