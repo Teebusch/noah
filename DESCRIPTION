@@ -25,6 +25,7 @@ Imports:
     assertthat,
     purrr,
     dplyr,
-    magrittr
+    magrittr,
+    crayon
 Depends: 
     R (>= 2.10)
