@@ -16,14 +16,14 @@ coverage](https://codecov.io/gh/Teebusch/noah/branch/master/graph/badge.svg)](ht
 
 <!-- badges: end -->
 
-`noah` (**no** **a**nimals were **h**armed) generates pseudonyms that
-are delightful and easy to remember. Instead of cryptic alphanumeric
-IDs, it creates anonymous animals like the *Likeable Leech* and the
-*Proud Chickadee*.
+noah (*no animals were harmed*) generates pseudonyms that are delightful
+and easy to remember. Instead of cryptic alphanumeric IDs, it creates
+adorable anonymous animals like the *Likeable Leech* and the *Proud
+Chickadee*.
 
 ## Installation
 
-You can install `noah` from [Github](/https://github.com/teebusch/noah)
+You can install noah from [Github](/https://github.com/teebusch/noah)
 with:
 
 ``` r
@@ -36,23 +36,19 @@ remotes::install_github("teebusch/noah")
 ### Generating pseudonyms
 
 The `pseudonymize()` function generates pseudonyms for every element in
-a vector or every row in a data frame, whereby repeated elements receive
-the same pseudonym. If you need 100 pseudonyms, call
-`pseudonymize(1:100)`.
+a vector or every row in a data frame. If you need 100 pseudonyms, call
+`pseudonymize(1:100)`. `pseudonymize()` accepts any number of input
+vectors as arguments, as long as they have the same length. It will
+treat elements in the same position as being from the same subject.
+Repeated elements always receive the same pseudonym.
 
 ``` r
 library(noah)
 
-pseudonymize(rep(1:4, times = 2))
-#> [1] "Sad Roadrunner"  "Belligerent Cat" "Pale Koala"      "Rich Leopard"   
-#> [5] "Sad Roadrunner"  "Belligerent Cat" "Pale Koala"      "Rich Leopard"
-```
+pseudonymize(rep(c("🐄", "🦎", "🐅"), times = 2))
+#> [1] "Sad Roadrunner"  "Belligerent Cat" "Pale Koala"      "Sad Roadrunner" 
+#> [5] "Belligerent Cat" "Pale Koala"
 
-`pseudonymize()` accepts any number of input vectors as arguments, as
-long as they have the same length. It will treat elements in the same
-position as being from the same subject.
-
-``` r
 pseudonymize(c("🐰", "🐰", "🐰"), c("🥕", "🥕", "🍰"))
 #> [1] "Alike Clam"       "Alike Clam"       "Coherent Ladybug"
 ```
@@ -61,8 +57,8 @@ pseudonymize(c("🐰", "🐰", "🐰"), c("🥕", "🥕", "🍰"))
 
 Often we want to add a column with pseudonyms to a data frame, using one
 or more columns as identifiers. In this example we use the diabetic
-retinopathy dataset from the `survival` There are two was to do add
-pseudonyms to a data frame with `noah`:
+retinopathy dataset from the `{survival}` package. There are two was to
+do add pseudonyms to a data frame with noah:
 
 #### Using `mutate()` and `pseudonymize()`
 
@@ -189,12 +185,12 @@ more:
   - [`charlatan`](https://docs.ropensci.org/charlatan/)
   - [`randomNames`](https://centerforassessment.github.io/randomNames/)
   - [`randNames`](https://github.com/karthik/randNames)
-  - [`generator`](https://github.com/paulhendricks/generator).
+  - [`generator`](https://github.com/paulhendricks/generator)
 
 There are also packages for anonymizing personal identifiable
-information in data sets. If you need reliable, watertight
-anonymization, `noah` is likely not the right tool for you and you
-should check out these packages instead:
+information in data sets. If you need watertight anonymization, noah is
+likely not the right tool for the job and you should check out these
+packages instead:
 
   - [`sdcMicro`](http://sdctools.github.io/sdcMicro/index.html)
   - [`sdcTable`](https://sdctools.github.io/sdcTable/index.html)
