@@ -53,7 +53,7 @@ Ark <- R6::R6Class("Ark",
       cat(
         subtle(
           sprintf(
-            "# An Ark: %i / %i (%0.0f%%)\n",
+            "# An Ark: %i / %i pseudonyms used (%0.0f%%)\n",
             self$length(), private$max_length, perc_full
           )
         )
