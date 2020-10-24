@@ -82,9 +82,16 @@ Character vector of pseudonyms with same length as input.
 \subsection{Method \code{print()}}{
 Pretty-print an Ark object.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Ark$print()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Ark$print(n = NULL)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{n}}{A positive integer. The number of example pseudonyms to print.}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-length"></a>}}

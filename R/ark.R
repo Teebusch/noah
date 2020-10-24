@@ -28,7 +28,7 @@ Ark <- R6::R6Class("Ark",
     #' @return Character vector of pseudonyms with same length as input.
     pseudonymize = function(...) {
       dots <- list(...)
-      if(inherits(dots[[1]], "data.frame")) {
+      if (inherits(dots[[1]], "data.frame")) {
         # pseudonymize data frame columns rowwise
         dots <- dots[[1]]
       }
@@ -43,14 +43,21 @@ Ark <- R6::R6Class("Ark",
     },
 
     #' @description Pretty-print an Ark object.
+    #' @param n A positive integer. The number of example pseudonyms to print.
     print = function(n = NULL) {
+
+      subtle <- crayon::make_style("grey60")
 
       # summary
       perc_full <- self$length() / private$max_length
-      cat(sprintf(
-        "# An Ark: %i / %i (%0.0f%%)\n",
-        self$length(), private$max_length, perc_full
-      ))
+      cat(
+        subtle(
+          sprintf(
+            "# An Ark: %i / %i (%0.0f%%)\n",
+            self$length(), private$max_length, perc_full
+          )
+        )
+      )
 
       # entries
       if (self$length() == 0) {
@@ -66,17 +73,37 @@ Ark <- R6::R6Class("Ark",
         }
         n_max <- length(self$log)
         i_max <- min(n, n_max)
-        i     <- 1:i_max
-        k     <- hash::keys(self$log)[1:i_max]
-        v     <- hash::values(self$log)[1:i_max]
+        i <- 1:i_max
+        k <- hash::keys(self$log)[1:i_max]
+        v <- hash::values(self$log)[1:i_max]
 
-        cat(sprintf("%*s [key] %*s [pseudonym]\n", nchar(i_max), " ", 5, " "))
-        cat(sprintf("%*s %.8s... %s", nchar(i_max), i, k, v), sep = "\n")
+        cat(sprintf(
+          "%*s key %*s pseudonym\n",
+          nchar(i_max), " ", 7, " "
+        ))
+        cat(
+          subtle(
+            crayon::italic(
+              sprintf(
+                "%*s <md5> %*s <Attribute Animal>\n",
+                nchar(i_max), " ", 5, " "
+              )
+            )
+          )
+        )
+        cat(sprintf(
+          "%*s %.8s... %s",
+          nchar(i_max), i, k, v
+        ), sep = "\n")
+
         if (i_max < n_max) {
-          cat(sprintf("# ...with %i more entries", n_max - i_max))
+          cat(
+            subtle(
+              sprintf("# ...with %i more entries", n_max - i_max)
+            )
+          )
         }
       }
-
       invisible(self)
     },
 
