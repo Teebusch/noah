@@ -179,3 +179,12 @@ test_that("Ark print n argument works", {
     prints_text("\\.\\.\\.with 5 more entries")
   )
 })
+
+test_that("Alliterations work", {
+  a <- Ark$new(alliterate = TRUE)
+  res <- pseudonymize(1:10, .ark = a)
+  res <- strsplit(res, " ")
+  res <- lapply(res, function(x) substr(x, 1, 1))
+  res <- sapply(res, function(x) length(unique(x)) == 1)
+  expect_true(all(res))
+})

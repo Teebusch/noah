@@ -36,9 +36,11 @@ Ark <- R6::R6Class("Ark",
     #' @param ... One or more R objects.
     #' @return Character vector of pseudonyms with same length as input.
     pseudonymize = function(...) {
-      # convert  arguments to a data frame, then hash each row ans lookup or
+      # convert arguments to a data frame, then hash each row and look up or
       # create pseudonym.
-      keys <- dplyr::bind_cols(...)
+      keys <- suppressMessages(  # suppress 'column' renaming message
+        dplyr::bind_cols(...)
+      )
 
       purrr::pmap_chr(keys, function(...) {
         uid <- digest::digest(list(...))
