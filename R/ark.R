@@ -15,6 +15,8 @@ Ark <- R6::R6Class("Ark",
     log = NULL,
 
     #' @description Create new ark object.
+    #' @param alliterate Logical. Should the Ark return alliterations by
+    #' default?
     #' @return A new `Ark` object.
     initialize = function(alliterate = FALSE) {
       private$parts <- name_parts
@@ -143,7 +145,7 @@ Ark <- R6::R6Class("Ark",
     #' @description Returns the pseudonym corresponding to an index.
     #' @param index An integer or a vector of integers between 1 and the Ark's
     #' max_length.
-    #' @return A character vector of pseudomyms with the same length as the
+    #' @return A character vector of pseudonyms with the same length as the
     #' input
     index_to_pseudonym = function(index) {
       k <- index - 1
