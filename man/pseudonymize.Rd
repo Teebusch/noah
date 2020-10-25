@@ -7,9 +7,9 @@
 pseudonymize(..., .ark = NULL)
 }
 \arguments{
-\item{...}{One or multiple objects for which pseudonyms should be created,
-usually one or more columns of a data frame. All objects must be of the same
-length.}
+\item{...}{One or multiple objects to use as keys for which pseudonyms
+should be created, usually one or more columns of a data frame.
+All objects must be of the same length.}
 
 \item{.ark}{An Ark object. By default a new Ark is created. Using an existing
 Ark makes sure that the same input returns the same pseudonym.}
@@ -18,7 +18,13 @@ Ark makes sure that the same input returns the same pseudonym.}
 A character vector of pseudonyms.
 }
 \description{
-Pseudonymize returns unique pseudonyms for R objects
+Pseudonymize returns unique pseudonyms for R objects.
+It accepts any number of vectors and data frame as arguments and will use
+them as keys for the pseudonym creation.
+Vectors and data frames must have identical length.
+Elements in the same position or row are treated as part of the same key.
+The same key is always assigned the same pseudonym. Different keys are
+always assigned different pseudonyms.
 }
 \examples{
 pseudonymize("Mata Hari")

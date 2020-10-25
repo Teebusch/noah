@@ -16,8 +16,8 @@ add_pseudonyms(
 \arguments{
 \item{.data}{A data frame to add pseudonyms to.}
 
-\item{...}{Columns on which pseudonyms should be based. Supports tidy select.
-If empty, all columns will be used.}
+\item{...}{Columns to use as keys on which pseudonyms should be based.
+Supports tidy select. If empty, all columns will be used.}
 
 \item{.name}{Name of the new column as string.}
 
@@ -25,7 +25,8 @@ If empty, all columns will be used.}
 \code{dplyr::relocate()}}
 
 \item{.ark}{Object of class \code{Ark}. If NULL (default) a new \code{Ark} is
-created.}
+created. Using an existing Ark makes sure that the same input returns the
+same pseudonym.}
 }
 \value{
 A data frame with an additional column containing the pseudonyms.
