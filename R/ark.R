@@ -16,11 +16,20 @@ Ark <- R6::R6Class("Ark",
 
     #' @description Create new ark object.
     #' @return A new `Ark` object.
-    initialize = function() {
+    initialize = function(alliterate = FALSE) {
       private$parts <- name_parts
-      private$max_length <- prod(lengths(private$parts))
-      private$index_shuffled <- sample(1:private$max_length)
       self$log <- hash::hash()
+
+      if(alliterate == TRUE) {
+        # find all indices that are alliterations
+        index <- private$find_alliterations()
+        private$max_length <- length(index)
+      } else {
+        private$max_length <- prod(lengths(private$parts))
+        index <- 1:private$max_length
+      }
+      # set order in which indices will be used
+      private$index_shuffled <- sample(index)
     },
 
     #' @description Create Pseudonyms for input.
@@ -36,6 +45,10 @@ Ark <- R6::R6Class("Ark",
 
         if (!hash::has.key(uid, self$log)) {
           index <- self$length() + 1
+          assertthat::assert_that(
+            dplyr::between(index, 1, private$max_length)
+          )
+          index <- private$index_shuffled[index]
           self$log[uid] <- private$index_to_pseudonym(index)
         }
 
@@ -131,14 +144,22 @@ Ark <- R6::R6Class("Ark",
     #' @return A character vector of pseudomyms with the same length as the
     #' input
     index_to_pseudonym = function(index) {
-      assertthat::assert_that(
-        all(dplyr::between(index, 1, private$max_length))
-      )
-      k <- private$index_shuffled[index] - 1
+      k <- index - 1
       n <- lengths(private$parts)[2]
       i <- (k %/% n) + 1
       j <- (k %% n) + 1
       paste(private$parts[[1]][i], private$parts[[2]][j])
+    },
+
+    #' @description Returns a vector of all indexes that are alliteration.
+    find_alliterations = function() {
+      n <- lengths(private$parts)[2]
+      unlist(
+        purrr::imap(private$parts[[1]], ~ {
+          which(substr(.x, 1, 1) == substr(private$parts[[2]], 1, 1)) +
+            (.y - 1) * n
+        })
+      )
     }
   )
 )
