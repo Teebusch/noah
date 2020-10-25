@@ -102,13 +102,8 @@ assigned the same pseudonym across multiple function calls:
 
 ```{r example-ark}
 ark <- Ark$new()
-```
-
-```{r echo=FALSE}
 ark
-```
 
-```{r}
 # split dataset into left and right eye and pseudonymize separately
 diabetic_left <- diabetic %>% 
   filter(eye == "left") %>% 
@@ -126,7 +121,7 @@ bind_rows(diabetic_left, diabetic_right) %>%
 If we have a look at the ark now, we can see that it contains `r length(ark)`
 pseudonyms -- just as many as there are unique id's in the dataset.
 
-```{r echo=FALSE}
+```{r}
 ark
 ```
 
