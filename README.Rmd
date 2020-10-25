@@ -43,16 +43,15 @@ remotes::install_github("teebusch/noah")
 
 ### Generating pseudonyms
 
-The `pseudonymize()` function generates pseudonyms for every element 
-in a vector or every row in a data frame. 
-If you need 100 pseudonyms, call `pseudonymize(1:100)`. 
-`pseudonymize()` accepts any number of input vectors as arguments, as long as 
-they have the same length. It will treat elements in the same position as 
-being from the same subject. 
-Repeated elements always receive the same pseudonym.
+Use `pseudonymize()` to generate a unique pseudonyms for every unique
+element / row in a vectors or data frame. 
+`pseudonymize()` accepts any number of vectors and data frames as arguments, 
+and will pseudonomize elements row by row. 
 
 ```{r}
 library(noah)
+
+pseudonymize(1:10)
 
 pseudonymize(rep(c("🐄", "🦎", "🐅"), times = 2))
 
@@ -61,16 +60,14 @@ pseudonymize(c("🐰", "🐰", "🐰"), c("🥕", "🥕", "🍰"))
 
 ### Adding pseudonyms to data frames
 
-Often we want to add a column with pseudonyms to a data frame, using one or 
-more columns as identifiers. 
+There are two ways to do add pseudonyms to a data frame with noah:
 In this example we use the diabetic retinopathy dataset from the `{survival}` 
 package.
-There are two was to do add pseudonyms to a data frame with noah:
 
 #### Using `mutate()` and `pseudonymize()`
 
-We can add pseudonyms using `pseudonymize()` and `dplyr::mutate()`. 
-Here we add a new column with a pseudonym for each unique id:
+Here we use `pseudonymize()` and `dplyr::mutate()` to a new column with a 
+pseudonym for each unique id:
 
 ```{r warning=FALSE, message=FALSE}
 library(dplyr)
@@ -83,9 +80,8 @@ diabetic %>%
 
 #### Using `add_pseudonyms()`
 
-We can also use the `add_pseudonyms()` function, which wraps the mutate and 
-relocate step and supports `tidyselect` syntax for the selection of the 
-identifier columns:
+`add_pseudonyms()` wraps mutate relocate. 
+It also supports `tidyselect` syntax for the selection of the key columns:
 
 ```{r}
 diabetic %>% 
@@ -96,19 +92,13 @@ diabetic %>%
 
 Internally, `pseudonymize()` and `add_pseudonyms()` use an object of class `Ark`
 (a pseudonym archive) to keeps track of the pseudonyms that have been used.
-By default, a new `Ark` is created for each call of the `pseudonymize()` 
-function, but we can provide an `Ark` to ensure that the same input is always
-assigned the same pseudonym across multiple function calls:
+We can provide an `Ark` to keep track of pseudonyms across multiple function 
+calls:
 
 ```{r example-ark}
 ark <- Ark$new()
-```
-
-```{r echo=FALSE}
 ark
-```
 
-```{r}
 # split dataset into left and right eye and pseudonymize separately
 diabetic_left <- diabetic %>% 
   filter(eye == "left") %>% 
@@ -123,11 +113,20 @@ bind_rows(diabetic_left, diabetic_right) %>%
   arrange(id)
 ```
 
-If we have a look at the ark now, we can see that it contains `r length(ark)`
-pseudonyms -- just as many as there are unique id's in the dataset.
+The ark now contains `r length(ark)` pseudonyms -- as many as there are unique 
+id's in the dataset.
 
-```{r echo=FALSE}
+```{r}
 ark
+```
+
+### Making an Alliterating Ark
+
+We can also configure an Ark to generate only alliterations:
+
+```{r}
+ark <- Ark$new(alliterate = TRUE)
+pseudonymize(1:12, .ark = ark)
 ```
 
 

@@ -49,9 +49,17 @@ as hashes.}
 \subsection{Method \code{new()}}{
 Create new ark object.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Ark$new()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Ark$new(alliterate = FALSE)}\if{html}{\out{</div>}}
 }
 
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{alliterate}}{Logical. Should the Ark return alliterations by
+default?}
+}
+\if{html}{\out{</div>}}
+}
 \subsection{Returns}{
 A new \code{Ark} object.
 }
