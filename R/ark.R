@@ -27,17 +27,18 @@ Ark <- R6::R6Class("Ark",
     #' @param ... One or more R objects.
     #' @return Character vector of pseudonyms with same length as input.
     pseudonymize = function(...) {
-      dots <- list(...)
-      if (inherits(dots[[1]], "data.frame")) {
-        # pseudonymize data frame columns rowwise
-        dots <- dots[[1]]
-      }
-      purrr::pmap_chr(dots, function(...) {
+      # convert  arguments to a data frame, then hash each row ans lookup or
+      # create pseudonym.
+      keys <- dplyr::bind_cols(...)
+
+      purrr::pmap_chr(keys, function(...) {
         uid <- digest::digest(list(...))
+
         if (!hash::has.key(uid, self$log)) {
           index <- self$length() + 1
           self$log[uid] <- private$index_to_pseudonym(index)
         }
+
         self$log[[uid]]
       })
     },
