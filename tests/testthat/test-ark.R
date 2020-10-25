@@ -33,10 +33,11 @@ test_that("Creating pseudonyms from index works", {
 
 test_that("Fail when requesting more pseudonyms than available", {
   ark <- Ark$new()
-  max_length <- ark$.__enclos_env__$private$max_length
-  f <- ark$.__enclos_env__$private$index_to_pseudonym  # shortcut
-  expect_error(f(max_length+1))
-  expect_error(f(1:(max_length+1)))
+  max_length <- 5 # artificially limit max length for the test
+  ark$.__enclos_env__$private$max_length <- max_length
+  expect_vector(ark$pseudonymize(1:max_length))
+  expect_error(ark$pseudonymize(1:(max_length + 1)))
+  expect_error(ark$pseudonymize("foo"))
 })
 
 test_that("Multiple values can be pseudonymized", {
