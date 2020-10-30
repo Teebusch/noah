@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# noah
+# noah <img src='man/figures/logo.png' align="right" height="139" />
 
 <!-- badges: start -->
 
@@ -37,7 +37,7 @@ remotes::install_github("teebusch/noah")
 
 Use `pseudonymize()` to generate a unique pseudonyms for every unique
 element / row in a vectors or data frame. `pseudonymize()` accepts any
-number of vectors and data frames as arguments, and will pseudonomize
+number of vectors and data frames as arguments, and will pseudonymize
 elements row by row.
 
 ``` r
@@ -118,7 +118,7 @@ diabetic %>%
 ### Keeping track of pseudonyms
 
 Internally, `pseudonymize()` and `add_pseudonyms()` use an object of
-class `Ark` (a pseudonym archive) to keeps track of the pseudonyms that
+class `Ark` (a pseudonym archive) to keep track of the pseudonyms that
 have been used. We can provide an `Ark` to keep track of pseudonyms
 across multiple function calls:
 
@@ -204,9 +204,8 @@ more:
   - [`generator`](https://github.com/paulhendricks/generator)
 
 There are also packages for anonymizing personal identifiable
-information in data sets. If you need watertight anonymization, noah is
-likely not the right tool for the job and you should check out these
-packages instead:
+information in data sets. If you need watertight anonymization you
+should check out these packages:
 
   - [`sdcMicro`](http://sdctools.github.io/sdcMicro/index.html)
   - [`sdcTable`](https://sdctools.github.io/sdcTable/index.html)
