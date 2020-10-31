@@ -64,7 +64,7 @@ In this example we use the diabetic retinopathy dataset from the package
 `survival` and add a new column with a pseudonym for each unique id. 
 There are two ways to do this with noah:
 
-#### `pseudonymize()`
+#### Using `pseudonymize()`
 
 Here we use `pseudonymize()` with `dplyr::mutate()`. 
 We also use relocate to move the pseudonyms to the first column:
@@ -78,7 +78,7 @@ diabetic %>%
   relocate(pseudonym)
 ```
 
-#### `add_pseudonyms()`
+#### Using `add_pseudonyms()`
 
 `add_pseudonyms()` wraps `mutate()` and `relocate()`. It also supports
 [tidyselect](https://tidyselect.r-lib.org/reference/language.html)
@@ -86,7 +86,7 @@ syntax for selecting the key columns:
 
 ```{r}
 diabetic %>% 
-  add_pseudonyms(where(is.factor))
+  add_pseudonyms(id, where(is.factor))
 ```
 
 ### Keeping track of pseudonyms with an `Ark`
@@ -122,7 +122,7 @@ id's in the dataset.
 length(ark)
 ```
 
-### Making an Alliterating Ark
+### Making an alliterating Ark
 
 We can also configure an `Ark` to generate only alliterations:
 
