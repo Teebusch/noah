@@ -60,7 +60,7 @@ In this example we use the diabetic retinopathy dataset from the package
 `survival` and add a new column with a pseudonym for each unique id.
 There are two ways to do this with noah:
 
-#### `pseudonymize()`
+#### Using `pseudonymize()`
 
 Here we use `pseudonymize()` with `dplyr::mutate()`. We also use
 relocate to move the pseudonyms to the first column:
@@ -88,7 +88,7 @@ diabetic %>%
 #> # ... with 384 more rows
 ```
 
-#### `add_pseudonyms()`
+#### Using `add_pseudonyms()`
 
 `add_pseudonyms()` wraps `mutate()` and `relocate()`. It also supports
 [tidyselect](https://tidyselect.r-lib.org/reference/language.html)
@@ -96,20 +96,20 @@ syntax for selecting the key columns:
 
 ``` r
 diabetic %>% 
-  add_pseudonyms(where(is.factor))
+  add_pseudonyms(id, where(is.factor))
 #> # A tibble: 394 x 9
-#>    pseudonym           id laser   age eye     trt  risk  time status
-#>    <chr>            <int> <fct> <int> <fct> <int> <int> <dbl>  <int>
-#>  1 Flaky Shrimp         5 argon    28 left      0     9  46.2      0
-#>  2 Green Stingray       5 argon    28 right     1     9  46.2      0
-#>  3 Spectacular Newt    14 xenon    12 left      1     8  42.5      0
-#>  4 Moldy Lionfish      14 xenon    12 right     0     6  31.3      1
-#>  5 Spectacular Newt    16 xenon     9 left      1    11  42.3      0
-#>  6 Moldy Lionfish      16 xenon     9 right     0    11  42.3      0
-#>  7 Spectacular Newt    25 xenon     9 left      0    11  20.6      0
-#>  8 Moldy Lionfish      25 xenon     9 right     1    11  20.6      0
-#>  9 Spectacular Newt    29 xenon    13 left      0    10   0.3      1
-#> 10 Moldy Lionfish      29 xenon    13 right     1     9  38.8      0
+#>    pseudonym             id laser   age eye     trt  risk  time status
+#>    <chr>              <int> <fct> <int> <fct> <int> <int> <dbl>  <int>
+#>  1 Flaky Shrimp           5 argon    28 left      0     9  46.2      0
+#>  2 Green Stingray         5 argon    28 right     1     9  46.2      0
+#>  3 Spectacular Newt      14 xenon    12 left      1     8  42.5      0
+#>  4 Moldy Lionfish        14 xenon    12 right     0     6  31.3      1
+#>  5 Huge Manatee          16 xenon     9 left      1    11  42.3      0
+#>  6 Berserk Swordtail     16 xenon     9 right     0    11  42.3      0
+#>  7 Unwieldy Shrew        25 xenon     9 left      0    11  20.6      0
+#>  8 Far Silkworm          25 xenon     9 right     1    11  20.6      0
+#>  9 Perpetual Basilisk    29 xenon    13 left      0    10   0.3      1
+#> 10 Addicted Guanaco      29 xenon    13 right     1     9  38.8      0
 #> # ... with 384 more rows
 ```
 
@@ -161,7 +161,7 @@ length(ark)
 #> [1] 197
 ```
 
-### Making an Alliterating Ark
+### Making an alliterating Ark
 
 We can also configure an `Ark` to generate only alliterations:
 
