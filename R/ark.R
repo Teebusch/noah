@@ -37,30 +37,25 @@ Ark <- R6::R6Class("Ark",
     pseudonymize = function(..., .alliterate = NULL) {
       if (is.null(.alliterate)) {
         .alliterate <- private$alliterate
-      } else {
-        assertthat::is.flag(.alliterate)
       }
-      keys <- suppressMessages(  # suppress column renaming message
-        dplyr::bind_cols(...)
-      )
+      assertthat::is.flag(.alliterate)
 
-      # hash each row and look up or create pseudonym.
-      purrr::pmap_chr(keys, function(...) {
-        uid <- digest::digest(list(...))
+      keys   <- suppressMessages(dplyr::bind_cols(...))
+      keys   <- purrr::pmap_chr(keys, function(...) digest::digest(list(...)))
+      n_keys <- length(keys)
+      is_in  <- hash::has.key(keys, self$log)
+      n_new  <- sum(!is_in)
 
-        # if key doesn't exist, make a new one and assign new random pseudonym
-        if (!hash::has.key(uid, self$log)) {
-          if (.alliterate) {
-            i <- private$index_allit(1) # not working
-          } else {
-            i <- private$index_perm(1)
-          }
-          assertthat::assert_that(!is.na(i))
-          self$log[uid] <- private$index_to_pseudonym(i)
+      if (n_new > 0) {
+        if (.alliterate) {
+          i <- private$index_allit(n_new)
+        } else {
+          i <- private$index_perm(n_new)
         }
-
-        self$log[[uid]]
-      })
+        self$log[keys[!is_in]] <- private$index_to_pseudonym(i)
+      }
+      out <- hash::values(self$log, keys)
+      out
     },
 
     #' @description Pretty-print an Ark object.

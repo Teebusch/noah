@@ -33,6 +33,8 @@ random_permutation <- function(n) {
         out[i] <- remaining[swap]
         remaining[swap] <- remaining[nleft]
         nleft <- nleft - 1
+      } else {
+        stop("Error. Not enough numbers left in the permutation.")
       }
     }
     length(remaining) <- nleft
