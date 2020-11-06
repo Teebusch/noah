@@ -19,41 +19,44 @@ Ark <- R6::R6Class("Ark",
     #' default?
     #' @return A new `Ark` object.
     initialize = function(alliterate = FALSE) {
-      private$parts <- name_parts
-      self$log <- hash::hash()
-
-      if(alliterate == TRUE) {
-        # find all indices that are alliterations
-        index <- private$find_alliterations()
-        private$max_length <- length(index)
-      } else {
-        private$max_length <- prod(lengths(private$parts))
-        index <- 1:private$max_length
-      }
-      # set order in which indices will be used
-      private$index_shuffled <- sample(index)
+      self$log            <- hash::hash()
+      private$parts       <- name_parts
+      private$alliterate  <- alliterate
+      private$max_length  <- prod(lengths(private$parts))
+      private$index_allit <- random_permutation(private$find_alliterations())
+      private$index_perm  <- random_permutation(private$max_length)
     },
 
     #' @description Create Pseudonyms for input.
     #' @param ... One or more R objects.
+    #' @param .alliterate Logical. Return only pseudonyms that are
+    #' alliterations. Defaults to TRUE if the Ark was created with
+    #' `Ark$new(alliterate = TRUE)`, FALSE otherwise. If FALSE, pseudonyms
+    #' may still be alliterations by coincidence.
     #' @return Character vector of pseudonyms with same length as input.
-    pseudonymize = function(...) {
-      # convert arguments to a data frame, then hash each row and look up or
-      # create pseudonym.
-      keys <- suppressMessages(  # suppress 'column' renaming message
+    pseudonymize = function(..., .alliterate = NULL) {
+      if (is.null(.alliterate)) {
+        .alliterate <- private$alliterate
+      } else {
+        assertthat::is.flag(.alliterate)
+      }
+      keys <- suppressMessages(  # suppress column renaming message
         dplyr::bind_cols(...)
       )
 
+      # hash each row and look up or create pseudonym.
       purrr::pmap_chr(keys, function(...) {
         uid <- digest::digest(list(...))
 
+        # if key doesn't exist, make a new one and assign new random pseudonym
         if (!hash::has.key(uid, self$log)) {
-          index <- self$length() + 1
-          assertthat::assert_that(
-            dplyr::between(index, 1, private$max_length)
-          )
-          index <- private$index_shuffled[index]
-          self$log[uid] <- private$index_to_pseudonym(index)
+          if (.alliterate) {
+            i <- private$index_allit(1) # not working
+          } else {
+            i <- private$index_perm(1)
+          }
+          assertthat::assert_that(!is.na(i))
+          self$log[uid] <- private$index_to_pseudonym(i)
         }
 
         self$log[[uid]]
@@ -139,8 +142,14 @@ Ark <- R6::R6Class("Ark",
     #' @field max_length Maximum number of possible pseudonyms in the Ark.
     max_length = NULL,
 
+    #' @field alliterate Logical, generate alliterations by default?
+    alliterate = NULL,
+
+    #' @field index_alliterate indices of alliterations
+    index_allit = NULL,
+
     #' @field index_shuffled a random permutation of the index
-    index_shuffled = NULL,
+    index_perm = NULL,
 
     #' @description Returns the pseudonym corresponding to an index.
     #' @param index An integer or a vector of integers between 1 and the Ark's
@@ -155,7 +164,9 @@ Ark <- R6::R6Class("Ark",
       paste(private$parts[[1]][i], private$parts[[2]][j])
     },
 
-    #' @description Returns a vector of all indexes that are alliteration.
+    #' @description Find all pseudonyms that are alliterations.
+    #' @return Numerical vector containing indexes of all pseudonyms that are
+    #' alliterations.
     find_alliterations = function() {
       n <- lengths(private$parts)[2]
       unlist(
