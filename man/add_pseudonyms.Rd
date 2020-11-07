@@ -21,12 +21,16 @@ Supports tidy select. If empty, all columns will be used.}
 
 \item{.name}{Name of the new column as string.}
 
-\item{.before, .after}{Destination of new column, passed on to
-\code{dplyr::relocate()}}
+\item{.before}{<\code{\link[dplyr:dplyr_tidy_select]{tidy-select}}> Destination of
+columns selected by \code{...}. Supplying neither will move columns to the
+left-hand side; specifying both is an error.}
 
-\item{.ark}{Object of class \code{Ark}. If NULL (default) a new \code{Ark} is
-created. Using an existing Ark makes sure that the same input returns the
-same pseudonym.}
+\item{.after}{<\code{\link[dplyr:dplyr_tidy_select]{tidy-select}}> Destination of
+columns selected by \code{...}. Supplying neither will move columns to the
+left-hand side; specifying both is an error.}
+
+\item{.ark}{An Ark object. If NULL (default) a new Ark is created. Using an
+existing Ark makes sure that the same input returns the same pseudonym.}
 }
 \value{
 A data frame with an additional column containing the pseudonyms.

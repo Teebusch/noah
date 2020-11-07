@@ -143,10 +143,10 @@ Ark <- R6::R6Class("Ark",
     #' @field alliterate Logical, generate alliterations by default?
     alliterate = NULL,
 
-    #' @field index_alliterate indices of alliterations
+    #' @field index_allit indices of alliterations
     index_allit = NULL,
 
-    #' @field index_shuffled a random permutation of the index
+    #' @field index_perm a random permutation of the index
     index_perm = NULL,
 
     #' @description Returns the pseudonym corresponding to an index.

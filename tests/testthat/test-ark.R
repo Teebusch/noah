@@ -155,36 +155,53 @@ test_that("add_pseudonyms() fails when no columns are selected", {
 })
 
 test_that("Ark print function prints something", {
-  a <- Ark$new()
+  ark <- Ark$new()
   expect_that(
-    print(a),
+    print(ark),
     prints_text("An Ark:.+The Ark is empty.")
   )
-  pseudonymize(1:20, .ark = a)
+  pseudonymize(1:20, .ark = ark)
   expect_that(
-    print(a),
+    print(ark),
     prints_text("An Ark:.+key\\s*pseudonym.+with 10 more entries")
   )
 })
 
 test_that("Ark print n argument works", {
-  a <- Ark$new()
-  pseudonymize(1:20, .ark = a)
+  ark <- Ark$new()
+  pseudonymize(1:20, .ark = ark)
   expect_that(
-    print(a),
+    print(ark),
     prints_text("\\.\\.\\.with 10 more entries")
   )
   expect_that(
-    print(a, n = 15),
+    print(ark, n = 15),
     prints_text("\\.\\.\\.with 5 more entries")
   )
 })
 
 test_that("Alliterations work", {
-  a <- Ark$new(alliterate = TRUE)
-  res <- pseudonymize(1:10, .ark = a)
+  ark <- Ark$new(alliterate = TRUE)
+  res <- pseudonymize(1:10, .ark = ark)
   res <- strsplit(res, " ")
   res <- lapply(res, function(x) substr(x, 1, 1))
   res <- sapply(res, function(x) length(unique(x)) == 1)
   expect_true(all(res))
+})
+
+test_that("ark can produce max_length unique pseudonyms", {
+  ark <- Ark$new()
+  max_length <- ark$.__enclos_env__$private$max_length
+  res <- ark$pseudonymize(1:max_length)
+  expect_length(unique(res), max_length)
+  expect_length(res, max_length)
+})
+
+test_that("alliterate TRUE/FALSE can be mixed without pseudonyms repeating", {
+  ark <- Ark$new()
+  n <- ark$.__enclos_env__$private$max_length
+  k <- 1000
+  x <- pseudonymize(1:k, .alliterate = TRUE, .ark = ark)
+  y <- pseudonymize((k+1):n, .alliterate = FALSE, .ark = ark)
+  expect_true(length(union(x,y)) == n)
 })
