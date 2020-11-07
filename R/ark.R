@@ -57,7 +57,7 @@ Ark <- R6::R6Class("Ark",
         self$log[keys[!is_in]] <- private$index_to_pseudonym(i)
       }
 
-      out <- hash::values(self$log, keys)
+      out <- hash::values(self$log, keys, USE.NAMES = FALSE)
       out
     },
 
