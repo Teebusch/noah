@@ -49,11 +49,14 @@ Ark <- R6::R6Class("Ark",
       if (n_new > 0) {
         if (.alliterate) {
           i <- private$index_allit(n_new)
+          private$index_perm <- remove_remaining(private$index_perm, i)
         } else {
           i <- private$index_perm(n_new)
+          private$index_allit <- remove_remaining(private$index_allit, i)
         }
         self$log[keys[!is_in]] <- private$index_to_pseudonym(i)
       }
+
       out <- hash::values(self$log, keys)
       out
     },
