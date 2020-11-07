@@ -9,12 +9,6 @@
 #' permutation of integers 1 to n without repetition,. If all available
 #' numbers 1 to n have been returned but more are requested, the function throws
 #' an error.
-#'
-#' @examples
-#' f <- random_permutation(5)
-#' f(3)
-#' f(2)
-#' f(1)
 random_permutation <- function(n) {
   if (length(n) == 1) {
     # manual RLE
@@ -58,11 +52,6 @@ random_permutation <- function(n) {
 #'
 #' @return A random permutation function which will not produce the numbers in
 #' i anymore.
-#'
-#' @examples
-#' f <- random_permutation(5)
-#' f <- remove_remaining(f, 1:3)
-#' f(2)
 remove_remaining <- function(f, i) {
   assertthat::assert_that(is.function(f))
   assertthat::assert_that(is.numeric(i))
