@@ -4,15 +4,19 @@
 \alias{pseudonymize}
 \title{Create unique pseudonyms.}
 \usage{
-pseudonymize(..., .ark = NULL)
+pseudonymize(..., .alliterate = NULL, .ark = NULL)
 }
 \arguments{
 \item{...}{One or multiple objects to use as keys for which pseudonyms
 should be created, usually one or more columns of a data frame.
 All objects must be of the same length.}
 
-\item{.ark}{An Ark object. By default a new Ark is created. Using an existing
-Ark makes sure that the same input returns the same pseudonym.}
+\item{.alliterate}{Logical. Should only pseudonyms that are alliterations be
+returned? Defaults to FALSE, or TRUE if set as TRUE for the Ark provided to
+\code{.ark}. If set, takes precedence over the Ark's default setting.}
+
+\item{.ark}{An Ark object. If NULL (default) a new Ark is created. Using an
+existing Ark makes sure that the same input returns the same pseudonym.}
 }
 \value{
 A character vector of pseudonyms.
