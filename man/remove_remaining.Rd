@@ -21,8 +21,3 @@ i anymore.
 Modify the random permutation function f in order to remove numbers i from
 the numbers that are available in the random permutation
 }
-\examples{
-f <- random_permutation(5)
-f <- remove_remaining(f, 1:3)
-f(2)
-}

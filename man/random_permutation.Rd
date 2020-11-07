@@ -24,9 +24,3 @@ permutation of integers 1 to n without repetition. The numbers are generated
 using the Fisher-Yates algorithm and run length encoding (RLE) is used to
 keep memory use for the storage of used/available numbers minimal.
 }
-\examples{
-f <- random_permutation(5)
-f(3)
-f(2)
-f(1)
-}
