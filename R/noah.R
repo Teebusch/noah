@@ -11,15 +11,18 @@
 #' @param ... One or multiple objects to use as keys for which pseudonyms
 #' should be created, usually one or more columns of a data frame.
 #' All objects must be of the same length.
-#' @param .ark An Ark object. By default a new Ark is created. Using an existing
-#' Ark makes sure that the same input returns the same pseudonym.
+#' @param .alliterate Logical. Should only pseudonyms that are alliterations be
+#' returned? Defaults to FALSE, or TRUE if set as TRUE for the Ark provided to
+#' `.ark`. If set, takes precedence over the Ark's default setting.
+#' @param .ark An Ark object. If NULL (default) a new Ark is created. Using an
+#' existing Ark makes sure that the same input returns the same pseudonym.
 #'
 #' @return A character vector of pseudonyms.
 #' @export
 #'
 #' @examples
 #' pseudonymize("Mata Hari")
-pseudonymize <- function(..., .ark = NULL) {
+pseudonymize <- function(..., .alliterate = NULL, .ark = NULL) {
   if (is.null(.ark)) {
     .ark <- Ark$new()
   } else {
@@ -35,11 +38,8 @@ pseudonymize <- function(..., .ark = NULL) {
 #' @param ... Columns to use as keys on which pseudonyms should be based.
 #' Supports tidy select. If empty, all columns will be used.
 #' @param .name Name of the new column as string.
-#' @param .before,.after Destination of new column, passed on to
-#' `dplyr::relocate()`
-#' @param .ark Object of class `Ark`. If NULL (default) a new `Ark` is
-#' created. Using an existing Ark makes sure that the same input returns the
-#' same pseudonym.
+#' @inheritParams dplyr::relocate
+#' @inheritParams pseudonymize
 #'
 #' @return A data frame with an additional column containing the pseudonyms.
 #' @export

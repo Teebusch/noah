@@ -18,7 +18,11 @@ as hashes.}
 
 \item{\code{max_length}}{Maximum number of possible pseudonyms in the Ark.}
 
-\item{\code{index_shuffled}}{a random permutation of the index}
+\item{\code{alliterate}}{Logical, generate alliterations by default?}
+
+\item{\code{index_allit}}{indices of alliterations}
+
+\item{\code{index_perm}}{a random permutation of the index}
 }
 \if{html}{\out{</div>}}
 }
@@ -29,7 +33,11 @@ as hashes.}
 
 \item{\code{max_length}}{Maximum number of possible pseudonyms in the Ark.}
 
-\item{\code{index_shuffled}}{a random permutation of the index}
+\item{\code{alliterate}}{Logical, generate alliterations by default?}
+
+\item{\code{index_allit}}{indices of alliterations}
+
+\item{\code{index_perm}}{a random permutation of the index}
 }
 \if{html}{\out{</div>}}
 }
@@ -70,13 +78,18 @@ A new \code{Ark} object.
 \subsection{Method \code{pseudonymize()}}{
 Create Pseudonyms for input.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Ark$pseudonymize(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Ark$pseudonymize(..., .alliterate = NULL)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{...}}{One or more R objects.}
+
+\item{\code{.alliterate}}{Logical. Return only pseudonyms that are
+alliterations. Defaults to TRUE if the Ark was created with
+\code{Ark$new(alliterate = TRUE)}, FALSE otherwise. If FALSE, pseudonyms
+may still be alliterations by coincidence.}
 }
 \if{html}{\out{</div>}}
 }
