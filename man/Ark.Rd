@@ -2,7 +2,7 @@
 % Please edit documentation in R/ark.R
 \name{Ark}
 \alias{Ark}
-\title{A pseudonym archive.}
+\title{A pseudonym archive}
 \description{
 An Ark object can create and remember pseudonyms.
 Given the same input, it will always return the same pseudonym.

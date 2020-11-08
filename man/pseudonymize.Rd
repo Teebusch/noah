@@ -2,7 +2,7 @@
 % Please edit documentation in R/noah.R
 \name{pseudonymize}
 \alias{pseudonymize}
-\title{Create unique pseudonyms.}
+\title{Create unique pseudonyms}
 \usage{
 pseudonymize(..., .alliterate = NULL, .ark = NULL)
 }

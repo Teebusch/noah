@@ -1,4 +1,4 @@
-#' A pseudonym archive.
+#' A pseudonym archive
 #'
 #' @description
 #' An Ark object can create and remember pseudonyms.
