@@ -43,15 +43,15 @@ them row by row.
 library(noah)
 
 pseudonymize(1:9)
-#> [1] "Sad Roadrunner"      "Belligerent Cat"     "Pale Koala"         
-#> [4] "Rich Leopard"        "Efficient Pony"      "Typical Condor"     
-#> [7] "Swanky Heron"        "Goofy Peacock"       "Opposite Roadrunner"
+#> [1] "Satisfying Roadrunner" "Belligerent Cat"       "Parallel Koala"       
+#> [4] "Ripe Leopard"          "Elated Pony"           "Unbecoming Condor"    
+#> [7] "Tacit Heron"           "Grandiose Peacock"     "Organic Roadrunner"
 
 pseudonymize(
   c("🐰", "🐰", "🐰"), 
   c("🥕", "🥕", "🍰")
 )
-#> [1] "Alike Clam"       "Alike Clam"       "Coherent Ladybug"
+#> [1] "Curious Gull"     "Curious Gull"     "Extra-Large Wasp"
 ```
 
 ### Adding pseudonyms to data frames
@@ -73,18 +73,18 @@ diabetic %>%
   mutate(pseudonym = pseudonymize(id)) %>% 
   relocate(pseudonym)
 #> # A tibble: 394 x 9
-#>    pseudonym          id laser   age eye     trt  risk  time status
-#>    <chr>           <int> <fct> <int> <fct> <int> <int> <dbl>  <int>
-#>  1 Eight Swordfish     5 argon    28 left      0     9  46.2      0
-#>  2 Eight Swordfish     5 argon    28 right     1     9  46.2      0
-#>  3 Standing Serval    14 xenon    12 left      1     8  42.5      0
-#>  4 Standing Serval    14 xenon    12 right     0     6  31.3      1
-#>  5 Silent Krill       16 xenon     9 left      1    11  42.3      0
-#>  6 Silent Krill       16 xenon     9 right     0    11  42.3      0
-#>  7 Graceful Bull      25 xenon     9 left      0    11  20.6      0
-#>  8 Graceful Bull      25 xenon     9 right     1    11  20.6      0
-#>  9 Lame Giraffe       29 xenon    13 left      0    10   0.3      1
-#> 10 Lame Giraffe       29 xenon    13 right     1     9  38.8      0
+#>    pseudonym             id laser   age eye     trt  risk  time status
+#>    <chr>              <int> <fct> <int> <fct> <int> <int> <dbl>  <int>
+#>  1 Waggish Caribou        5 argon    28 left      0     9  46.2      0
+#>  2 Waggish Caribou        5 argon    28 right     1     9  46.2      0
+#>  3 Furtive Capybara      14 xenon    12 left      1     8  42.5      0
+#>  4 Furtive Capybara      14 xenon    12 right     0     6  31.3      1
+#>  5 Weary Alligator       16 xenon     9 left      1    11  42.3      0
+#>  6 Weary Alligator       16 xenon     9 right     0    11  42.3      0
+#>  7 Aggressive Fox        25 xenon     9 left      0    11  20.6      0
+#>  8 Aggressive Fox        25 xenon     9 right     1    11  20.6      0
+#>  9 Utopian Parrotfish    29 xenon    13 left      0    10   0.3      1
+#> 10 Utopian Parrotfish    29 xenon    13 right     1     9  38.8      0
 #> # ... with 384 more rows
 ```
 
@@ -98,29 +98,29 @@ syntax for selecting the key columns:
 diabetic %>% 
   add_pseudonyms(id, where(is.factor))
 #> # A tibble: 394 x 9
-#>    pseudonym             id laser   age eye     trt  risk  time status
-#>    <chr>              <int> <fct> <int> <fct> <int> <int> <dbl>  <int>
-#>  1 Flaky Shrimp           5 argon    28 left      0     9  46.2      0
-#>  2 Green Stingray         5 argon    28 right     1     9  46.2      0
-#>  3 Spectacular Newt      14 xenon    12 left      1     8  42.5      0
-#>  4 Moldy Lionfish        14 xenon    12 right     0     6  31.3      1
-#>  5 Huge Manatee          16 xenon     9 left      1    11  42.3      0
-#>  6 Berserk Swordtail     16 xenon     9 right     0    11  42.3      0
-#>  7 Unwieldy Shrew        25 xenon     9 left      0    11  20.6      0
-#>  8 Far Silkworm          25 xenon     9 right     1    11  20.6      0
-#>  9 Perpetual Basilisk    29 xenon    13 left      0    10   0.3      1
-#> 10 Addicted Guanaco      29 xenon    13 right     1     9  38.8      0
+#>    pseudonym                   id laser   age eye     trt  risk  time status
+#>    <chr>                    <int> <fct> <int> <fct> <int> <int> <dbl>  <int>
+#>  1 Yummy Ocelot                 5 argon    28 left      0     9  46.2      0
+#>  2 Tidy Swift                   5 argon    28 right     1     9  46.2      0
+#>  3 Exotic Aardvark             14 xenon    12 left      1     8  42.5      0
+#>  4 Tasty Tern                  14 xenon    12 right     0     6  31.3      1
+#>  5 Exciting Barracuda          16 xenon     9 left      1    11  42.3      0
+#>  6 Astonishing Rat             16 xenon     9 right     0    11  42.3      0
+#>  7 Holistic Sawfish            25 xenon     9 left      0    11  20.6      0
+#>  8 Healthy Porcupine           25 xenon     9 right     1    11  20.6      0
+#>  9 Cooperative Hippopotamus    29 xenon    13 left      0    10   0.3      1
+#> 10 Utter Constrictor           29 xenon    13 right     1     9  38.8      0
 #> # ... with 384 more rows
 ```
 
 ### Keeping track of pseudonyms with an `Ark`
 
-to make sure that all pseudonyms are unique and consistent,
+To make sure that all pseudonyms are unique and consistent,
 `pseudonymize()` and `add_pseudonyms()` use an object of class `Ark` (a
 pseudonym archive) By default, a new `Ark` gets created implicitly for
-each function call, but we can also provide an `Ark` ourselvels, to keep
-track of the pseudonyms that have been used and make sure the same key
-always gets assigned the same pseudonym:
+each function call, but we can also provide an `Ark` ourselves, to keep
+track of the pseudonyms that have been used and make sure that the same
+keys always get assigned the same pseudonym:
 
 ``` r
 ark <- Ark$new()
@@ -138,18 +138,18 @@ diabetic_right <- diabetic %>%
 bind_rows(diabetic_left, diabetic_right) %>% 
   arrange(id)
 #> # A tibble: 394 x 9
-#>    pseudonym           id laser   age eye     trt  risk  time status
-#>    <chr>            <int> <fct> <int> <fct> <int> <int> <dbl>  <int>
-#>  1 Phobic Planarian     5 argon    28 left      0     9  46.2      0
-#>  2 Phobic Planarian     5 argon    28 right     1     9  46.2      0
-#>  3 Tasteless Tiglon    14 xenon    12 left      1     8  42.5      0
-#>  4 Tasteless Tiglon    14 xenon    12 right     0     6  31.3      1
-#>  5 Melted Butterfly    16 xenon     9 left      1    11  42.3      0
-#>  6 Melted Butterfly    16 xenon     9 right     0    11  42.3      0
-#>  7 Fumbling Locust     25 xenon     9 left      0    11  20.6      0
-#>  8 Fumbling Locust     25 xenon     9 right     1    11  20.6      0
-#>  9 Right Peacock       29 xenon    13 left      0    10   0.3      1
-#> 10 Right Peacock       29 xenon    13 right     1     9  38.8      0
+#>    pseudonym              id laser   age eye     trt  risk  time status
+#>    <chr>               <int> <fct> <int> <fct> <int> <int> <dbl>  <int>
+#>  1 Nauseating Basilisk     5 argon    28 left      0     9  46.2      0
+#>  2 Nauseating Basilisk     5 argon    28 right     1     9  46.2      0
+#>  3 Discreet Marlin        14 xenon    12 left      1     8  42.5      0
+#>  4 Discreet Marlin        14 xenon    12 right     0     6  31.3      1
+#>  5 Violent Guan           16 xenon     9 left      1    11  42.3      0
+#>  6 Violent Guan           16 xenon     9 right     0    11  42.3      0
+#>  7 Abashed Loris          25 xenon     9 left      0    11  20.6      0
+#>  8 Abashed Loris          25 xenon     9 right     1    11  20.6      0
+#>  9 Illustrious Leech      29 xenon    13 left      0    10   0.3      1
+#> 10 Illustrious Leech      29 xenon    13 right     1     9  38.8      0
 #> # ... with 384 more rows
 ```
 
@@ -157,20 +157,25 @@ The ark now contains 197 pseudonyms – as many as there are unique id’s
 in the dataset.
 
 ``` r
+length(unique(diabetic$id))
+#> [1] 197
 length(ark)
 #> [1] 197
 ```
 
 ### Making an alliterating Ark
 
-We can also configure an `Ark` to generate only alliterations:
+For extra delight, we can also configure an `Ark` so that it generates
+only alliterations:
 
 ``` r
 ark <- Ark$new(alliterate = TRUE)
+
 pseudonymize(1:12, .ark = ark)
-#>  [1] "Complex Crawdad"  "Damaged Duck"     "Draconian Deer"   "Spiritual Swift" 
-#>  [5] "Gamy Goose"       "Sable Snake"      "Sore Scallop"     "Puny Puffin"     
-#>  [9] "Madly Marsupial"  "Brave Bat"        "Lopsided Lark"    "Careful Catshark"
+#>  [1] "Crazy Cobra"           "Whimsical Waterbuck"   "Enchanted Egret"      
+#>  [4] "Damaging Dragonfly"    "Taboo Toad"            "Material Marmoset"    
+#>  [7] "Rabid Roundworm"       "Oval Ox"               "Venomous Voalavoanala"
+#> [10] "Average Ant"           "Frightening Ferret"    "Educated Elephant"
 ```
 
 ## Related R packages
@@ -184,9 +189,8 @@ more:
   - [`randNames`](https://github.com/karthik/randNames)
   - [`generator`](https://github.com/paulhendricks/generator)
 
-There are also packages for anonymizing personal identifiable
-information in data sets. If you need watertight anonymization you
-should check out these packages:
+If you need watertight anonymization you should check out these packages
+for anonymizing personal identifiable information in data sets:
 
   - [`sdcMicro`](http://sdctools.github.io/sdcMicro/index.html)
   - [`sdcTable`](https://sdctools.github.io/sdcTable/index.html)

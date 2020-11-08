@@ -1,7 +1,9 @@
-#' Generates a function that provides lazy number generation from a random
-#' permutation of integers 1 to n without repetition. The numbers are generated
-#' using the Fisher-Yates algorithm and run length encoding (RLE) is used to
-#' keep memory use for the storage of used/available numbers minimal.
+#' Generate a lazy non-repeating random number generator
+#'
+#' @description Generates a function that provides lazy number generation from
+#' a random permutation of integers 1 to n without repetition. The numbers are
+#' generated using the Fisher-Yates algorithm and run length encoding (RLE) is
+#' used to keep memory use for the storage of used/available numbers minimal.
 #'
 #' @param n Upper limit for random numbers (inclusive).
 #'
@@ -9,6 +11,8 @@
 #' permutation of integers 1 to n without repetition,. If all available
 #' numbers 1 to n have been returned but more are requested, the function throws
 #' an error.
+#'
+#' @keywords internal
 random_permutation <- function(n) {
   if (length(n) == 1) {
     # manual RLE
@@ -43,8 +47,10 @@ random_permutation <- function(n) {
 }
 
 
-#' Modify the random permutation function f in order to remove numbers i from
-#' the numbers that are available in the random permutation
+#' Remove numbers from a lazy non-repeating random number generator
+#'
+#' @description Modify the random permutation function f in order to remove
+#' numbers i from the numbers that are available in the random permutation
 #'
 #' @param f Function created by `random_permutation()`
 #' @param i Integer vector of numbers that should  be removed from remaining
@@ -52,6 +58,8 @@ random_permutation <- function(n) {
 #'
 #' @return A random permutation function which will not produce the numbers in
 #' i anymore.
+#'
+#' @keywords internal
 remove_remaining <- function(f, i) {
   assertthat::assert_that(is.function(f))
   assertthat::assert_that(is.numeric(i))

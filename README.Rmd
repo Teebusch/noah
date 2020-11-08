@@ -91,12 +91,12 @@ diabetic %>%
 
 ### Keeping track of pseudonyms with an `Ark`
 
-to make sure that all pseudonyms are unique and consistent, `pseudonymize()` and 
+To make sure that all pseudonyms are unique and consistent, `pseudonymize()` and 
 `add_pseudonyms()` use an object of class `Ark` (a pseudonym archive) 
 By default, a new `Ark` gets created implicitly for each function call, 
-but we can also provide an `Ark` ourselvels, to keep track of the pseudonyms 
-that have been used and make sure the same key always gets assigned the same 
-pseudonym:
+but we can also provide an `Ark` ourselves, to keep track of the pseudonyms 
+that have been used and make sure that the same keys always get assigned the 
+same pseudonym:
 
 ```{r example-ark}
 ark <- Ark$new()
@@ -119,15 +119,18 @@ The ark now contains `r length(ark)` pseudonyms -- as many as there are unique
 id's in the dataset.
 
 ```{r}
+length(unique(diabetic$id))
 length(ark)
 ```
 
 ### Making an alliterating Ark
 
-We can also configure an `Ark` to generate only alliterations:
+For extra delight, we can also configure an `Ark` so that it generates only 
+alliterations:
 
 ```{r}
 ark <- Ark$new(alliterate = TRUE)
+
 pseudonymize(1:12, .ark = ark)
 ```
 
@@ -142,9 +145,8 @@ phone numbers, addresses, credit card numbers, gene sequences and more:
 - [`randNames`](https://github.com/karthik/randNames)
 - [`generator`](https://github.com/paulhendricks/generator)
   
-There are also packages for anonymizing personal identifiable information in 
-data sets. If you need watertight anonymization you should check out these 
-packages:
+If you need watertight anonymization you should check out these 
+packages for anonymizing personal identifiable information in data sets:
 
 - [`sdcMicro`](http://sdctools.github.io/sdcMicro/index.html)
 - [`sdcTable`](https://sdctools.github.io/sdcTable/index.html)

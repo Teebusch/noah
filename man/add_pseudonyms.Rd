@@ -2,7 +2,7 @@
 % Please edit documentation in R/noah.R
 \name{add_pseudonyms}
 \alias{add_pseudonyms}
-\title{Add column with pseudonyms to a data frame.}
+\title{Add column with pseudonyms to a data frame}
 \usage{
 add_pseudonyms(
   .data,
@@ -36,7 +36,7 @@ existing Ark makes sure that the same input returns the same pseudonym.}
 A data frame with an additional column containing the pseudonyms.
 }
 \description{
-Add column with pseudonyms to a data frame.
+Add column with pseudonyms to a data frame
 }
 \examples{
 add_pseudonyms(mtcars)

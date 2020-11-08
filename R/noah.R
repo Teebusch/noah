@@ -1,4 +1,4 @@
-#' Create unique pseudonyms.
+#' Create unique pseudonyms
 #'
 #' Pseudonymize returns unique pseudonyms for R objects.
 #' It accepts any number of vectors and data frame as arguments and will use
@@ -32,7 +32,7 @@ pseudonymize <- function(..., .alliterate = NULL, .ark = NULL) {
 }
 
 
-#' Add column with pseudonyms to a data frame.
+#' Add column with pseudonyms to a data frame
 #'
 #' @param .data A data frame to add pseudonyms to.
 #' @param ... Columns to use as keys on which pseudonyms should be based.

@@ -2,8 +2,7 @@
 % Please edit documentation in R/random_permutation.R
 \name{remove_remaining}
 \alias{remove_remaining}
-\title{Modify the random permutation function f in order to remove numbers i from
-the numbers that are available in the random permutation}
+\title{Remove numbers from a lazy non-repeating random number generator}
 \usage{
 remove_remaining(f, i)
 }
@@ -18,6 +17,7 @@ A random permutation function which will not produce the numbers in
 i anymore.
 }
 \description{
-Modify the random permutation function f in order to remove numbers i from
-the numbers that are available in the random permutation
+Modify the random permutation function f in order to remove
+numbers i from the numbers that are available in the random permutation
 }
+\keyword{internal}
