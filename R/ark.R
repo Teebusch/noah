@@ -35,9 +35,7 @@ Ark <- R6::R6Class("Ark",
     #' may still be alliterations by coincidence.
     #' @return Character vector of pseudonyms with same length as input.
     pseudonymize = function(..., .alliterate = NULL) {
-      if (is.null(.alliterate)) {
-        .alliterate <- private$alliterate
-      }
+      .alliterate <- .alliterate %||% private$alliterate
       assertthat::is.flag(.alliterate)
 
       keys   <- suppressMessages(dplyr::bind_cols(...))
