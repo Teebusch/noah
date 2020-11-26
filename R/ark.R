@@ -141,7 +141,7 @@ Ark <- R6::R6Class("Ark",
     #' @field alliterate Logical, generate alliterations by default?
     alliterate = NULL,
 
-    #' @field index_allit indices of alliterations
+    #' @field index_allit a random permutation of indices of alliterations
     index_allit = NULL,
 
     #' @field index_perm a random permutation of the index
@@ -153,21 +153,22 @@ Ark <- R6::R6Class("Ark",
     #' @return A character vector of pseudonyms with the same length as the
     #' input
     index_to_pseudonym = function(index) {
-      k <- index - 1
-      n <- lengths(private$parts)[2]
-      i <- (k %/% n) + 1
-      j <- (k %% n) + 1
-      paste(private$parts[[1]][i], private$parts[[2]][j])
+      index <- data.frame(arrayInd(index, .dim = lengths(private$parts)))
+
+      purrr::pmap_chr(
+        purrr::map2(private$parts, index, ~ .x[.y]),
+        ~ paste(...)
+      )
     },
 
     #' @description Find all pseudonyms that are alliterations.
     #' @return Numerical vector containing indexes of all pseudonyms that are
     #' alliterations.
     find_alliterations = function() {
-      n <- lengths(private$parts)[2]
+      n <- lengths(private$parts)[1]
       unlist(
-        purrr::imap(private$parts[[1]], ~ {
-          which(substr(.x, 1, 1) == substr(private$parts[[2]], 1, 1)) +
+        purrr::imap(private$parts[[2]], ~ {
+          which(substr(.x, 1, 1) == substr(private$parts[[1]], 1, 1)) +
             (.y - 1) * n
         })
       )
