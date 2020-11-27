@@ -153,11 +153,10 @@ Ark <- R6::R6Class("Ark",
     #' @return A character vector of pseudonyms with the same length as the
     #' input
     index_to_pseudonym = function(index) {
-      index <- data.frame(arrayInd(index, .dim = lengths(private$parts)))
+      subs <- ind2subs(index, lengths(private$parts))
 
       purrr::pmap_chr(
-        purrr::map2(private$parts, index, ~ .x[.y]),
-        ~ paste(...)
+        purrr::map2(private$parts, subs, ~ .x[.y]), paste
       )
     },
 
@@ -165,13 +164,15 @@ Ark <- R6::R6Class("Ark",
     #' @return Numerical vector containing indexes of all pseudonyms that are
     #' alliterations.
     find_alliterations = function() {
-      n <- lengths(private$parts)[1]
-      unlist(
-        purrr::imap(private$parts[[2]], ~ {
-          which(substr(.x, 1, 1) == substr(private$parts[[1]], 1, 1)) +
-            (.y - 1) * n
-        })
-      )
+      first_letters <- purrr::map(private$parts, ~ substr(.x, 1, 1))
+
+      # get subscripts of all name parts with matching first letter
+      subs <- purrr::map_dfr(LETTERS, function(ltr) {
+          purrr::map(first_letters, ~ which(.x == ltr)) %>%
+            expand.grid()
+      })
+
+      subs2ind(subs, lengths(private$parts))
     }
   )
 )

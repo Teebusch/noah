@@ -28,7 +28,7 @@ pseudonymize <- function(..., .alliterate = NULL, .ark = NULL) {
   } else {
     assertthat::assert_that(inherits(.ark, "Ark"))
   }
-  .ark$pseudonymize(...)
+  .ark$pseudonymize(..., .alliterate = .alliterate)
 }
 
 
