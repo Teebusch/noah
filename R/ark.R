@@ -17,10 +17,17 @@ Ark <- R6::R6Class("Ark",
     #' @description Create new ark object.
     #' @param alliterate Logical. Should the Ark return alliterations by
     #' default?
+    #' @param parts List of character vectors with name parts to be used for the
+    #' pseudonyms. Defaults to adjectives and animals.
     #' @return A new `Ark` object.
-    initialize = function(alliterate = FALSE) {
+    initialize = function(alliterate = FALSE, parts = NULL) {
+      private$parts <- if (is.null(parts)) {
+        name_parts[c("adjectives", "animals")]
+      } else {
+        clean_name_parts(parts)
+      }
+
       self$log            <- hash::hash()
-      private$parts       <- name_parts
       private$alliterate  <- alliterate
       private$max_length  <- prod(lengths(private$parts))
       private$index_allit <- random_permutation(private$find_alliterations())
@@ -180,3 +187,14 @@ Ark <- R6::R6Class("Ark",
 
 #' @export
 length.Ark <- function(x) x$length()
+
+
+#' @keywords internal
+clean_name_parts <- function(parts) {
+  purrr::map(parts, ~
+   .x %>%
+   stringr::str_squish() %>%
+   stringr::str_to_title() %>%
+   unique()
+  )
+}

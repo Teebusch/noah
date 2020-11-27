@@ -4,6 +4,29 @@ test_that("Ark object can be created", {
   expect_s3_class(ark, "R6")
 })
 
+test_that("Ark object can be initialized with custom name parts", {
+  ark <- Ark$new(parts = list(
+    foo = sample(name_parts[[1]], 42),
+    bar = sample(name_parts[[2]], 42)
+  ))
+  max_length <- ark$.__enclos_env__$private$max_length
+  expect_s3_class(ark, "Ark")
+  expect_s3_class(ark, "R6")
+  expect_equal(max_length, 42*42)
+})
+
+test_that("custom name parts can have more than two dimensions", {
+  ark <- Ark$new(parts = list(
+    foo = sample(name_parts[[1]], 42),
+    bar = sample(name_parts[[1]], 42),
+    baz = sample(name_parts[[2]], 42)
+  ))
+  max_length <- ark$.__enclos_env__$private$max_length
+  expect_s3_class(ark, "Ark")
+  expect_s3_class(ark, "R6")
+  expect_equal(max_length, 42*42*42)
+})
+
 test_that("A single value can be pseudonymized", {
   res <- pseudonymize("Mata Hari")
   expect_true(res != "Mata Hari")
@@ -190,14 +213,44 @@ test_that("Alliterations work with alliterating Ark", {
 })
 
 test_that("Alliterations work with `pseudonymize()`", {
-  res <- pseudonymize(1:10, .alliterate = TRUE)
+  ark <- Ark$new(alliterate = TRUE)
+  res <- ark$pseudonymize(1:10, .alliterate = TRUE)
   res <- strsplit(res, " ")
   res <- lapply(res, function(x) substr(x, 1, 1))
   res <- sapply(res, function(x) length(unique(x)) == 1)
   expect_true(all(res))
 })
 
+test_that("Alliterations work with custom name parts and more than two
+          dimensions", {
+  set.seed(1234)
+  ark <- Ark$new(parts = list(
+    foo = sample(name_parts[[1]], 100),
+    bar = sample(name_parts[[1]], 100),
+    baz = sample(name_parts[[2]], 100)
+  ))
+  res <- pseudonymize(1:10, .ark = ark, .alliterate = TRUE)
+  res <- strsplit(res, " ")
+  res <- lapply(res, function(x) substr(x, 1, 1))
+  res <- sapply(res, function(x) length(unique(x)) == 1)
+  expect_true(all(res))
+})
+
+test_that("ark can produce max_length unique pseudonyms using custom name
+          parts", {
+  ark <- Ark$new(parts = list(
+    foo = sample(name_parts[[1]], 10),
+    bar = sample(name_parts[[2]], 10)
+  ))
+  max_length <- ark$.__enclos_env__$private$max_length
+  res <- ark$pseudonymize(1:max_length)
+  expect_length(unique(res), max_length)
+  expect_length(res, max_length)
+})
+
 test_that("ark can produce max_length unique pseudonyms", {
+  skip("Long-running test skipped. Using shorter version.")
+  skip_on_cran()
   ark <- Ark$new()
   max_length <- ark$.__enclos_env__$private$max_length
   res <- ark$pseudonymize(1:max_length)
@@ -205,7 +258,22 @@ test_that("ark can produce max_length unique pseudonyms", {
   expect_length(res, max_length)
 })
 
+test_that("alliterate TRUE/FALSE can be mixed without pseudonyms repeating when
+          using custom name parts", {
+  ark <- Ark$new(parts = list(
+    foo = sample(name_parts[[1]], 100),
+    bar = sample(name_parts[[2]], 100)
+  ))
+  n <- ark$.__enclos_env__$private$max_length
+  k <- 100
+  x <- pseudonymize(1:k, .alliterate = TRUE, .ark = ark)
+  y <- pseudonymize((k+1):n, .alliterate = FALSE, .ark = ark)
+  expect_true(length(union(x,y)) == n)
+})
+
 test_that("alliterate TRUE/FALSE can be mixed without pseudonyms repeating", {
+  skip("Long-running test skipped. Using shorter version.")
+  skip_on_cran()
   ark <- Ark$new()
   n <- ark$.__enclos_env__$private$max_length
   k <- 1000
