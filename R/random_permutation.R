@@ -32,7 +32,9 @@ random_permutation <- function(n) {
     nleft <- length(remaining)
 
     if(nleft < m) {
-      stop("Error. Not enough numbers left in the permutation.")
+      stop(sprintf(
+        "Error. Not enough numbers left in the permutation.
+        Numbers requested: %i, numbers remaining: %i", m, nleft))
     }
 
     for (i in seq_len(m)) {
