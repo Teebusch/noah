@@ -17,14 +17,25 @@ Ark <- R6::R6Class("Ark",
     #' @description Create new ark object.
     #' @param alliterate Logical. Should the Ark return alliterations by
     #' default?
+    #' @param parts List of character vectors with name parts to be used for the
+    #' pseudonyms. Defaults to adjectives and animals.
     #' @return A new `Ark` object.
-    initialize = function(alliterate = FALSE) {
-      self$log            <- hash::hash()
-      private$parts       <- name_parts
+    initialize = function(alliterate = FALSE, parts = NULL) {
+      private$parts <- if (is.null(parts)) {
+        name_parts[c("adjectives", "animals")]
+      } else {
+        clean_name_parts(parts)
+      }
+
+      private$max_total  <- prod(lengths(private$parts))
+      private$index_perm  <- random_permutation(private$max_total)
+
+      index_allit         <- private$find_alliterations()
+      private$max_allit   <- length(index_allit)
+      private$index_allit <- random_permutation(index_allit)
       private$alliterate  <- alliterate
-      private$max_length  <- prod(lengths(private$parts))
-      private$index_allit <- random_permutation(private$find_alliterations())
-      private$index_perm  <- random_permutation(private$max_length)
+
+      self$log            <- hash::hash()
     },
 
     #' @description Create Pseudonyms for input.
@@ -35,16 +46,15 @@ Ark <- R6::R6Class("Ark",
     #' may still be alliterations by coincidence.
     #' @return Character vector of pseudonyms with same length as input.
     pseudonymize = function(..., .alliterate = NULL) {
-      if (is.null(.alliterate)) {
-        .alliterate <- private$alliterate
-      }
+      .alliterate <- .alliterate %||% private$alliterate
       assertthat::is.flag(.alliterate)
 
-      keys   <- suppressMessages(dplyr::bind_cols(...))
-      keys   <- purrr::pmap_chr(keys, function(...) digest::digest(list(...)))
-      n_keys <- length(keys)
-      is_in  <- hash::has.key(keys, self$log)
-      n_new  <- sum(!is_in)
+      keys       <- suppressMessages(dplyr::bind_cols(...))
+      keys       <- purrr::pmap_chr(keys,
+                                    function(...) digest::digest(list(...)))
+      n_keys     <- length(keys)
+      is_in      <- hash::has.key(keys, self$log)
+      n_new      <- sum(!is_in)
 
       if (n_new > 0) {
         if (.alliterate) {
@@ -68,20 +78,37 @@ Ark <- R6::R6Class("Ark",
       subtle <- crayon::make_style("grey60")
 
       # summary
-      perc_full <- self$length() / private$max_length
+      used_total <- self$length()
+      used_allit <- self$length_allit()
+      perc_total <- (used_total / private$max_total) * 100
+      perc_allit <- (used_allit / private$max_allit) * 100
+
       cat(
         subtle(
           sprintf(
-            "# An Ark: %i / %i pseudonyms used (%0.0f%%)\n",
-            self$length(), private$max_length, perc_full
+            "# An%sArk",
+            if(private$alliterate) " alliterating " else " "
           )
-        )
+        ),
+        subtle(
+          sprintf(
+            "# %i / %i pseudonyms used (%0.0f%%)",
+            used_total, private$max_total, perc_total
+          )
+        ),
+        subtle(
+          sprintf(
+            "# %i / %i alliterations used (%0.0f%%)\n",
+            used_allit, private$max_allit, perc_allit
+          )
+        ),
+        sep = "\n"
       )
 
       # entries
       if (self$length() == 0) {
         cat("The Ark is empty.")
-      } else if (self$length() >= private$max_length) {
+      } else if (self$length() >= private$max_total) {
         cat("The Ark is full")
       } else {
         if (is.null(n)) {
@@ -129,6 +156,12 @@ Ark <- R6::R6Class("Ark",
     #' @description Number of used pseudonyms in an Ark.
     length = function() {
       length(self$log)
+    },
+
+
+    #' @description Number of used alliterations in an Ark.
+    length_allit = function() {
+      private$max_allit - get_n_remaining(private$index_allit)
     }
   ),
 
@@ -137,13 +170,16 @@ Ark <- R6::R6Class("Ark",
     #' @field parts Words that will be combined to form pseudonyms.
     parts = NULL,
 
-    #' @field max_length Maximum number of possible pseudonyms in the Ark.
-    max_length = NULL,
+    #' @field max_total Maximum number of possible pseudonyms in the Ark.
+    max_total = NULL,
+
+    #' @field max_allit Maximum number of possible alliterations in the Ark.
+    max_allit = NULL,
 
     #' @field alliterate Logical, generate alliterations by default?
     alliterate = NULL,
 
-    #' @field index_allit indices of alliterations
+    #' @field index_allit a random permutation of indices of alliterations
     index_allit = NULL,
 
     #' @field index_perm a random permutation of the index
@@ -151,28 +187,30 @@ Ark <- R6::R6Class("Ark",
 
     #' @description Returns the pseudonym corresponding to an index.
     #' @param index An integer or a vector of integers between 1 and the Ark's
-    #' max_length.
+    #' max_total.
     #' @return A character vector of pseudonyms with the same length as the
     #' input
     index_to_pseudonym = function(index) {
-      k <- index - 1
-      n <- lengths(private$parts)[2]
-      i <- (k %/% n) + 1
-      j <- (k %% n) + 1
-      paste(private$parts[[1]][i], private$parts[[2]][j])
+      subs <- ind2subs(index, lengths(private$parts))
+
+      purrr::pmap_chr(
+        purrr::map2(private$parts, subs, ~ .x[.y]), paste
+      )
     },
 
     #' @description Find all pseudonyms that are alliterations.
     #' @return Numerical vector containing indexes of all pseudonyms that are
     #' alliterations.
     find_alliterations = function() {
-      n <- lengths(private$parts)[2]
-      unlist(
-        purrr::imap(private$parts[[1]], ~ {
-          which(substr(.x, 1, 1) == substr(private$parts[[2]], 1, 1)) +
-            (.y - 1) * n
-        })
-      )
+      first_letters <- purrr::map(private$parts, ~ substr(.x, 1, 1))
+
+      # get subscripts of all name parts with matching first letter
+      subs <- purrr::map_dfr(LETTERS, function(ltr) {
+          purrr::map(first_letters, ~ which(.x == ltr)) %>%
+            expand.grid()
+      })
+
+      subs2ind(subs, lengths(private$parts))
     }
   )
 )
@@ -180,3 +218,16 @@ Ark <- R6::R6Class("Ark",
 
 #' @export
 length.Ark <- function(x) x$length()
+
+
+#' Cleans name parts for use by an Ark.
+#'
+#' @keywords internal
+clean_name_parts <- function(parts) {
+  purrr::map(parts, ~
+   .x %>%
+   stringr::str_squish() %>%
+   stringr::str_to_title() %>%
+   unique()
+  )
+}

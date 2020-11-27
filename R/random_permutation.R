@@ -5,7 +5,7 @@
 #' generated using the Fisher-Yates algorithm and run length encoding (RLE) is
 #' used to keep memory use for the storage of used/available numbers minimal.
 #'
-#' @param n Upper limit for random numbers (inclusive).
+#' @param n Upper limit for random numbers (inclusive)
 #'
 #' @return A function `f(m)` that returns `m` random numbers from the random
 #' permutation of integers 1 to n without repetition,. If all available
@@ -30,15 +30,16 @@ random_permutation <- function(n) {
     out <- rep.int(NA_integer_, m)
     remaining <- rle_decode(remaining)
     nleft <- length(remaining)
+
+    if(nleft < m) {
+      stop("Error. Not enough numbers left in the permutation.")
+    }
+
     for (i in seq_len(m)) {
-      if (nleft) {
-        swap <- sample(nleft, 1)
-        out[i] <- remaining[swap]
-        remaining[swap] <- remaining[nleft]
-        nleft <- nleft - 1
-      } else {
-        stop("Error. Not enough numbers left in the permutation.")
-      }
+      swap <- sample(nleft, 1)
+      out[i] <- remaining[swap]
+      remaining[swap] <- remaining[nleft]
+      nleft <- nleft - 1
     }
     length(remaining) <- nleft
     remaining <<- rle_encode(remaining)
@@ -67,6 +68,18 @@ remove_remaining <- function(f, i) {
   remaining <- rle_decode(environment(f)$remaining)
   environment(f)$remaining <- rle_encode(setdiff(remaining, i))
   f
+}
+
+
+#' Get the number of unused elements left in a random permutation
+#'
+#' @param f Function created by `random_permutation()`
+#'
+#' @return Integer, number of elements left in the permutation
+#'
+#' @keywords internal
+get_n_remaining <- function(f) {
+  length(rle_decode(environment(f)$remaining))
 }
 
 

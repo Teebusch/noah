@@ -16,11 +16,13 @@ as hashes.}
 
 \item{\code{parts}}{Words that will be combined to form pseudonyms.}
 
-\item{\code{max_length}}{Maximum number of possible pseudonyms in the Ark.}
+\item{\code{max_total}}{Maximum number of possible pseudonyms in the Ark.}
+
+\item{\code{max_allit}}{Maximum number of possible alliterations in the Ark.}
 
 \item{\code{alliterate}}{Logical, generate alliterations by default?}
 
-\item{\code{index_allit}}{indices of alliterations}
+\item{\code{index_allit}}{a random permutation of indices of alliterations}
 
 \item{\code{index_perm}}{a random permutation of the index}
 }
@@ -31,11 +33,13 @@ as hashes.}
 \describe{
 \item{\code{parts}}{Words that will be combined to form pseudonyms.}
 
-\item{\code{max_length}}{Maximum number of possible pseudonyms in the Ark.}
+\item{\code{max_total}}{Maximum number of possible pseudonyms in the Ark.}
+
+\item{\code{max_allit}}{Maximum number of possible alliterations in the Ark.}
 
 \item{\code{alliterate}}{Logical, generate alliterations by default?}
 
-\item{\code{index_allit}}{indices of alliterations}
+\item{\code{index_allit}}{a random permutation of indices of alliterations}
 
 \item{\code{index_perm}}{a random permutation of the index}
 }
@@ -48,6 +52,7 @@ as hashes.}
 \item \href{#method-pseudonymize}{\code{Ark$pseudonymize()}}
 \item \href{#method-print}{\code{Ark$print()}}
 \item \href{#method-length}{\code{Ark$length()}}
+\item \href{#method-length_allit}{\code{Ark$length_allit()}}
 \item \href{#method-clone}{\code{Ark$clone()}}
 }
 }
@@ -57,7 +62,7 @@ as hashes.}
 \subsection{Method \code{new()}}{
 Create new ark object.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Ark$new(alliterate = FALSE)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Ark$new(alliterate = FALSE, parts = NULL)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -65,6 +70,9 @@ Create new ark object.
 \describe{
 \item{\code{alliterate}}{Logical. Should the Ark return alliterations by
 default?}
+
+\item{\code{parts}}{List of character vectors with name parts to be used for the
+pseudonyms. Defaults to adjectives and animals.}
 }
 \if{html}{\out{</div>}}
 }
@@ -121,6 +129,16 @@ Pretty-print an Ark object.
 Number of used pseudonyms in an Ark.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Ark$length()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-length_allit"></a>}}
+\if{latex}{\out{\hypertarget{method-length_allit}{}}}
+\subsection{Method \code{length_allit()}}{
+Number of used alliterations in an Ark.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Ark$length_allit()}\if{html}{\out{</div>}}
 }
 
 }

@@ -7,7 +7,7 @@
 random_permutation(n)
 }
 \arguments{
-\item{n}{Upper limit for random numbers (inclusive).}
+\item{n}{Upper limit for random numbers (inclusive)}
 }
 \value{
 A function \code{f(m)} that returns \code{m} random numbers from the random

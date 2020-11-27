@@ -28,7 +28,7 @@ pseudonymize <- function(..., .alliterate = NULL, .ark = NULL) {
   } else {
     assertthat::assert_that(inherits(.ark, "Ark"))
   }
-  .ark$pseudonymize(...)
+  .ark$pseudonymize(..., .alliterate = .alliterate)
 }
 
 
@@ -42,6 +42,7 @@ pseudonymize <- function(..., .alliterate = NULL, .ark = NULL) {
 #' @inheritParams pseudonymize
 #'
 #' @return A data frame with an additional column containing the pseudonyms.
+#' @importFrom rlang :=
 #' @export
 #'
 #' @examples
