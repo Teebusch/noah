@@ -11,15 +11,15 @@
 NULL
 
 
-#' Default value for NULL (coalescing OR operator)
+#' Coalescing infix OR operator
 #'
-#' See \code{rlang::\link[rlang::op-null-default]{\%||\%}} for details.
+#' Operator that provides default value for NULL.
+#' See \code{\link[rlang]{op-null-default}} for details.
 #'
-#' @name %||%
+#' @name op-null-default
 #' @rdname op-null-default
 #' @keywords internal
 #' @importFrom rlang %||%
-#' @usage x \%||\% y
 NULL
 
 

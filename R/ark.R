@@ -189,6 +189,8 @@ Ark <- R6::R6Class("Ark",
 length.Ark <- function(x) x$length()
 
 
+#' Cleans name parts for use by an Ark.
+#'
 #' @keywords internal
 clean_name_parts <- function(parts) {
   purrr::map(parts, ~

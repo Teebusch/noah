@@ -20,7 +20,7 @@ as hashes.}
 
 \item{\code{alliterate}}{Logical, generate alliterations by default?}
 
-\item{\code{index_allit}}{indices of alliterations}
+\item{\code{index_allit}}{a random permutation of indices of alliterations}
 
 \item{\code{index_perm}}{a random permutation of the index}
 }
@@ -35,7 +35,7 @@ as hashes.}
 
 \item{\code{alliterate}}{Logical, generate alliterations by default?}
 
-\item{\code{index_allit}}{indices of alliterations}
+\item{\code{index_allit}}{a random permutation of indices of alliterations}
 
 \item{\code{index_perm}}{a random permutation of the index}
 }
@@ -57,7 +57,7 @@ as hashes.}
 \subsection{Method \code{new()}}{
 Create new ark object.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Ark$new(alliterate = FALSE)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Ark$new(alliterate = FALSE, parts = NULL)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -65,6 +65,9 @@ Create new ark object.
 \describe{
 \item{\code{alliterate}}{Logical. Should the Ark return alliterations by
 default?}
+
+\item{\code{parts}}{List of character vectors with name parts to be used for the
+pseudonyms. Defaults to adjectives and animals.}
 }
 \if{html}{\out{</div>}}
 }

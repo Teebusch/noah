@@ -42,6 +42,7 @@ pseudonymize <- function(..., .alliterate = NULL, .ark = NULL) {
 #' @inheritParams pseudonymize
 #'
 #' @return A data frame with an additional column containing the pseudonyms.
+#' @importFrom rlang :=
 #' @export
 #'
 #' @examples
