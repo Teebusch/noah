@@ -9,10 +9,10 @@ test_that("Ark object can be initialized with custom name parts", {
     foo = sample(name_parts[[1]], 42),
     bar = sample(name_parts[[2]], 42)
   ))
-  max_length <- ark$.__enclos_env__$private$max_length
+  max_total <- ark$.__enclos_env__$private$max_total
   expect_s3_class(ark, "Ark")
   expect_s3_class(ark, "R6")
-  expect_equal(max_length, 42*42)
+  expect_equal(max_total, 42*42)
 })
 
 test_that("custom name parts can have more than two dimensions", {
@@ -21,10 +21,10 @@ test_that("custom name parts can have more than two dimensions", {
     bar = sample(name_parts[[1]], 42),
     baz = sample(name_parts[[2]], 42)
   ))
-  max_length <- ark$.__enclos_env__$private$max_length
+  max_total <- ark$.__enclos_env__$private$max_total
   expect_s3_class(ark, "Ark")
   expect_s3_class(ark, "R6")
-  expect_equal(max_length, 42*42*42)
+  expect_equal(max_total, 42*42*42)
 })
 
 test_that("A single value can be pseudonymized", {
@@ -45,21 +45,21 @@ test_that("Ark length method works", {
 
 test_that("Creating pseudonyms from index works", {
   ark <- Ark$new()
-  max_length <- ark$.__enclos_env__$private$max_length
+  max_total <- ark$.__enclos_env__$private$max_total
   f <- ark$.__enclos_env__$private$index_to_pseudonym  # shortcut
   expect_type(f(1), "character")
   expect_vector(f(c(1,2,3)))
   expect_length(f(c(1,2,3)), 3)
-  expect_length(f(1:max_length), max_length)
-  expect_type(f(1:max_length), "character")
+  expect_length(f(1:max_total), max_total)
+  expect_type(f(1:max_total), "character")
 })
 
 test_that("Fail when requesting more pseudonyms than available", {
   ark <- Ark$new()
-  max_length <- 5 # artificially limit max length for the test
-  ark$.__enclos_env__$private$index_perm  <- random_permutation(max_length)
-  expect_vector(ark$pseudonymize(1:max_length))
-  expect_error(ark$pseudonymize(1:(max_length + 1)))
+  max_total <- 5 # artificially limit max length for the test
+  ark$.__enclos_env__$private$index_perm  <- random_permutation(max_total)
+  expect_vector(ark$pseudonymize(1:max_total))
+  expect_error(ark$pseudonymize(1:(max_total + 1)))
   expect_error(ark$pseudonymize("foo"))
 })
 
@@ -181,12 +181,12 @@ test_that("Ark print function prints something", {
   ark <- Ark$new()
   expect_that(
     print(ark),
-    prints_text("An Ark:.+The Ark is empty.")
+    prints_text("An Ark.+The Ark is empty.")
   )
   pseudonymize(1:20, .ark = ark)
   expect_that(
     print(ark),
-    prints_text("An Ark:.+key\\s*pseudonym.+with 10 more entries")
+    prints_text("An Ark.+key\\s*pseudonym.+with 10 more entries")
   )
 })
 
@@ -236,26 +236,26 @@ test_that("Alliterations work with custom name parts and more than two
   expect_true(all(res))
 })
 
-test_that("ark can produce max_length unique pseudonyms using custom name
+test_that("ark can produce max_total unique pseudonyms using custom name
           parts", {
   ark <- Ark$new(parts = list(
     foo = sample(name_parts[[1]], 10),
     bar = sample(name_parts[[2]], 10)
   ))
-  max_length <- ark$.__enclos_env__$private$max_length
-  res <- ark$pseudonymize(1:max_length)
-  expect_length(unique(res), max_length)
-  expect_length(res, max_length)
+  max_total <- ark$.__enclos_env__$private$max_total
+  res <- ark$pseudonymize(1:max_total)
+  expect_length(unique(res), max_total)
+  expect_length(res, max_total)
 })
 
-test_that("ark can produce max_length unique pseudonyms", {
+test_that("ark can produce max_total unique pseudonyms", {
   skip("Long-running test skipped. Using shorter version.")
   skip_on_cran()
   ark <- Ark$new()
-  max_length <- ark$.__enclos_env__$private$max_length
-  res <- ark$pseudonymize(1:max_length)
-  expect_length(unique(res), max_length)
-  expect_length(res, max_length)
+  max_total <- ark$.__enclos_env__$private$max_total
+  res <- ark$pseudonymize(1:max_total)
+  expect_length(unique(res), max_total)
+  expect_length(res, max_total)
 })
 
 test_that("alliterate TRUE/FALSE can be mixed without pseudonyms repeating when
@@ -264,7 +264,7 @@ test_that("alliterate TRUE/FALSE can be mixed without pseudonyms repeating when
     foo = sample(name_parts[[1]], 100),
     bar = sample(name_parts[[2]], 100)
   ))
-  n <- ark$.__enclos_env__$private$max_length
+  n <- ark$.__enclos_env__$private$max_total
   k <- 100
   x <- pseudonymize(1:k, .alliterate = TRUE, .ark = ark)
   y <- pseudonymize((k+1):n, .alliterate = FALSE, .ark = ark)
@@ -275,7 +275,7 @@ test_that("alliterate TRUE/FALSE can be mixed without pseudonyms repeating", {
   skip("Long-running test skipped. Using shorter version.")
   skip_on_cran()
   ark <- Ark$new()
-  n <- ark$.__enclos_env__$private$max_length
+  n <- ark$.__enclos_env__$private$max_total
   k <- 1000
   x <- pseudonymize(1:k, .alliterate = TRUE, .ark = ark)
   y <- pseudonymize((k+1):n, .alliterate = FALSE, .ark = ark)

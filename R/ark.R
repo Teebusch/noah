@@ -27,11 +27,15 @@ Ark <- R6::R6Class("Ark",
         clean_name_parts(parts)
       }
 
-      self$log            <- hash::hash()
+      private$max_total  <- prod(lengths(private$parts))
+      private$index_perm  <- random_permutation(private$max_total)
+
+      index_allit         <- private$find_alliterations()
+      private$max_allit   <- length(index_allit)
+      private$index_allit <- random_permutation(index_allit)
       private$alliterate  <- alliterate
-      private$max_length  <- prod(lengths(private$parts))
-      private$index_allit <- random_permutation(private$find_alliterations())
-      private$index_perm  <- random_permutation(private$max_length)
+
+      self$log            <- hash::hash()
     },
 
     #' @description Create Pseudonyms for input.
@@ -73,20 +77,37 @@ Ark <- R6::R6Class("Ark",
       subtle <- crayon::make_style("grey60")
 
       # summary
-      perc_full <- self$length() / private$max_length
+      used_total <- self$length()
+      used_allit <- self$length_allit()
+      perc_total <- (used_total / private$max_total) * 100
+      perc_allit <- (used_allit / private$max_allit) * 100
+
       cat(
         subtle(
           sprintf(
-            "# An Ark: %i / %i pseudonyms used (%0.0f%%)\n",
-            self$length(), private$max_length, perc_full
+            "# An%sArk",
+            if(private$alliterate) " alliterating " else " "
           )
-        )
+        ),
+        subtle(
+          sprintf(
+            "# %i / %i pseudonyms used (%0.0f%%)",
+            used_total, private$max_total, perc_total
+          )
+        ),
+        subtle(
+          sprintf(
+            "# %i / %i alliterations used (%0.0f%%)\n",
+            used_allit, private$max_allit, perc_allit
+          )
+        ),
+        sep = "\n"
       )
 
       # entries
       if (self$length() == 0) {
         cat("The Ark is empty.")
-      } else if (self$length() >= private$max_length) {
+      } else if (self$length() >= private$max_total) {
         cat("The Ark is full")
       } else {
         if (is.null(n)) {
@@ -134,6 +155,12 @@ Ark <- R6::R6Class("Ark",
     #' @description Number of used pseudonyms in an Ark.
     length = function() {
       length(self$log)
+    },
+
+
+    #' @description Number of used alliterations in an Ark.
+    length_allit = function() {
+      private$max_allit - get_n_remaining(private$index_allit)
     }
   ),
 
@@ -142,8 +169,11 @@ Ark <- R6::R6Class("Ark",
     #' @field parts Words that will be combined to form pseudonyms.
     parts = NULL,
 
-    #' @field max_length Maximum number of possible pseudonyms in the Ark.
-    max_length = NULL,
+    #' @field max_total Maximum number of possible pseudonyms in the Ark.
+    max_total = NULL,
+
+    #' @field max_allit Maximum number of possible alliterations in the Ark.
+    max_allit = NULL,
 
     #' @field alliterate Logical, generate alliterations by default?
     alliterate = NULL,
@@ -156,7 +186,7 @@ Ark <- R6::R6Class("Ark",
 
     #' @description Returns the pseudonym corresponding to an index.
     #' @param index An integer or a vector of integers between 1 and the Ark's
-    #' max_length.
+    #' max_total.
     #' @return A character vector of pseudonyms with the same length as the
     #' input
     index_to_pseudonym = function(index) {
