@@ -49,11 +49,12 @@ Ark <- R6::R6Class("Ark",
       .alliterate <- .alliterate %||% private$alliterate
       assertthat::is.flag(.alliterate)
 
-      keys   <- suppressMessages(dplyr::bind_cols(...))
-      keys   <- purrr::pmap_chr(keys, function(...) digest::digest(list(...)))
-      n_keys <- length(keys)
-      is_in  <- hash::has.key(keys, self$log)
-      n_new  <- sum(!is_in)
+      keys       <- suppressMessages(dplyr::bind_cols(...))
+      keys       <- purrr::pmap_chr(keys,
+                                    function(...) digest::digest(list(...)))
+      n_keys     <- length(keys)
+      is_in      <- hash::has.key(keys, self$log)
+      n_new      <- sum(!is_in)
 
       if (n_new > 0) {
         if (.alliterate) {

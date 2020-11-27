@@ -55,9 +55,11 @@ test_that("Creating pseudonyms from index works", {
 })
 
 test_that("Fail when requesting more pseudonyms than available", {
-  ark <- Ark$new()
-  max_total <- 5 # artificially limit max length for the test
-  ark$.__enclos_env__$private$index_perm  <- random_permutation(max_total)
+  ark <- Ark$new(parts = list(
+    foo = sample(name_parts[[1]], 10),
+    bar = sample(name_parts[[2]], 10)
+  ))
+  max_total <- 10 * 10
   expect_vector(ark$pseudonymize(1:max_total))
   expect_error(ark$pseudonymize(1:(max_total + 1)))
   expect_error(ark$pseudonymize("foo"))
@@ -83,6 +85,15 @@ test_that("Different pseudonym for different input", {
   expect_true(
     all(pseudonymize(a, .ark = ark) != pseudonymize(b, .ark = ark))
   )
+})
+
+test_that("same pseudonym for same input when using integers", {
+  ark <- Ark$new()
+  ark$pseudonymize(1:5)
+  ark$pseudonymize(5L)
+  # ark$pseudonymize(5)  # This is treated as float and gets it's own pseudonym!
+
+  expect_equal(length(ark), 5)
 })
 
 test_that("Multiple vectors can be pseudonymized", {

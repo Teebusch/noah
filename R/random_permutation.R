@@ -26,15 +26,16 @@ random_permutation <- function(n) {
     out <- rep.int(NA_integer_, m)
     remaining <- rle_decode(remaining)
     nleft <- length(remaining)
+
+    if(nleft < m) {
+      stop("Error. Not enough numbers left in the permutation.")
+    }
+
     for (i in seq_len(m)) {
-      if (nleft) {
-        swap <- sample(nleft, 1)
-        out[i] <- remaining[swap]
-        remaining[swap] <- remaining[nleft]
-        nleft <- nleft - 1
-      } else {
-        stop("Error. Not enough numbers left in the permutation.")
-      }
+      swap <- sample(nleft, 1)
+      out[i] <- remaining[swap]
+      remaining[swap] <- remaining[nleft]
+      nleft <- nleft - 1
     }
     length(remaining) <- nleft
     remaining <<- rle_encode(remaining)
