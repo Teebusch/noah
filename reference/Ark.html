@@ -139,11 +139,13 @@ as hashes.</p></dd>
 
 <dt><code>parts</code></dt><dd><p>Words that will be combined to form pseudonyms.</p></dd>
 
-<dt><code>max_length</code></dt><dd><p>Maximum number of possible pseudonyms in the Ark.</p></dd>
+<dt><code>max_total</code></dt><dd><p>Maximum number of possible pseudonyms in the Ark.</p></dd>
+
+<dt><code>max_allit</code></dt><dd><p>Maximum number of possible alliterations in the Ark.</p></dd>
 
 <dt><code>alliterate</code></dt><dd><p>Logical, generate alliterations by default?</p></dd>
 
-<dt><code>index_allit</code></dt><dd><p>indices of alliterations</p></dd>
+<dt><code>index_allit</code></dt><dd><p>a random permutation of indices of alliterations</p></dd>
 
 <dt><code>index_perm</code></dt><dd><p>a random permutation of the index</p></dd>
 
@@ -153,11 +155,13 @@ as hashes.</p></dd>
     <p><div class="r6-active-bindings"></p><dl>
 <dt><code>parts</code></dt><dd><p>Words that will be combined to form pseudonyms.</p></dd>
 
-<dt><code>max_length</code></dt><dd><p>Maximum number of possible pseudonyms in the Ark.</p></dd>
+<dt><code>max_total</code></dt><dd><p>Maximum number of possible pseudonyms in the Ark.</p></dd>
+
+<dt><code>max_allit</code></dt><dd><p>Maximum number of possible alliterations in the Ark.</p></dd>
 
 <dt><code>alliterate</code></dt><dd><p>Logical, generate alliterations by default?</p></dd>
 
-<dt><code>index_allit</code></dt><dd><p>indices of alliterations</p></dd>
+<dt><code>index_allit</code></dt><dd><p>a random permutation of indices of alliterations</p></dd>
 
 <dt><code>index_perm</code></dt><dd><p>a random permutation of the index</p></dd>
 
@@ -172,17 +176,21 @@ as hashes.</p></dd>
 <li><p><a href='#method-pseudonymize'><code>Ark$pseudonymize()</code></a></p></li>
 <li><p><a href='#method-print'><code>Ark$print()</code></a></p></li>
 <li><p><a href='#method-length'><code>Ark$length()</code></a></p></li>
+<li><p><a href='#method-length_allit'><code>Ark$length_allit()</code></a></p></li>
 <li><p><a href='#method-clone'><code>Ark$clone()</code></a></p></li>
 </ul>
 <p><hr>
 <a id="method-new"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>new()</code></h3>
 <p>Create new ark object.</p><h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
-<p><div class="r"></p><pre><span class='va'>Ark</span><span class='op'>$</span><span class='fu'>new</span><span class='op'>(</span>alliterate <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre><p></div></p>
+<p><div class="r"></p><pre><span class='va'>Ark</span><span class='op'>$</span><span class='fu'>new</span><span class='op'>(</span>alliterate <span class='op'>=</span> <span class='cn'>FALSE</span>, parts <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre><p></div></p>
 
 <h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Arguments</h4>
 <p><div class="arguments"></p><dl>
 <dt><code>alliterate</code></dt><dd><p>Logical. Should the Ark return alliterations by
 default?</p></dd>
+
+<dt><code>parts</code></dt><dd><p>List of character vectors with name parts to be used for the
+pseudonyms. Defaults to adjectives and animals.</p></dd>
 
 </dl><p></div></p>
 <h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Returns</h4>
@@ -218,6 +226,11 @@ may still be alliterations by coincidence.</p></dd>
 <a id="method-length"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code><a href='https://rdrr.io/r/base/length.html'>length()</a></code></h3>
 <p>Number of used pseudonyms in an Ark.</p><h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
 <p><div class="r"></p><pre><span class='va'>Ark</span><span class='op'>$</span><span class='fu'>length</span><span class='op'>(</span><span class='op'>)</span></pre><p></div></p>
+
+<p><hr>
+<a id="method-length_allit"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>length_allit()</code></h3>
+<p>Number of used alliterations in an Ark.</p><h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
+<p><div class="r"></p><pre><span class='va'>Ark</span><span class='op'>$</span><span class='fu'>length_allit</span><span class='op'>(</span><span class='op'>)</span></pre><p></div></p>
 
 <p><hr>
 <a id="method-clone"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>clone()</code></h3>

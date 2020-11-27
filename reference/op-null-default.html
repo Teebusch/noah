@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Generate a lazy non-repeating random number generator — random_permutation • noah</title>
+<title>Coalescing infix OR operator — op-null-default • noah</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,11 +46,9 @@
 
 
 
-<meta property="og:title" content="Generate a lazy non-repeating random number generator — random_permutation" />
-<meta property="og:description" content="Generates a function that provides lazy number generation from
-a random permutation of integers 1 to n without repetition. The numbers are
-generated using the Fisher-Yates algorithm and run length encoding (RLE) is
-used to keep memory use for the storage of used/available numbers minimal." />
+<meta property="og:title" content="Coalescing infix OR operator — op-null-default" />
+<meta property="og:description" content="Operator that provides default value for NULL.
+See op-null-default for details." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -119,35 +117,18 @@ used to keep memory use for the storage of used/available numbers minimal." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Generate a lazy non-repeating random number generator</h1>
-    <small class="dont-index">Source: <a href='https://github.com/Teebusch/noah/blob/master/R/random_permutation.R'><code>R/random_permutation.R</code></a></small>
-    <div class="hidden name"><code>random_permutation.Rd</code></div>
+    <h1>Coalescing infix OR operator</h1>
+    <small class="dont-index">Source: <a href='https://github.com/Teebusch/noah/blob/master/R/utils.R'><code>R/utils.R</code></a></small>
+    <div class="hidden name"><code>op-null-default.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Generates a function that provides lazy number generation from
-a random permutation of integers 1 to n without repetition. The numbers are
-generated using the Fisher-Yates algorithm and run length encoding (RLE) is
-used to keep memory use for the storage of used/available numbers minimal.</p>
+    <p>Operator that provides default value for NULL.
+See <code><a href='https://rlang.r-lib.org/reference/op-null-default.html'>op-null-default</a></code> for details.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>random_permutation</span><span class='op'>(</span><span class='va'>n</span><span class='op'>)</span></pre>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>n</th>
-      <td><p>Upper limit for random numbers (inclusive)</p></td>
-    </tr>
-    </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>A function <code>f(m)</code> that returns <code>m</code> random numbers from the random
-permutation of integers 1 to n without repetition,. If all available
-numbers 1 to n have been returned but more are requested, the function throws
-an error.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
