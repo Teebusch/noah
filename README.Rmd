@@ -115,7 +115,7 @@ Building your own Ark allows you to customize the name parts that are used to cr
 ark <- Ark$new(parts = list(
   c("Charles", "Louis", "Henry", "George"),
   c("I", "II", "III", "IV"),
-  c("the good", "the wise", "the brave", "the mad", "the beloved")
+  c("The Good", "The Wise", "The Brave", "The Mad", "The Beloved")
 ))
 
 pseudonymize(1:8, .ark = ark)

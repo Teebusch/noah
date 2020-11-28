@@ -178,12 +178,12 @@ allow you to use names with more than two parts:
 ark <- Ark$new(parts = list(
   c("Charles", "Louis", "Henry", "George"),
   c("I", "II", "III", "IV"),
-  c("the good", "the wise", "the brave", "the mad", "the beloved")
+  c("The Good", "The Wise", "The Brave", "The Mad", "The Beloved")
 ))
 
 pseudonymize(1:8, .ark = ark)
-#> [1] "Louis Iv The Brave"   "George Ii The Good"   "Louis I The Good"    
-#> [4] "Charles Iv The Wise"  "Charles Iv The Brave" "Louis Ii The Mad"    
+#> [1] "Louis IV The Brave"   "George II The Good"   "Louis I The Good"    
+#> [4] "Charles IV The Wise"  "Charles IV The Brave" "Louis II The Mad"    
 #> [7] "Charles I The Brave"  "George I The Beloved"
 ```
 
