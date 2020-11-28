@@ -232,7 +232,7 @@ Ark <- R6::R6Class("Ark",
     #' @return Numerical vector containing indexes of all pseudonyms that are
     #' alliterations.
     find_alliterations = function() {
-      first_letters <- purrr::map(private$parts, ~ substr(.x, 1, 1))
+      first_letters <- purrr::map(private$parts, ~ toupper(substr(.x, 1, 1)))
 
       # get subscripts of all name parts with matching first letter
       subs <- purrr::map_dfr(LETTERS, function(ltr) {
@@ -257,7 +257,6 @@ clean_name_parts <- function(parts) {
   purrr::map(parts, ~
    .x %>%
    stringr::str_squish() %>%
-   stringr::str_to_title() %>%
    unique()
   )
 }
