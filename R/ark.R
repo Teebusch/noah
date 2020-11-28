@@ -27,7 +27,7 @@ Ark <- R6::R6Class("Ark",
         clean_name_parts(parts)
       }
 
-      private$max_total  <- prod(lengths(private$parts))
+      private$max_total   <- prod(lengths(private$parts))
       private$index_perm  <- random_permutation(private$max_total)
 
       index_allit         <- private$find_alliterations()
@@ -49,26 +49,56 @@ Ark <- R6::R6Class("Ark",
       .alliterate <- .alliterate %||% private$alliterate
       assertthat::is.flag(.alliterate)
 
-      keys       <- suppressMessages(dplyr::bind_cols(...))
-      keys       <- purrr::pmap_chr(keys,
-                                    function(...) digest::digest(list(...)))
-      n_keys     <- length(keys)
-      is_in      <- hash::has.key(keys, self$log)
-      n_new      <- sum(!is_in)
+      keys <- suppressMessages(dplyr::bind_cols(...))
 
-      if (n_new > 0) {
-        if (.alliterate) {
-          i <- private$index_allit(n_new)
-          private$index_perm <- remove_remaining(private$index_perm, i)
-        } else {
-          i <- private$index_perm(n_new)
-          private$index_allit <- remove_remaining(private$index_allit, i)
-        }
-        self$log[keys[!is_in]] <- private$index_to_pseudonym(i)
+      test_dblint <- purrr::map_lgl(keys, ~ (is.double(.x) && all(.x %% 1 == 0)))
+      if (all(test_dblint)) {
+        message(paste(
+          "Note. All of your numerical keys are integer numbers but",
+          "have type double. `pseudonymize()` will treat numerically",
+          "equivalent double and integer keys as different and assign them",
+          "different pseudonyms. Use explicit coercion to avoid unexpected",
+          "behavior."))
       }
 
-      out <- hash::values(self$log, keys, USE.NAMES = FALSE)
-      out
+      keys    <- purrr::pmap_chr(keys, ~ digest::digest(list(...)))
+      n_keys  <- length(keys)
+      is_in   <- hash::has.key(keys, self$log)
+      n_new   <- sum(!is_in)
+
+      if (n_new > 0) {
+        tryCatch({
+          if (.alliterate) {
+            i <- private$index_allit(n_new)
+            private$index_perm <- remove_remaining(private$index_perm, i)
+          } else {
+            i <- private$index_perm(n_new)
+            private$index_allit <- remove_remaining(private$index_allit, i)
+          }
+        },
+          error = function(e) {
+            left_total <- private$max_total - self$length()
+            left_allit <- private$max_allit - self$length_allit()
+            stop(
+              sprintf(paste(
+                "Error. Not enough unused pseudonyms left in the Ark.",
+                "Requested: %i, available: %i (%i pseudonyms).",
+                "Try using custom name parts."),
+                n_new, left_total, left_allit
+              ),
+              if (.alliterate == TRUE & n_new < left_total) {
+                paste(
+                  "\n Note: It seems like you requested more alliterations",
+                  "than available, but there are enough pseudonyms left that",
+                  "are not alliterations."
+                )
+              }
+            )
+          }
+        )
+        self$log[keys[!is_in]] <- private$index_to_pseudonym(i)
+      }
+      hash::values(self$log, keys, USE.NAMES = FALSE)
     },
 
     #' @description Pretty-print an Ark object.
