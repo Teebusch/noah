@@ -51,10 +51,10 @@ Ark <- R6::R6Class("Ark",
 
       keys <- suppressMessages(dplyr::bind_cols(...))
 
-      test_dblint <- purrr::map_lgl(keys, ~ (is.double(.x) & all(.x %% 1 == 0)))
+      test_dblint <- purrr::map_lgl(keys, ~ (is.double(.x) && all(.x %% 1 == 0)))
       if (all(test_dblint)) {
-        warning(paste(
-          "Warning. All of your numerical keys are integer numbers but",
+        message(paste(
+          "Note. All of your numerical keys are integer numbers but",
           "have type double. `pseudonymize()` will treat numerically",
           "equivalent double and integer keys as different and assign them",
           "different pseudonyms. Use explicit coercion to avoid unexpected",
