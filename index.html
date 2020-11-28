@@ -84,7 +84,7 @@
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<p>You can install noah from <a href="/https://github.com/teebusch/noah">Github</a> with:</p>
+<p>Noah is not yet on CRAN, but you can install it from <a href="/https://github.com/teebusch/noah">Github</a> with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># install.packages("remotes")</span>
 <span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"teebusch/noah"</span><span class="op">)</span></code></pre></div>
@@ -92,34 +92,35 @@
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
 <a href="#usage" class="anchor"></a>Usage</h2>
-<div id="generating-pseudonyms" class="section level3">
+<div id="generate-pseudonyms" class="section level3">
 <h3 class="hasAnchor">
-<a href="#generating-pseudonyms" class="anchor"></a>Generating pseudonyms</h3>
-<p>Use <code><a href="reference/pseudonymize.html">pseudonymize()</a></code> to generate a unique pseudonyms for every unique element / row in a vectors or data frame. <code><a href="reference/pseudonymize.html">pseudonymize()</a></code> accepts multiple vectors and data frames as arguments, and will pseudonymize them row by row.</p>
+<a href="#generate-pseudonyms" class="anchor"></a>Generate pseudonyms</h3>
+<p>Use <code><a href="reference/pseudonymize.html">pseudonymize()</a></code> to generate a unique pseudonym for every unique element / row in a vector or data frame. <code><a href="reference/pseudonymize.html">pseudonymize()</a></code> accepts multiple vectors and data frames as arguments, and will pseudonymize them row by row.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Teebusch/noah">noah</a></span><span class="op">)</span>
 
 <span class="fu"><a href="reference/pseudonymize.html">pseudonymize</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">9</span><span class="op">)</span>
-<span class="co">#&gt; [1] "Satisfying Roadrunner" "Belligerent Cat"       "Parallel Koala"       </span>
-<span class="co">#&gt; [4] "Ripe Leopard"          "Elated Pony"           "Unbecoming Condor"    </span>
-<span class="co">#&gt; [7] "Tacit Heron"           "Grandiose Peacock"     "Organic Roadrunner"</span>
+<span class="co">#&gt; [1] "Impartial Rat"       "Superficial Bird"    "Royal Orca"         </span>
+<span class="co">#&gt; [4] "Earsplitting Python" "Fascinated Donkey"   "Defeated Trout"     </span>
+<span class="co">#&gt; [7] "Encouraging Stoat"   "Null Grouse"         "Axiomatic Octopus"</span>
 
 <span class="fu"><a href="reference/pseudonymize.html">pseudonymize</a></span><span class="op">(</span>
   <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"🐰"</span>, <span class="st">"🐰"</span>, <span class="st">"🐰"</span><span class="op">)</span>, 
   <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"🥕"</span>, <span class="st">"🥕"</span>, <span class="st">"🍰"</span><span class="op">)</span>
 <span class="op">)</span>
-<span class="co">#&gt; [1] "Curious Gull"     "Curious Gull"     "Extra-Large Wasp"</span></code></pre></div>
-</div>
-<div id="adding-pseudonyms-to-data-frames" class="section level3">
-<h3 class="hasAnchor">
-<a href="#adding-pseudonyms-to-data-frames" class="anchor"></a>Adding pseudonyms to data frames</h3>
-<p>In this example we use the diabetic retinopathy dataset from the package <code>survival</code> and add a new column with a pseudonym for each unique id. There are two ways to do this with noah:</p>
-<div id="using-pseudonymize" class="section level4">
-<h4 class="hasAnchor">
-<a href="#using-pseudonymize" class="anchor"></a>Using <code>pseudonymize()</code>
-</h4>
-<p>Here we use <code><a href="reference/pseudonymize.html">pseudonymize()</a></code> with <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">dplyr::mutate()</a></code>. We also use relocate to move the pseudonyms to the first column:</p>
+<span class="co">#&gt; [1] "Bloody Clam"     "Bloody Clam"     "Depressed Egret"</span></code></pre></div>
+<p>For extra delight, we can ask noah to generate only alliterations:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="reference/pseudonymize.html">pseudonymize</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">9</span>, .alliterate <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="co">#&gt; [1] "Safe Sole"             "Callous Clownfish"     "Polite Panda"         </span>
+<span class="co">#&gt; [4] "Best Badger"           "Like Leopard"          "Many Mole"            </span>
+<span class="co">#&gt; [7] "Smiling Slug"          "Sweltering Silverfish" "Sick Sloth"</span></code></pre></div>
+</div>
+<div id="add-pseudonyms-to-a-data-frame" class="section level3">
+<h3 class="hasAnchor">
+<a href="#add-pseudonyms-to-a-data-frame" class="anchor"></a>Add pseudonyms to a data frame</h3>
+<p>You can use <code><a href="reference/pseudonymize.html">pseudonymize()</a></code> with <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">dplyr::mutate()</a></code> to add a column with pseudonyms to a data frame. In this example we use the diabetic retinopathy dataset from the package <code>survival</code> and add a new column with a pseudonym for each unique id. We also use <code><a href="https://dplyr.tidyverse.org/reference/relocate.html">dplyr::relocate()</a></code> to move the pseudonyms to the first column:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
 <span class="va">diabetic</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span><span class="fu">survival</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/survival/man/diabetic.html">diabetic</a></span><span class="op">)</span>
 
@@ -127,50 +128,43 @@
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>pseudonym <span class="op">=</span> <span class="fu"><a href="reference/pseudonymize.html">pseudonymize</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/relocate.html">relocate</a></span><span class="op">(</span><span class="va">pseudonym</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 394 x 9</span>
-<span class="co">#&gt;    pseudonym             id laser   age eye     trt  risk  time status</span>
-<span class="co">#&gt;    &lt;chr&gt;              &lt;int&gt; &lt;fct&gt; &lt;int&gt; &lt;fct&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt;  &lt;int&gt;</span>
-<span class="co">#&gt;  1 Waggish Caribou        5 argon    28 left      0     9  46.2      0</span>
-<span class="co">#&gt;  2 Waggish Caribou        5 argon    28 right     1     9  46.2      0</span>
-<span class="co">#&gt;  3 Furtive Capybara      14 xenon    12 left      1     8  42.5      0</span>
-<span class="co">#&gt;  4 Furtive Capybara      14 xenon    12 right     0     6  31.3      1</span>
-<span class="co">#&gt;  5 Weary Alligator       16 xenon     9 left      1    11  42.3      0</span>
-<span class="co">#&gt;  6 Weary Alligator       16 xenon     9 right     0    11  42.3      0</span>
-<span class="co">#&gt;  7 Aggressive Fox        25 xenon     9 left      0    11  20.6      0</span>
-<span class="co">#&gt;  8 Aggressive Fox        25 xenon     9 right     1    11  20.6      0</span>
-<span class="co">#&gt;  9 Utopian Parrotfish    29 xenon    13 left      0    10   0.3      1</span>
-<span class="co">#&gt; 10 Utopian Parrotfish    29 xenon    13 right     1     9  38.8      0</span>
+<span class="co">#&gt;    pseudonym               id laser   age eye     trt  risk  time status</span>
+<span class="co">#&gt;    &lt;chr&gt;                &lt;int&gt; &lt;fct&gt; &lt;int&gt; &lt;fct&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt;  &lt;int&gt;</span>
+<span class="co">#&gt;  1 Possessive Armadillo     5 argon    28 left      0     9  46.2      0</span>
+<span class="co">#&gt;  2 Possessive Armadillo     5 argon    28 right     1     9  46.2      0</span>
+<span class="co">#&gt;  3 Crowded Vole            14 xenon    12 left      1     8  42.5      0</span>
+<span class="co">#&gt;  4 Crowded Vole            14 xenon    12 right     0     6  31.3      1</span>
+<span class="co">#&gt;  5 Productive Heron        16 xenon     9 left      1    11  42.3      0</span>
+<span class="co">#&gt;  6 Productive Heron        16 xenon     9 right     0    11  42.3      0</span>
+<span class="co">#&gt;  7 Frequent Okapi          25 xenon     9 left      0    11  20.6      0</span>
+<span class="co">#&gt;  8 Frequent Okapi          25 xenon     9 right     1    11  20.6      0</span>
+<span class="co">#&gt;  9 Giant Lobster           29 xenon    13 left      0    10   0.3      1</span>
+<span class="co">#&gt; 10 Giant Lobster           29 xenon    13 right     1     9  38.8      0</span>
 <span class="co">#&gt; # ... with 384 more rows</span></code></pre></div>
-</div>
-<div id="using-add_pseudonyms" class="section level4">
-<h4 class="hasAnchor">
-<a href="#using-add_pseudonyms" class="anchor"></a>Using <code>add_pseudonyms()</code>
-</h4>
-<p><code><a href="reference/add_pseudonyms.html">add_pseudonyms()</a></code> wraps <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code> and <code><a href="https://dplyr.tidyverse.org/reference/relocate.html">relocate()</a></code>. It also supports <a href="https://tidyselect.r-lib.org/reference/language.html">tidyselect</a> syntax for selecting the key columns:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<p>For your convenience, noah also provides <code><a href="reference/add_pseudonyms.html">add_pseudonyms()</a></code>, which wraps <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code> and <code><a href="https://dplyr.tidyverse.org/reference/relocate.html">relocate()</a></code> and supports <a href="https://tidyselect.r-lib.org/reference/language.html">tidyselect</a> syntax for selecting the key columns:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">diabetic</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="reference/add_pseudonyms.html">add_pseudonyms</a></span><span class="op">(</span><span class="va">id</span>, <span class="fu">where</span><span class="op">(</span><span class="va">is.factor</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 394 x 9</span>
-<span class="co">#&gt;    pseudonym                   id laser   age eye     trt  risk  time status</span>
-<span class="co">#&gt;    &lt;chr&gt;                    &lt;int&gt; &lt;fct&gt; &lt;int&gt; &lt;fct&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt;  &lt;int&gt;</span>
-<span class="co">#&gt;  1 Yummy Ocelot                 5 argon    28 left      0     9  46.2      0</span>
-<span class="co">#&gt;  2 Tidy Swift                   5 argon    28 right     1     9  46.2      0</span>
-<span class="co">#&gt;  3 Exotic Aardvark             14 xenon    12 left      1     8  42.5      0</span>
-<span class="co">#&gt;  4 Tasty Tern                  14 xenon    12 right     0     6  31.3      1</span>
-<span class="co">#&gt;  5 Exciting Barracuda          16 xenon     9 left      1    11  42.3      0</span>
-<span class="co">#&gt;  6 Astonishing Rat             16 xenon     9 right     0    11  42.3      0</span>
-<span class="co">#&gt;  7 Holistic Sawfish            25 xenon     9 left      0    11  20.6      0</span>
-<span class="co">#&gt;  8 Healthy Porcupine           25 xenon     9 right     1    11  20.6      0</span>
-<span class="co">#&gt;  9 Cooperative Hippopotamus    29 xenon    13 left      0    10   0.3      1</span>
-<span class="co">#&gt; 10 Utter Constrictor           29 xenon    13 right     1     9  38.8      0</span>
+<span class="co">#&gt;    pseudonym                id laser   age eye     trt  risk  time status</span>
+<span class="co">#&gt;    &lt;chr&gt;                 &lt;int&gt; &lt;fct&gt; &lt;int&gt; &lt;fct&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt;  &lt;int&gt;</span>
+<span class="co">#&gt;  1 Doubtful Horse            5 argon    28 left      0     9  46.2      0</span>
+<span class="co">#&gt;  2 Caring Heron              5 argon    28 right     1     9  46.2      0</span>
+<span class="co">#&gt;  3 Grey Chicken             14 xenon    12 left      1     8  42.5      0</span>
+<span class="co">#&gt;  4 Giddy Vole               14 xenon    12 right     0     6  31.3      1</span>
+<span class="co">#&gt;  5 Overrated Caterpillar    16 xenon     9 left      1    11  42.3      0</span>
+<span class="co">#&gt;  6 Angry Oribi              16 xenon     9 right     0    11  42.3      0</span>
+<span class="co">#&gt;  7 Roasted Sawfish          25 xenon     9 left      0    11  20.6      0</span>
+<span class="co">#&gt;  8 Spectacular Lion         25 xenon     9 right     1    11  20.6      0</span>
+<span class="co">#&gt;  9 Panoramic Owl            29 xenon    13 left      0    10   0.3      1</span>
+<span class="co">#&gt; 10 Orange Bear              29 xenon    13 right     1     9  38.8      0</span>
 <span class="co">#&gt; # ... with 384 more rows</span></code></pre></div>
-</div>
 </div>
 <div id="keeping-track-of-pseudonyms-with-an-ark" class="section level3">
 <h3 class="hasAnchor">
-<a href="#keeping-track-of-pseudonyms-with-an-ark" class="anchor"></a>Keeping track of pseudonyms with an <code>Ark</code>
-</h3>
-<p>To make sure that all pseudonyms are unique and consistent, <code><a href="reference/pseudonymize.html">pseudonymize()</a></code> and <code><a href="reference/add_pseudonyms.html">add_pseudonyms()</a></code> use an object of class <code>Ark</code> (a pseudonym archive) By default, a new <code>Ark</code> gets created implicitly for each function call, but we can also provide an <code>Ark</code> ourselves, to keep track of the pseudonyms that have been used and make sure that the same keys always get assigned the same pseudonym:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<a href="#keeping-track-of-pseudonyms-with-an-ark" class="anchor"></a>Keeping track of pseudonyms with an Ark</h3>
+<p>To make sure that all pseudonyms are unique and consistent, <code><a href="reference/pseudonymize.html">pseudonymize()</a></code> and <code><a href="reference/add_pseudonyms.html">add_pseudonyms()</a></code> use an object of class <code>Ark</code> (a pseudonym archive). By default, a new <code>Ark</code> is created for each function call, but you can also provide an <code>Ark</code> yourself. This allows you to keep track of the pseudonyms that have been used and make sure that the same keys always get assigned the same pseudonym:</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">ark</span> <span class="op">&lt;-</span> <span class="va"><a href="reference/Ark.html">Ark</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span>
 
 <span class="co"># split dataset into left and right eye and pseudonymize separately</span>
@@ -186,39 +180,67 @@
 <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span><span class="op">(</span><span class="va">diabetic_left</span>, <span class="va">diabetic_right</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 394 x 9</span>
-<span class="co">#&gt;    pseudonym              id laser   age eye     trt  risk  time status</span>
-<span class="co">#&gt;    &lt;chr&gt;               &lt;int&gt; &lt;fct&gt; &lt;int&gt; &lt;fct&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt;  &lt;int&gt;</span>
-<span class="co">#&gt;  1 Nauseating Basilisk     5 argon    28 left      0     9  46.2      0</span>
-<span class="co">#&gt;  2 Nauseating Basilisk     5 argon    28 right     1     9  46.2      0</span>
-<span class="co">#&gt;  3 Discreet Marlin        14 xenon    12 left      1     8  42.5      0</span>
-<span class="co">#&gt;  4 Discreet Marlin        14 xenon    12 right     0     6  31.3      1</span>
-<span class="co">#&gt;  5 Violent Guan           16 xenon     9 left      1    11  42.3      0</span>
-<span class="co">#&gt;  6 Violent Guan           16 xenon     9 right     0    11  42.3      0</span>
-<span class="co">#&gt;  7 Abashed Loris          25 xenon     9 left      0    11  20.6      0</span>
-<span class="co">#&gt;  8 Abashed Loris          25 xenon     9 right     1    11  20.6      0</span>
-<span class="co">#&gt;  9 Illustrious Leech      29 xenon    13 left      0    10   0.3      1</span>
-<span class="co">#&gt; 10 Illustrious Leech      29 xenon    13 right     1     9  38.8      0</span>
+<span class="co">#&gt;    pseudonym          id laser   age eye     trt  risk  time status</span>
+<span class="co">#&gt;    &lt;chr&gt;           &lt;int&gt; &lt;fct&gt; &lt;int&gt; &lt;fct&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt;  &lt;int&gt;</span>
+<span class="co">#&gt;  1 Faulty Swift        5 argon    28 left      0     9  46.2      0</span>
+<span class="co">#&gt;  2 Faulty Swift        5 argon    28 right     1     9  46.2      0</span>
+<span class="co">#&gt;  3 Tart Crab          14 xenon    12 left      1     8  42.5      0</span>
+<span class="co">#&gt;  4 Tart Crab          14 xenon    12 right     0     6  31.3      1</span>
+<span class="co">#&gt;  5 Sticky Barnacle    16 xenon     9 left      1    11  42.3      0</span>
+<span class="co">#&gt;  6 Sticky Barnacle    16 xenon     9 right     0    11  42.3      0</span>
+<span class="co">#&gt;  7 Brainy Moth        25 xenon     9 left      0    11  20.6      0</span>
+<span class="co">#&gt;  8 Brainy Moth        25 xenon     9 right     1    11  20.6      0</span>
+<span class="co">#&gt;  9 Poised Urial       29 xenon    13 left      0    10   0.3      1</span>
+<span class="co">#&gt; 10 Poised Urial       29 xenon    13 right     1     9  38.8      0</span>
 <span class="co">#&gt; # ... with 384 more rows</span></code></pre></div>
 <p>The ark now contains 197 pseudonyms – as many as there are unique id’s in the dataset.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">diabetic</span><span class="op">$</span><span class="va">id</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; [1] 197</span>
 <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">ark</span><span class="op">)</span>
 <span class="co">#&gt; [1] 197</span></code></pre></div>
 </div>
-<div id="making-an-alliterating-ark" class="section level3">
+<div id="customizing-an-ark" class="section level3">
 <h3 class="hasAnchor">
-<a href="#making-an-alliterating-ark" class="anchor"></a>Making an alliterating Ark</h3>
-<p>For extra delight, we can also configure an <code>Ark</code> so that it generates only alliterations:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<a href="#customizing-an-ark" class="anchor"></a>Customizing an Ark</h3>
+<p>Building your own Ark allows you to customize the name parts that are used to create pseudonyms (by default, adjectives and animals). It also allow you to use names with more than two parts:</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">ark</span> <span class="op">&lt;-</span> <span class="va"><a href="reference/Ark.html">Ark</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>parts <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Charles"</span>, <span class="st">"Louis"</span>, <span class="st">"Henry"</span>, <span class="st">"George"</span><span class="op">)</span>,
+  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"I"</span>, <span class="st">"II"</span>, <span class="st">"III"</span>, <span class="st">"IV"</span><span class="op">)</span>,
+  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"The Good"</span>, <span class="st">"The Wise"</span>, <span class="st">"The Brave"</span>, <span class="st">"The Mad"</span>, <span class="st">"The Beloved"</span><span class="op">)</span>
+<span class="op">)</span><span class="op">)</span>
+
+<span class="fu"><a href="reference/pseudonymize.html">pseudonymize</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">8</span>, .ark <span class="op">=</span> <span class="va">ark</span><span class="op">)</span>
+<span class="co">#&gt; [1] "Louis IV The Brave"   "George II The Good"   "Louis I The Good"    </span>
+<span class="co">#&gt; [4] "Charles IV The Wise"  "Charles IV The Brave" "Louis II The Mad"    </span>
+<span class="co">#&gt; [7] "Charles I The Brave"  "George I The Beloved"</span></code></pre></div>
+<p>You can also configure an <code>Ark</code> so that it generates only alliterations. Note that this behavior can still be overridden temporarily by using <code>.alliterate = FALSE</code> when you call <code><a href="reference/pseudonymize.html">pseudonymize()</a></code>.</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">ark</span> <span class="op">&lt;-</span> <span class="va"><a href="reference/Ark.html">Ark</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>alliterate <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 
 <span class="fu"><a href="reference/pseudonymize.html">pseudonymize</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">12</span>, .ark <span class="op">=</span> <span class="va">ark</span><span class="op">)</span>
-<span class="co">#&gt;  [1] "Crazy Cobra"           "Whimsical Waterbuck"   "Enchanted Egret"      </span>
-<span class="co">#&gt;  [4] "Damaging Dragonfly"    "Taboo Toad"            "Material Marmoset"    </span>
-<span class="co">#&gt;  [7] "Rabid Roundworm"       "Oval Ox"               "Venomous Voalavoanala"</span>
-<span class="co">#&gt; [10] "Average Ant"           "Frightening Ferret"    "Educated Elephant"</span></code></pre></div>
+<span class="co">#&gt;  [1] "Hard-To-Find Hyena" "Well-Made Whippet"  "Momentous Mosquito"</span>
+<span class="co">#&gt;  [4] "Mushy Macaw"        "Complete Clownfish" "Three Tahr"        </span>
+<span class="co">#&gt;  [7] "Phobic Pheasant"    "Squealing Swallow"  "Subdued Swan"      </span>
+<span class="co">#&gt; [10] "Mundane Marsupial"  "Complex Centipede"  "Cruel Crane"</span></code></pre></div>
 </div>
+</div>
+<div id="gotchas" class="section level2">
+<h2 class="hasAnchor">
+<a href="#gotchas" class="anchor"></a>Gotchas</h2>
+<p>Noah will treat numerically identical whole numbers of type <code>double</code> and <code>integer</code> as different and give them different pseudonyms. This can cause some unexpected behavior. Consider this example:</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">ark</span> <span class="op">&lt;-</span> <span class="va"><a href="reference/Ark.html">Ark</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span>
+
+<span class="fu"><a href="reference/pseudonymize.html">pseudonymize</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, .ark <span class="op">=</span> <span class="va">ark</span><span class="op">)</span>  <span class="co"># creates a vector of integers c(1L, 2L)</span>
+<span class="fu"><a href="reference/pseudonymize.html">pseudonymize</a></span><span class="op">(</span><span class="fl">1</span>, .ark <span class="op">=</span> <span class="va">ark</span><span class="op">)</span>    <span class="co"># creates a double</span>
+<span class="co">#&gt; Note. All of your numerical keys are integer numbers but have type double. `pseudonymize()` will treat numerically equivalent double and integer keys as different and assign them different pseudonyms. Use explicit coercion to avoid unexpected behavior.</span></code></pre></div>
+<p>You might expect to get 2 different pseudonyms, because in the second <code><a href="reference/pseudonymize.html">pseudonymize()</a></code> you are requesting a pseudonym for the number <code>1</code>, which is already in the Ark. Instead you get three pseudonyms:</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">ark</span><span class="op">)</span>
+<span class="co">#&gt; [1] 3</span></code></pre></div>
+<p>Noah will warn you when it thinks you are making this mistake, but it might not catch it all the time. A workaround is to coerce types explicitly, for example by using <code><a href="https://rdrr.io/r/base/double.html">as.double()</a></code>, <code><a href="https://rdrr.io/r/base/integer.html">as.integer()</a></code>, or <code>1L</code> to create integers.</p>
 </div>
 <div id="related-r-packages" class="section level2">
 <h2 class="hasAnchor">
