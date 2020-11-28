@@ -35,7 +35,7 @@ remotes::install_github("teebusch/noah")
 ### Generate pseudonyms
 
 Use `pseudonymize()` to generate a unique pseudonym for every unique
-element / row in a vectors or data frame. `pseudonymize()` accepts
+element / row in a vector or data frame. `pseudonymize()` accepts
 multiple vectors and data frames as arguments, and will pseudonymize
 them row by row.
 
