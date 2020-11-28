@@ -49,7 +49,18 @@ Ark <- R6::R6Class("Ark",
       .alliterate <- .alliterate %||% private$alliterate
       assertthat::is.flag(.alliterate)
 
-      keys    <- suppressMessages(dplyr::bind_cols(...))
+      keys <- suppressMessages(dplyr::bind_cols(...))
+
+      test_dblint <- purrr::map_lgl(keys, ~ (is.double(.x) & all(.x %% 1 == 0)))
+      if (all(test_dblint)) {
+        warning(paste(
+          "Warning. All of your numerical keys are integer numbers but",
+          "have type double. `pseudonymize()` will treat numerically",
+          "equivalent double and integer keys as different and assign them",
+          "different pseudonyms. Use explicit coercion to avoid unexpected",
+          "behavior."))
+      }
+
       keys    <- purrr::pmap_chr(keys, ~ digest::digest(list(...)))
       n_keys  <- length(keys)
       is_in   <- hash::has.key(keys, self$log)
