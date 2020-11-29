@@ -49,9 +49,13 @@ Ark <- R6::R6Class("Ark",
       .alliterate <- .alliterate %||% private$alliterate
       assertthat::is.flag(.alliterate)
 
+      if (length(unique(lengths(list(...)))) > 1) {
+        stop("Error. All arguments to ... must have the same length.")
+      }
+
       keys <- suppressMessages(dplyr::bind_cols(...))
 
-      test_dblint <- purrr::map_lgl(keys, ~ (is.double(.x) && all(.x %% 1 == 0)))
+      test_dblint <- purrr::map_lgl(list(...), ~ (is.double(.x) && all(.x %% 1 == 0)))
       if (all(test_dblint)) {
         message(paste(
           "Note. All of your numerical keys are integer numbers but",
