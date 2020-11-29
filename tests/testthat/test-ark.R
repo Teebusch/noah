@@ -106,6 +106,11 @@ test_that("Multiple vectors can be pseudonymized", {
   )
 })
 
+test_that("Fail when input vectors have different lengths", {
+  expect_error(pseudonymize(1:3, 4:5))
+  expect_error(pseudonymize(mtcars, 1:(nrow(mtcars)-1)))
+})
+
 test_that("Data frame columns can be pseudonymized", {
   ark <- Ark$new()
   df <- data.frame(
