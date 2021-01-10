@@ -13,35 +13,6 @@ No pseudonym will repeat.
 \describe{
 \item{\code{log}}{Hashtable for all used pseudonyms. Inputs (keys) are stored
 as hashes.}
-
-\item{\code{parts}}{Words that will be combined to form pseudonyms.}
-
-\item{\code{max_total}}{Maximum number of possible pseudonyms in the Ark.}
-
-\item{\code{max_allit}}{Maximum number of possible alliterations in the Ark.}
-
-\item{\code{alliterate}}{Logical, generate alliterations by default?}
-
-\item{\code{index_allit}}{a random permutation of indices of alliterations}
-
-\item{\code{index_perm}}{a random permutation of the index}
-}
-\if{html}{\out{</div>}}
-}
-\section{Active bindings}{
-\if{html}{\out{<div class="r6-active-bindings">}}
-\describe{
-\item{\code{parts}}{Words that will be combined to form pseudonyms.}
-
-\item{\code{max_total}}{Maximum number of possible pseudonyms in the Ark.}
-
-\item{\code{max_allit}}{Maximum number of possible alliterations in the Ark.}
-
-\item{\code{alliterate}}{Logical, generate alliterations by default?}
-
-\item{\code{index_allit}}{a random permutation of indices of alliterations}
-
-\item{\code{index_perm}}{a random permutation of the index}
 }
 \if{html}{\out{</div>}}
 }
@@ -75,7 +46,7 @@ default?}
 pseudonyms. Defaults to adjectives and animals.}
 
 \item{\code{seed}}{Random seed for permutation of name parts. Use this to make
-Ark reproducible (to the extent that the randome number generation is
+Ark reproducible (to the extent that the random number generation is
 reproducible). If NULL (default), the random number generator is left
 alone. This is a convenience argument and equivalent to calling
 \code{set.seed()} before creating the Ark.}

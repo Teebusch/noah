@@ -5,9 +5,14 @@ Authors@R:
     person(given = "Tobias",
            family = "Busch",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
+           email = "teebusch@gmail.com",
            comment = c(ORCID = "https://orcid.org/0000-0002-8390-7892"))
 Description: Noah generates pseudonyms that are delightful and easy to remember.
+    It creates adorable anonymous animals like the Likeable Leech and the 
+    Proud Chickadee. A unique pseudonym can be created for every unique element
+    in a vector or row in a data frame. Pseudomyms can be customized and 
+    tracked over time, so that the same input is always assigned the same 
+    pseudonym.
 License: MIT + file LICENSE
 Suggests: 
     testthat,
@@ -30,4 +35,4 @@ Imports:
     rlang,
     stringr
 Depends: 
-    R (>= 2.10)
+    R (>= 3.1.0)
