@@ -6,7 +6,7 @@
 <!-- badges: start -->
 
 [![Lifecycle:
-experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/noah)](https://CRAN.R-project.org/package=noah)
 [![R build
@@ -235,14 +235,14 @@ There are multiple R packages that generate fake data, including fake
 names, phone numbers, addresses, credit card numbers, gene sequences and
 more:
 
-  - [`charlatan`](https://docs.ropensci.org/charlatan/)
-  - [`randomNames`](https://centerforassessment.github.io/randomNames/)
-  - [`randNames`](https://github.com/karthik/randNames)
-  - [`generator`](https://github.com/paulhendricks/generator)
+-   [`charlatan`](https://docs.ropensci.org/charlatan/)
+-   [`randomNames`](https://centerforassessment.github.io/randomNames/)
+-   [`randNames`](https://github.com/karthik/randNames)
+-   [`generator`](https://github.com/paulhendricks/generator)
 
 If you need watertight anonymization you should check out these packages
 for anonymizing personal identifiable information in data sets:
 
-  - [`sdcMicro`](http://sdctools.github.io/sdcMicro/index.html)
-  - [`sdcTable`](https://sdctools.github.io/sdcTable/index.html)
-  - [`anonymizer`](http://paulhendricks.io/anonymizer/)
+-   [`sdcMicro`](http://sdctools.github.io/sdcMicro/index.html)
+-   [`sdcTable`](https://sdctools.github.io/sdcTable/index.html)
+-   [`anonymizer`](http://paulhendricks.io/anonymizer/)
