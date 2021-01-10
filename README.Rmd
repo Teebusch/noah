@@ -133,7 +133,7 @@ pseudonymize(1:12, .ark = ark)
 
 Noah will treat numerically identical whole numbers of type `double` and `integer` as different and give them different pseudonyms. This can cause some unexpected behavior. Consider this example:
 
-```{r echo=TRUE, results='hide'}
+```{r echo=TRUE, results='hide', message=FALSE}
 ark <- Ark$new()
 
 pseudonymize(1:2, .ark = ark)  # creates a vector of integers c(1L, 2L)

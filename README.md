@@ -212,7 +212,6 @@ ark <- Ark$new()
 
 pseudonymize(1:2, .ark = ark)  # creates a vector of integers c(1L, 2L)
 pseudonymize(1, .ark = ark)    # creates a double
-#> Note. All of your numerical keys are integer numbers but have type double. `pseudonymize()` will treat numerically equivalent double and integer keys as different and assign them different pseudonyms. Use explicit coercion to avoid unexpected behavior.
 ```
 
 You might expect to get 2 different pseudonyms, because in the second
