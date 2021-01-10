@@ -19,12 +19,21 @@ Ark <- R6::R6Class("Ark",
     #' default?
     #' @param parts List of character vectors with name parts to be used for the
     #' pseudonyms. Defaults to adjectives and animals.
+    #' @param seed Random seed for permutation of name parts. Use this to make
+    #' Ark reproducible (to the extent that the randome number generation is
+    #' reproducible). If NULL (default), the random number generator is left
+    #' alone. This is a convenience argument and equivalent to calling
+    #' `set.seed()` before creating the Ark.
     #' @return A new `Ark` object.
-    initialize = function(alliterate = FALSE, parts = NULL) {
+    initialize = function(alliterate = FALSE, parts = NULL, seed = NULL) {
       private$parts <- if (is.null(parts)) {
         name_parts[c("adjectives", "animals")]
       } else {
         clean_name_parts(parts)
+      }
+
+      if (!is.null(seed)) {
+        set.seed(seed)
       }
 
       private$max_total   <- prod(lengths(private$parts))
