@@ -18,7 +18,7 @@ coverage](https://codecov.io/gh/Teebusch/noah/branch/master/graph/badge.svg)](ht
 
 noah (*no animals were harmed*) generates pseudonyms that are delightful
 and easy to remember. It creates adorable anonymous animals like the
-*Likeable Leech* and the *Proud Chickadee*.
+*Likable Leech* and the *Proud Chickadee*.
 
 ## Installation
 

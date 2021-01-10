@@ -25,7 +25,7 @@ set.seed(122020)
 
 <!-- badges: end -->
 
-noah (*no animals were harmed*) generates pseudonyms that are delightful and easy to remember. It creates adorable anonymous animals like the *Likeable Leech* and the *Proud Chickadee*.
+noah (*no animals were harmed*) generates pseudonyms that are delightful and easy to remember. It creates adorable anonymous animals like the *Likable Leech* and the *Proud Chickadee*.
 
 ## Installation
 
