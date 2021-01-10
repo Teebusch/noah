@@ -7,12 +7,11 @@ Authors@R:
            role = c("aut", "cre"),
            email = "teebusch@gmail.com",
            comment = c(ORCID = "https://orcid.org/0000-0002-8390-7892"))
-Description: Noah generates pseudonyms that are delightful and easy to remember.
-    It creates adorable anonymous animal names like the Likeable Leech and the 
-    Proud Chickadee. A unique pseudonym can be created for every unique element
-    in a vector or row in a data frame. Pseudonyms can be customized and 
-    tracked over time, so that the same input is always assigned the same 
-    pseudonym.
+Description: Generate pseudonymous animal names that are delightful and easy to 
+    remember like the Likeable Leech and the Proud Chickadee. A unique pseudonym 
+    can be created for every unique element in a vector or row in a data frame. 
+    Pseudonyms can be customized and tracked over time, so that the same input 
+    is always assigned the same pseudonym.
 License: MIT + file LICENSE
 Suggests: 
     testthat,
