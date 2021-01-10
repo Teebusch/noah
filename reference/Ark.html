@@ -82,7 +82,7 @@ No pseudonym will repeat." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">noah</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -90,18 +90,21 @@ No pseudonym will repeat." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/Teebusch/noah/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -137,34 +140,6 @@ No pseudonym will repeat.</p>
 <dt><code>log</code></dt><dd><p>Hashtable for all used pseudonyms. Inputs (keys) are stored
 as hashes.</p></dd>
 
-<dt><code>parts</code></dt><dd><p>Words that will be combined to form pseudonyms.</p></dd>
-
-<dt><code>max_total</code></dt><dd><p>Maximum number of possible pseudonyms in the Ark.</p></dd>
-
-<dt><code>max_allit</code></dt><dd><p>Maximum number of possible alliterations in the Ark.</p></dd>
-
-<dt><code>alliterate</code></dt><dd><p>Logical, generate alliterations by default?</p></dd>
-
-<dt><code>index_allit</code></dt><dd><p>a random permutation of indices of alliterations</p></dd>
-
-<dt><code>index_perm</code></dt><dd><p>a random permutation of the index</p></dd>
-
-</dl><p></div></p>
-    <h2 class="hasAnchor" id="active-bindings"><a class="anchor" href="#active-bindings"></a>Active bindings</h2>
-
-    <p><div class="r6-active-bindings"></p><dl>
-<dt><code>parts</code></dt><dd><p>Words that will be combined to form pseudonyms.</p></dd>
-
-<dt><code>max_total</code></dt><dd><p>Maximum number of possible pseudonyms in the Ark.</p></dd>
-
-<dt><code>max_allit</code></dt><dd><p>Maximum number of possible alliterations in the Ark.</p></dd>
-
-<dt><code>alliterate</code></dt><dd><p>Logical, generate alliterations by default?</p></dd>
-
-<dt><code>index_allit</code></dt><dd><p>a random permutation of indices of alliterations</p></dd>
-
-<dt><code>index_perm</code></dt><dd><p>a random permutation of the index</p></dd>
-
 </dl><p></div></p>
     <h2 class="hasAnchor" id="methods"><a class="anchor" href="#methods"></a>Methods</h2>
 
@@ -182,7 +157,7 @@ as hashes.</p></dd>
 <p><hr>
 <a id="method-new"></a></p><h3 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Method <code>new()</code></h3>
 <p>Create new ark object.</p><h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Usage</h4>
-<p><div class="r"></p><pre><span class='va'>Ark</span><span class='op'>$</span><span class='fu'>new</span><span class='op'>(</span>alliterate <span class='op'>=</span> <span class='cn'>FALSE</span>, parts <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre><p></div></p>
+<p><div class="r"></p><pre><span class='va'>Ark</span><span class='op'>$</span><span class='fu'>new</span><span class='op'>(</span>alliterate <span class='op'>=</span> <span class='cn'>FALSE</span>, parts <span class='op'>=</span> <span class='cn'>NULL</span>, seed <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre><p></div></p>
 
 <h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Arguments</h4>
 <p><div class="arguments"></p><dl>
@@ -191,6 +166,12 @@ default?</p></dd>
 
 <dt><code>parts</code></dt><dd><p>List of character vectors with name parts to be used for the
 pseudonyms. Defaults to adjectives and animals.</p></dd>
+
+<dt><code>seed</code></dt><dd><p>Random seed for permutation of name parts. Use this to make
+Ark reproducible (to the extent that the random number generation is
+reproducible). If NULL (default), the random number generator is left
+alone. This is a convenience argument and equivalent to calling
+<code><a href='https://rdrr.io/r/base/Random.html'>set.seed()</a></code> before creating the Ark.</p></dd>
 
 </dl><p></div></p>
 <h4 class='hasAnchor' id='arguments'><a class='anchor' href='#arguments'></a>Returns</h4>
