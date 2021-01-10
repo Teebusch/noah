@@ -6,7 +6,7 @@
 <!-- badges: start -->
 
 [![Lifecycle:
-experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/noah)](https://CRAN.R-project.org/package=noah)
 [![R build
@@ -212,7 +212,6 @@ ark <- Ark$new()
 
 pseudonymize(1:2, .ark = ark)  # creates a vector of integers c(1L, 2L)
 pseudonymize(1, .ark = ark)    # creates a double
-#> Note. All of your numerical keys are integer numbers but have type double. `pseudonymize()` will treat numerically equivalent double and integer keys as different and assign them different pseudonyms. Use explicit coercion to avoid unexpected behavior.
 ```
 
 You might expect to get 2 different pseudonyms, because in the second
@@ -235,14 +234,14 @@ There are multiple R packages that generate fake data, including fake
 names, phone numbers, addresses, credit card numbers, gene sequences and
 more:
 
-  - [`charlatan`](https://docs.ropensci.org/charlatan/)
-  - [`randomNames`](https://centerforassessment.github.io/randomNames/)
-  - [`randNames`](https://github.com/karthik/randNames)
-  - [`generator`](https://github.com/paulhendricks/generator)
+-   [`charlatan`](https://docs.ropensci.org/charlatan/)
+-   [`randomNames`](https://centerforassessment.github.io/randomNames/)
+-   [`randNames`](https://github.com/karthik/randNames)
+-   [`generator`](https://github.com/paulhendricks/generator)
 
 If you need watertight anonymization you should check out these packages
 for anonymizing personal identifiable information in data sets:
 
-  - [`sdcMicro`](http://sdctools.github.io/sdcMicro/index.html)
-  - [`sdcTable`](https://sdctools.github.io/sdcTable/index.html)
-  - [`anonymizer`](http://paulhendricks.io/anonymizer/)
+-   [`sdcMicro`](http://sdctools.github.io/sdcMicro/index.html)
+-   [`sdcTable`](https://sdctools.github.io/sdcTable/index.html)
+-   [`anonymizer`](http://paulhendricks.io/anonymizer/)

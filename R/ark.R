@@ -19,12 +19,21 @@ Ark <- R6::R6Class("Ark",
     #' default?
     #' @param parts List of character vectors with name parts to be used for the
     #' pseudonyms. Defaults to adjectives and animals.
+    #' @param seed Random seed for permutation of name parts. Use this to make
+    #' Ark reproducible (to the extent that the random number generation is
+    #' reproducible). If NULL (default), the random number generator is left
+    #' alone. This is a convenience argument and equivalent to calling
+    #' `set.seed()` before creating the Ark.
     #' @return A new `Ark` object.
-    initialize = function(alliterate = FALSE, parts = NULL) {
+    initialize = function(alliterate = FALSE, parts = NULL, seed = NULL) {
       private$parts <- if (is.null(parts)) {
         name_parts[c("adjectives", "animals")]
       } else {
         clean_name_parts(parts)
+      }
+
+      if (!is.null(seed)) {
+        set.seed(seed)
       }
 
       private$max_total   <- prod(lengths(private$parts))
@@ -201,29 +210,27 @@ Ark <- R6::R6Class("Ark",
 
   private = list(
 
-    #' @field parts Words that will be combined to form pseudonyms.
+    # Words that will be combined to form pseudonyms.
     parts = NULL,
 
-    #' @field max_total Maximum number of possible pseudonyms in the Ark.
+    # Maximum number of possible pseudonyms in the Ark.
     max_total = NULL,
 
-    #' @field max_allit Maximum number of possible alliterations in the Ark.
+    # Maximum number of possible alliterations in the Ark.
     max_allit = NULL,
 
-    #' @field alliterate Logical, generate alliterations by default?
+    # Logical, generate alliterations by default?
     alliterate = NULL,
 
-    #' @field index_allit a random permutation of indices of alliterations
+    # A random permutation of indices of alliterations
     index_allit = NULL,
 
-    #' @field index_perm a random permutation of the index
+    # index_perm a random permutation of the index
     index_perm = NULL,
 
-    #' @description Returns the pseudonym corresponding to an index.
-    #' @param index An integer or a vector of integers between 1 and the Ark's
-    #' max_total.
-    #' @return A character vector of pseudonyms with the same length as the
-    #' input
+    # Returns the pseudonym corresponding to a vector of indexes.
+    # Argument index must be an integer or a vector of integers between 1 and
+    # the Ark's max_total.
     index_to_pseudonym = function(index) {
       subs <- ind2subs(index, lengths(private$parts))
 
@@ -232,9 +239,8 @@ Ark <- R6::R6Class("Ark",
       )
     },
 
-    #' @description Find all pseudonyms that are alliterations.
-    #' @return Numerical vector containing indexes of all pseudonyms that are
-    #' alliterations.
+    # Find all pseudonyms that are alliterations and return numerical vector
+    # containing their indexes.
     find_alliterations = function() {
       first_letters <- purrr::map(private$parts, ~ toupper(substr(.x, 1, 1)))
 

@@ -274,6 +274,19 @@ test_that("ark can produce max_total unique pseudonyms", {
   expect_length(res, max_total)
 })
 
+test_that("seed argument makes Ark reproducible", {
+  a1 <- pseudonymize(1:10, .ark = Ark$new(seed = 1))
+  a2 <- pseudonymize(1:10, .ark = Ark$new(seed = 2))
+  b1 <- pseudonymize(1:10, .ark = Ark$new(seed = 1))
+  b2 <- pseudonymize(1:10, .ark = Ark$new(seed = 2))
+
+  expect_equal(a1, b1)
+  expect_equal(a2, b2)
+  expect_false(all(a1 == a2))
+  expect_false(all(b1 == b2))
+
+})
+
 test_that("alliterate TRUE/FALSE can be mixed without pseudonyms repeating when
           using custom name parts", {
   ark <- Ark$new(parts = list(
