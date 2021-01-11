@@ -1,7 +1,7 @@
 ## Resubmission
 This is a resubmission. In this version I have:
 
-* Fixed an invalid URL in README.md (removed leading slash)
+* Fixed an invalid URL in README.md and README.Rmd (removed leading slash).
 
 ## Test environments
 * GitHub Actions (ubuntu-20.04): release, devel, oldrel
