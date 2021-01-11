@@ -29,7 +29,7 @@ noah (*no animals were harmed*) generates pseudonyms that are delightful and eas
 
 ## Installation
 
-Noah is not yet on CRAN, but you can install it from [Github](/https://github.com/teebusch/noah) with:
+Noah is not yet on CRAN, but you can install it from [Github](https://github.com/teebusch/noah) with:
 
 ```{r eval=FALSE}
 # install.packages("remotes")

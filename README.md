@@ -23,7 +23,7 @@ and easy to remember. It creates adorable anonymous animals like the
 ## Installation
 
 Noah is not yet on CRAN, but you can install it from
-[Github](/https://github.com/teebusch/noah) with:
+[Github](https://github.com/teebusch/noah) with:
 
 ``` r
 # install.packages("remotes")
