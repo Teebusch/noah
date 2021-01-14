@@ -1,7 +1,7 @@
 ## Resubmission
 This is a resubmission. In this version I have:
 
-* Fixed an invalid URL in README.md and README.Rmd (removed leading slash).
+* Fixed copyright holder in the LICENSE file (RStudio > Tobias Busch)
 
 ## Test environments
 * GitHub Actions (ubuntu-20.04): release, devel, oldrel
