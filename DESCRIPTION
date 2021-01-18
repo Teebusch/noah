@@ -1,6 +1,6 @@
 Package: noah
 Title: Create Unique Pseudonymous Animal Names
-Version: 0.1.0
+Version: 0.1.0.9000
 Authors@R: 
     person(given = "Tobias",
            family = "Busch",
