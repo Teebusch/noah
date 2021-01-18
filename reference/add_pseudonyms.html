@@ -178,39 +178,72 @@ existing Ark makes sure that the same input returns the same pseudonym.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>add_pseudonyms</span><span class='op'>(</span><span class='va'>mtcars</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;               pseudonym  mpg cyl  disp  hp drat    wt  qsec vs am gear carb
-#&gt; 1         Careful Raven 21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
-#&gt; 2       Elegant Leopard 21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4
-#&gt; 3      Plastic Pinniped 22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1
-#&gt; 4     Annoying Wildfowl 21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1
-#&gt; 5          Breeze Shrew 18.7   8 360.0 175 3.15 3.440 17.02  0  0    3    2
-#&gt; 6         Cheap Peafowl 18.1   6 225.0 105 2.76 3.460 20.22  1  0    3    1
-#&gt; 7        Natural Weasel 14.3   8 360.0 245 3.21 3.570 15.84  0  0    3    4
-#&gt; 8   Tender Voalavoanala 24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2
-#&gt; 9    Far-Flung Flamingo 22.8   4 140.8  95 3.92 3.150 22.90  1  0    4    2
-#&gt; 10        Drab Silkworm 19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4
-#&gt; 11   Reflective Quetzal 17.8   6 167.6 123 3.92 3.440 18.90  1  0    4    4
-#&gt; 12    Absorbed Marmoset 16.4   8 275.8 180 3.07 4.070 17.40  0  0    3    3
-#&gt; 13          Melted Duck 17.3   8 275.8 180 3.07 3.730 17.60  0  0    3    3
-#&gt; 14       Flimsy Whippet 15.2   8 275.8 180 3.07 3.780 18.00  0  0    3    3
-#&gt; 15    Disgusted Meerkat 10.4   8 472.0 205 2.93 5.250 17.98  0  0    3    4
-#&gt; 16            Nice Crow 10.4   8 460.0 215 3.00 5.424 17.82  0  0    3    4
-#&gt; 17      Goofy Centipede 14.7   8 440.0 230 3.23 5.345 17.42  0  0    3    4
-#&gt; 18         Guarded Goat 32.4   4  78.7  66 4.08 2.200 19.47  1  1    4    1
-#&gt; 19        Frantic Takin 30.4   4  75.7  52 4.93 1.615 18.52  1  1    4    2
-#&gt; 20          Kind Thrush 33.9   4  71.1  65 4.22 1.835 19.90  1  1    4    1
-#&gt; 21           Curvy Flea 21.5   4 120.1  97 3.70 2.465 20.01  1  0    3    1
-#&gt; 22      Clumsy Pheasant 15.5   8 318.0 150 2.76 3.520 16.87  0  0    3    2
-#&gt; 23       Helpful Badger 15.2   8 304.0 150 3.15 3.435 17.30  0  0    3    2
-#&gt; 24         Icky Tarsier 13.3   8 350.0 245 3.73 3.840 15.41  0  0    3    4
-#&gt; 25            Hard Guan 19.2   8 400.0 175 3.08 3.845 17.05  0  0    3    2
-#&gt; 26             Wiry Asp 27.3   4  79.0  66 4.08 1.935 18.90  1  1    4    1
-#&gt; 27 Scandalous Wolverine 26.0   4 120.3  91 4.43 2.140 16.70  0  1    5    2
-#&gt; 28        Omniscient Ox 30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2
-#&gt; 29     Possessive Bison 15.8   8 351.0 264 4.22 3.170 14.50  0  1    5    4
-#&gt; 30   Functional Lobster 19.7   6 145.0 175 3.62 2.770 15.50  0  1    5    6
-#&gt; 31    Separate Lungfish 15.0   8 301.0 335 3.54 3.570 14.60  0  1    5    8
-#&gt; 32     Marked Chickadee 21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2</div></pre>
+</div><div class='output co'>#&gt;                                pseudonym  mpg cyl  disp  hp drat    wt  qsec vs
+#&gt; Mazda RX4                  Careful Raven 21.0   6 160.0 110 3.90 2.620 16.46  0
+#&gt; Mazda RX4 Wag            Elegant Leopard 21.0   6 160.0 110 3.90 2.875 17.02  0
+#&gt; Datsun 710              Plastic Pinniped 22.8   4 108.0  93 3.85 2.320 18.61  1
+#&gt; Hornet 4 Drive         Annoying Wildfowl 21.4   6 258.0 110 3.08 3.215 19.44  1
+#&gt; Hornet Sportabout           Breeze Shrew 18.7   8 360.0 175 3.15 3.440 17.02  0
+#&gt; Valiant                    Cheap Peafowl 18.1   6 225.0 105 2.76 3.460 20.22  1
+#&gt; Duster 360                Natural Weasel 14.3   8 360.0 245 3.21 3.570 15.84  0
+#&gt; Merc 240D            Tender Voalavoanala 24.4   4 146.7  62 3.69 3.190 20.00  1
+#&gt; Merc 230              Far-Flung Flamingo 22.8   4 140.8  95 3.92 3.150 22.90  1
+#&gt; Merc 280                   Drab Silkworm 19.2   6 167.6 123 3.92 3.440 18.30  1
+#&gt; Merc 280C             Reflective Quetzal 17.8   6 167.6 123 3.92 3.440 18.90  1
+#&gt; Merc 450SE             Absorbed Marmoset 16.4   8 275.8 180 3.07 4.070 17.40  0
+#&gt; Merc 450SL                   Melted Duck 17.3   8 275.8 180 3.07 3.730 17.60  0
+#&gt; Merc 450SLC               Flimsy Whippet 15.2   8 275.8 180 3.07 3.780 18.00  0
+#&gt; Cadillac Fleetwood     Disgusted Meerkat 10.4   8 472.0 205 2.93 5.250 17.98  0
+#&gt; Lincoln Continental            Nice Crow 10.4   8 460.0 215 3.00 5.424 17.82  0
+#&gt; Chrysler Imperial        Goofy Centipede 14.7   8 440.0 230 3.23 5.345 17.42  0
+#&gt; Fiat 128                    Guarded Goat 32.4   4  78.7  66 4.08 2.200 19.47  1
+#&gt; Honda Civic                Frantic Takin 30.4   4  75.7  52 4.93 1.615 18.52  1
+#&gt; Toyota Corolla               Kind Thrush 33.9   4  71.1  65 4.22 1.835 19.90  1
+#&gt; Toyota Corona                 Curvy Flea 21.5   4 120.1  97 3.70 2.465 20.01  1
+#&gt; Dodge Challenger         Clumsy Pheasant 15.5   8 318.0 150 2.76 3.520 16.87  0
+#&gt; AMC Javelin               Helpful Badger 15.2   8 304.0 150 3.15 3.435 17.30  0
+#&gt; Camaro Z28                  Icky Tarsier 13.3   8 350.0 245 3.73 3.840 15.41  0
+#&gt; Pontiac Firebird               Hard Guan 19.2   8 400.0 175 3.08 3.845 17.05  0
+#&gt; Fiat X1-9                       Wiry Asp 27.3   4  79.0  66 4.08 1.935 18.90  1
+#&gt; Porsche 914-2       Scandalous Wolverine 26.0   4 120.3  91 4.43 2.140 16.70  0
+#&gt; Lotus Europa               Omniscient Ox 30.4   4  95.1 113 3.77 1.513 16.90  1
+#&gt; Ford Pantera L          Possessive Bison 15.8   8 351.0 264 4.22 3.170 14.50  0
+#&gt; Ferrari Dino          Functional Lobster 19.7   6 145.0 175 3.62 2.770 15.50  0
+#&gt; Maserati Bora          Separate Lungfish 15.0   8 301.0 335 3.54 3.570 14.60  0
+#&gt; Volvo 142E              Marked Chickadee 21.4   4 121.0 109 4.11 2.780 18.60  1
+#&gt;                     am gear carb
+#&gt; Mazda RX4            1    4    4
+#&gt; Mazda RX4 Wag        1    4    4
+#&gt; Datsun 710           1    4    1
+#&gt; Hornet 4 Drive       0    3    1
+#&gt; Hornet Sportabout    0    3    2
+#&gt; Valiant              0    3    1
+#&gt; Duster 360           0    3    4
+#&gt; Merc 240D            0    4    2
+#&gt; Merc 230             0    4    2
+#&gt; Merc 280             0    4    4
+#&gt; Merc 280C            0    4    4
+#&gt; Merc 450SE           0    3    3
+#&gt; Merc 450SL           0    3    3
+#&gt; Merc 450SLC          0    3    3
+#&gt; Cadillac Fleetwood   0    3    4
+#&gt; Lincoln Continental  0    3    4
+#&gt; Chrysler Imperial    0    3    4
+#&gt; Fiat 128             1    4    1
+#&gt; Honda Civic          1    4    2
+#&gt; Toyota Corolla       1    4    1
+#&gt; Toyota Corona        0    3    1
+#&gt; Dodge Challenger     0    3    2
+#&gt; AMC Javelin          0    3    2
+#&gt; Camaro Z28           0    3    4
+#&gt; Pontiac Firebird     0    3    2
+#&gt; Fiat X1-9            1    4    1
+#&gt; Porsche 914-2        1    5    2
+#&gt; Lotus Europa         1    5    2
+#&gt; Ford Pantera L       1    5    4
+#&gt; Ferrari Dino         1    5    6
+#&gt; Maserati Bora        1    5    8
+#&gt; Volvo 142E           1    4    2</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
