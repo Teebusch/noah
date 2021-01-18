@@ -1,0 +1,12 @@
+url: https://teebusch.github.io/noah/
+
+home:
+  title: Noah - Unique Pseudonymous Animal Names in R
+  description: >
+    An R package for creating pseudonyms that are delightful and memorable,
+    like the Likable Leech and the Proud Chickadee.
+
+template:
+  opengraph:
+    twitter:
+      creator: "@tobilottii"
